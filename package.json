@@ -1,0 +1,30 @@
+{
+  "name": "proyecto-universidad",
+  "version": "1.0.0",
+  "description": "Proyecto de grado",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leogithub2309/Proyecto-Universidad.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/leogithub2309/Proyecto-Universidad/issues"
+  },
+  "homepage": "https://github.com/leogithub2309/Proyecto-Universidad#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.14.0",
+    "safe-json-stringify": "^1.2.0"
+  }
+}
