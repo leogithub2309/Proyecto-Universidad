@@ -1,11 +1,3 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
@@ -14,7 +6,51 @@
   </ion-header>
 
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <form autocomplete="off" class="form-login" [formGroup]="login">
+      <h1 style="text-align: left; font-weight: 700; font-size: 1.45rem; display: flex; flex-direction: column; gap: .623rem; margin-bottom: .863rem;">
+        Login
+        <span style="color: #555; font-size: .753rem; letter-spacing: .5px; font-weight: 400;">Ingrese su usuario y contraseña para ingresar.</span>
+      </h1>
+      <div class="mb-3">
+        <ion-input
+        type="text"
+        label="username"
+        color="danger"
+        formControlName="username"
+        id="username" 
+        label-placement="floating"
+        fill="outline" 
+        placeholder="Enter text"
+        value=""
+        ></ion-input>
+        @if(this.login.get('username')?.touched && this.login.get('username')?.invalid){
+          <span class="text-error">Username is required</span>
+        }
+      </div>
+      <div class="mb-3">
+        <ion-input 
+         type="password"
+         color="danger"
+         formControlName="password"
+         label="Password" 
+         id="password"
+         label-placement="floating"
+         fill="outline" 
+         placeholder="Enter Password"
+         value=""
+         >
+          @if(this.login.get('password')?.touched && this.login.get('password')) {
+            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+          } 
+        </ion-input>
+        @if(this.login.get('password')?.touched && this.login.get('password')?.invalid){
+          <span class="text-error">Password is required</span>
+        }
+      </div>
+      <p class="text-help">
+        No tienes cuenta todavía? <a [routerLink]="['/register']" style="color: #cb1a27; font-weight: 700;">Registrate</a>
+      </p>
+      <ion-button [disabled]="this.login.invalid" color="danger" expand="block" size="default" class="btn-default" style="height: 2.9rem;">Login</ion-button>
+    </form>
   </div>
 </ion-content>

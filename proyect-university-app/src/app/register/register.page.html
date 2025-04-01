@@ -1,0 +1,109 @@
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">register</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="register">
+    <h1 style="text-align: left; font-weight: 700; font-size: 1.45rem; display: flex; flex-direction: column; gap: .623rem; margin-bottom: .863rem;">
+      Registrarse
+      <span style="color: #555; font-size: .753rem; letter-spacing: .5px; font-weight: 400;">Recuerde rellenar todos los campos del formulario.</span>
+    </h1>
+    <form autocomplete="off" [formGroup]="registerForm" class="form-register">
+      <div>
+        <ion-input
+        type="text"
+        label="Nombre Completo"
+        color="danger"
+        formControlName="nombre"
+        id="nombre" 
+        label-placement="floating"
+        [errorText]="!this.registerForm.hasError('required') && this.registerForm.get('nombre')?.touched ? 'El campo nombre es requerido' : '' "
+        fill="outline" 
+        placeholder="Nombre Completo"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-input
+        type="text"
+        label="Cedula"
+        color="danger"
+        formControlName="cedula"
+        maxlength="10"
+        id="cedula" 
+        label-placement="floating"
+        [errorText]="!this.registerForm.hasError('required') && this.registerForm.get('cedula')?.touched ? 'El campo cedula es requerido' : '' "
+        fill="outline" 
+        placeholder="e.g V-12345678"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-input
+        type="text"
+        label="Telefono"
+        color="danger"
+        formControlName="telefono"
+        maxlength="11"
+        id="telefono" 
+        label-placement="floating"
+        [errorText]="!this.registerForm.hasError('required') && this.registerForm.get('telefono')?.touched ? 'El campo telefono es requerido' : '' "
+        fill="outline" 
+        placeholder="e.g 12345788910"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-input
+        type="text"
+        label="Direccion"
+        color="danger"
+        formControlName="direccion"
+        maxlength="12"
+        id="direccion" 
+        label-placement="floating"
+        [errorText]="!this.registerForm.hasError('required') && this.registerForm.get('direccion')?.touched ? 'El campo direccion es requerido' : '' "
+        fill="outline" 
+        placeholder="Dirección de Habitación"
+        ></ion-input>
+      </div>
+      <div class="input-item">
+        <div>
+          <div>
+            <ion-input
+            type="text"
+            label="Username"
+            color="danger"
+            formControlName="username"
+            id="username" 
+            label-placement="floating"
+            [errorText]="!this.registerForm.hasError('required') && this.registerForm.get('username')?.touched ? 'El campo usuario es requerido' : '' "
+            fill="outline" 
+            placeholder="Nombre de Usuario"
+            ></ion-input>
+          </div>
+        </div>
+        <div>
+          <div>
+            <ion-input
+            type="password"
+            label="Password"
+            color="danger"
+            formControlName="password"
+            id="password" 
+            label-placement="floating"
+            [errorText]="!this.registerForm.hasError('required') && this.registerForm.get('password')?.touched ? 'El campo Password es requerido' : '' "
+            fill="outline" 
+            placeholder="Password"
+            ></ion-input>
+          </div>
+        </div>
+      </div>
+      <p class="text-help">
+        Ya se encuentra registrado? <a [routerLink]="['/home']">Login</a>
+      </p>
+      <ion-button [disabled]="this.registerForm.invalid" color="danger" expand="block" size="default" style="width: 100%; font-size: 1.1rem; height: 2.9rem;">Registrarse</ion-button>
+    </form>
+  </div>
+
+
+</ion-content>
