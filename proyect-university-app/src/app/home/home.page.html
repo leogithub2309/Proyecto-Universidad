@@ -21,7 +21,6 @@
         label-placement="floating"
         fill="outline" 
         placeholder="Enter text"
-        value=""
         ></ion-input>
         @if(this.login.get('username')?.touched && this.login.get('username')?.invalid){
           <span class="text-error">Username is required</span>
@@ -37,7 +36,6 @@
          label-placement="floating"
          fill="outline" 
          placeholder="Enter Password"
-         value=""
          >
           @if(this.login.get('password')?.touched && this.login.get('password')) {
             <ion-input-password-toggle slot="end"></ion-input-password-toggle>

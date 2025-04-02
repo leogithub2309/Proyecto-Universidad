@@ -4,14 +4,15 @@
   "description": "Proyecto de grado",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon node app.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/leogithub2309/Proyecto-Universidad.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Leonel Linares",
   "license": "MIT",
   "type": "module",
   "bugs": {
@@ -19,12 +20,18 @@
   },
   "homepage": "https://github.com/leogithub2309/Proyecto-Universidad#readme",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^5.1.0",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "mysql2": "^3.14.0",
     "safe-json-stringify": "^1.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }
