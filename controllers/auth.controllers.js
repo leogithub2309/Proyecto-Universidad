@@ -32,7 +32,7 @@ const login = async (req, res) => {
     );
 
     const cookieOption = {
-        expires: new Date(Date.now() + process.env.EXPIRE_TOKEN *24*60*60*1000), 
+        MaxAge: new Date(Date.now() + process.env.EXPIRE_TOKEN *24*60*60*1000), 
         path: "/",
     }
 
@@ -43,7 +43,7 @@ const login = async (req, res) => {
         status: 202,
         result: {
             createTokenUser,
-            expireToken: cookieOption
+            path: "/dashboard",
         }
     });
 }
@@ -58,6 +58,9 @@ const login = async (req, res) => {
     "username": "leoadmin",
     "password": "anitagomez1",
     "rol_id": "2"
+
+    gabrielmedina2 clave
+    mariag42 clave
 }
 */
 

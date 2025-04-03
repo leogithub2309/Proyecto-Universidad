@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-04-2025 a las 21:07:23
+-- Tiempo de generación: 03-04-2025 a las 21:17:31
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -108,7 +108,9 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`id_usuario`, `nombre`, `cedula`, `telefono`, `direccion`, `codigo_postal`, `username`, `password`, `id_rol`) VALUES
 (1, 'Leonel Linares', 'V-32857493', '0412948172', 'Av Principal con calle Monaco', '1020', 'leoadmin', 'leoadmin1234', 1),
 (2, 'Pedro Benitez', 'E-84093712', '0424758392', 'Urb Bella Vista con esquina cerrano', '1060', 'pedrob12', 'pedrobenitez21', 1),
-(3, 'Anita Gomez', 'V-33627493', '55584932', 'Madrid, España', ' 110', 'gomezanita22', '$2b$10$lgS4opxFoZgv1a2F8k08j.wm0LUhQ0pR6.jj9waalx', 2);
+(3, 'Anita Gomez', 'V-33627493', '55584932', 'Madrid, España', ' 110', 'gomezanita22', '$2b$10$lgS4opxFoZgv1a2F8k08j.wm0LUhQ0pR6.jj9waalx', 2),
+(4, 'Gabriel Medina', 'V-22980653', '04127650098', 'Urb Monte avila piso 3e', ' 17', 'gabrielmed43', ' $2b$10$4dMXD5c7OEYaGRrhViQ8FOKylG38TKvwBuhfpe9wGBQZESKp29utu', 2),
+(5, 'Maria Gutierrez', 'V-19567492', '04118594301', 'Av Principal con calle 7', ' 103', 'mariagutierrez8', ' $2b$10$ZbD.MGW8L9aPEiBUk61vQuh1.woAnhaoLgIzBD/8koxBfthQG4IXW', 2);
 
 -- --------------------------------------------------------
 
@@ -202,7 +204,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`
