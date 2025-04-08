@@ -6,25 +6,76 @@
   </ion-header>
 
   <div id="register">
+    <ion-button color="light" [routerLink]="['/home']">
+      <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    
     <h1 style="text-align: left; font-weight: 700; font-size: 1.45rem; display: flex; flex-direction: column; gap: .623rem; margin-bottom: .863rem;">
       Registrarse
-      <span style="color: #555; font-size: .753rem; letter-spacing: .5px; font-weight: 400;">Recuerde rellenar todos los campos del formulario.</span>
+      <span style="color: #555; font-size: .753rem; letter-spacing: .5px; font-weight: 400;">Todos los campos del formularios son requeridos.</span>
     </h1>
     <form autocomplete="off" [formGroup]="registerForm" class="form-register">
-      <div>
-        <ion-input
-        type="text"
-        label="Nombre Completo"
-        color="danger"
-        formControlName="nombre"
-        id="nombre" 
-        label-placement="floating"
-        [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo nombre es requerido o no cumple con un patro valido' : '' "
-        fill="outline" 
-        placeholder="Nombre Completo"
-        ></ion-input>
+      <div class="input-item">
+        <div>
+          <ion-input
+          type="text"
+          label="Primer Nombre"
+          color="danger"
+          formControlName="primer_nombre"
+          id="primer_nombre" 
+          label-placement="floating"
+          [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo no es valido' : '' "
+          fill="outline" 
+          placeholder="Nombre Completo"
+          ></ion-input>
+        </div>
+        <div>
+          <ion-input
+          type="text"
+          label="Segundo Nombre"
+          color="danger"
+          formControlName="segundo_nombre"
+          id="segundo_nombre" 
+          label-placement="floating"
+          [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo no es valido' : '' "
+          fill="outline" 
+          placeholder="Segundo Nombre"
+          ></ion-input>
+        </div>
       </div>
-      <div>
+      <div class="input-item">
+        <div>
+          <ion-input
+          type="text"
+          label="Primer Apellido"
+          color="danger"
+          formControlName="primer_apellido"
+          id="primer_apellido" 
+          label-placement="floating"
+          [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo no es valido' : '' "
+          fill="outline" 
+          placeholder="Primer Apellido"
+          ></ion-input>
+        </div>
+        <div>
+          <ion-input
+          type="text"
+          label="Segundo Apellido"
+          color="danger"
+          formControlName="segundo_apellido"
+          id="segundo_apellido" 
+          label-placement="floating"
+          [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo no es valido' : '' "
+          fill="outline" 
+          placeholder="Segundo Apellido"
+          ></ion-input>
+        </div>
+      </div>
+      <div class="select-input">
+        <ion-select aria-label="Choice your Identification" formControlName="tipo_identificacion" id="tipo_identificacion" placeholder="V or E">
+          <ion-select-option value="V-">V</ion-select-option>
+          <ion-select-option value="E-">E</ion-select-option>
+        </ion-select>
         <ion-input
         type="text"
         label="Cedula"
@@ -52,17 +103,28 @@
         placeholder="e.g 12345788910"
         ></ion-input>
       </div>
-      <div>
+      <div class="input-item">
         <ion-input
         type="text"
-        label="Direccion"
+        label="Dicreccion 1"
         color="danger"
-        formControlName="direccion"
-        id="direccion" 
+        formControlName="direccion_1"
+        id="direccion_1" 
         label-placement="floating"
-        [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo direccion es requerido o no cumple con un patron valido' : '' "
+        [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo direccion 1 no es valido' : '' "
         fill="outline" 
-        placeholder="Dirección de Habitación"
+        placeholder="Dirección de Habitación 1"
+        ></ion-input>
+        <ion-input
+        type="text"
+        label="Direccion 2"
+        color="danger"
+        formControlName="direccion_2"
+        id="direccion_2" 
+        label-placement="floating"
+        [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo direccion 2 no es valido' : '' "
+        fill="outline" 
+        placeholder="Dicreccion de Habitación 2"
         ></ion-input>
       </div>
       <div>
@@ -81,7 +143,6 @@
       </div>
       <div class="input-item">
         <div>
-          <div>
             <ion-input
             type="text"
             label="Username"
@@ -93,10 +154,8 @@
             fill="outline" 
             placeholder="Nombre de Usuario"
             ></ion-input>
-          </div>
         </div>
         <div>
-          <div>
             <ion-input
             type="password"
             label="Password"
@@ -108,7 +167,6 @@
             fill="outline" 
             placeholder="Password"
             ></ion-input>
-          </div>
         </div>
       </div>
       <p class="text-help">

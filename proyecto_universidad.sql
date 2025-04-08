@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-04-2025 a las 21:17:31
+-- Tiempo de generación: 08-04-2025 a las 17:39:59
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -24,6 +24,18 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `cedula_table`
+--
+
+CREATE TABLE `cedula_table` (
+  `id_cedula` int(11) NOT NULL,
+  `tipo_identidad` varchar(5) NOT NULL,
+  `cedula` int(8) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `compras`
 --
 
@@ -34,8 +46,21 @@ CREATE TABLE `compras` (
   `fecha_compra` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `precio_compra` decimal(10,2) NOT NULL,
   `moneda` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL
+  `id_usuario` int(11) NOT NULL,
+  `foto_compra` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `direccion`
+--
+
+CREATE TABLE `direccion` (
+  `id_direccion` int(11) NOT NULL,
+  `direccion_1` varchar(50) NOT NULL,
+  `direccion_2` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -46,8 +71,23 @@ CREATE TABLE `compras` (
 CREATE TABLE `moneda` (
   `id_moneda` int(11) NOT NULL,
   `tipo_moneda` varchar(5) NOT NULL,
-  `moneda` varchar(10) NOT NULL
+  `moneda` varchar(10) NOT NULL,
+  `monto_moneda` decimal(10,3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `nombre_usuario`
+--
+
+CREATE TABLE `nombre_usuario` (
+  `id_nombre_usuario` int(11) NOT NULL,
+  `primer_nombre` varchar(50) NOT NULL,
+  `segundo_nombre` varchar(50) DEFAULT NULL,
+  `primer_apellido` varchar(50) NOT NULL,
+  `segundo_apellido` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -58,10 +98,10 @@ CREATE TABLE `moneda` (
 CREATE TABLE `producto` (
   `id_producto` int(11) NOT NULL,
   `producto_detalle` varchar(50) NOT NULL,
-  `producto` varchar(100) NOT NULL,
+  `producto` varchar(50) NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `precio_producto` decimal(10,2) NOT NULL,
-  `moneda` int(11) NOT NULL
+  `moneda` int(11) NOT NULL,
+  `foto_producto` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -91,26 +131,15 @@ INSERT INTO `rol` (`id_rol`, `rol`) VALUES
 
 CREATE TABLE `usuario` (
   `id_usuario` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `cedula` varchar(10) NOT NULL,
+  `id_nombre_usuario` int(11) NOT NULL,
+  `id_cedula` int(11) NOT NULL,
   `telefono` varchar(12) NOT NULL,
-  `direccion` varchar(100) NOT NULL,
+  `id_direccion` int(11) NOT NULL,
   `codigo_postal` varchar(4) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `id_rol` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Volcado de datos para la tabla `usuario`
---
-
-INSERT INTO `usuario` (`id_usuario`, `nombre`, `cedula`, `telefono`, `direccion`, `codigo_postal`, `username`, `password`, `id_rol`) VALUES
-(1, 'Leonel Linares', 'V-32857493', '0412948172', 'Av Principal con calle Monaco', '1020', 'leoadmin', 'leoadmin1234', 1),
-(2, 'Pedro Benitez', 'E-84093712', '0424758392', 'Urb Bella Vista con esquina cerrano', '1060', 'pedrob12', 'pedrobenitez21', 1),
-(3, 'Anita Gomez', 'V-33627493', '55584932', 'Madrid, España', ' 110', 'gomezanita22', '$2b$10$lgS4opxFoZgv1a2F8k08j.wm0LUhQ0pR6.jj9waalx', 2),
-(4, 'Gabriel Medina', 'V-22980653', '04127650098', 'Urb Monte avila piso 3e', ' 17', 'gabrielmed43', ' $2b$10$4dMXD5c7OEYaGRrhViQ8FOKylG38TKvwBuhfpe9wGBQZESKp29utu', 2),
-(5, 'Maria Gutierrez', 'V-19567492', '04118594301', 'Av Principal con calle 7', ' 103', 'mariagutierrez8', ' $2b$10$ZbD.MGW8L9aPEiBUk61vQuh1.woAnhaoLgIzBD/8koxBfthQG4IXW', 2);
 
 -- --------------------------------------------------------
 
@@ -131,6 +160,12 @@ CREATE TABLE `ventas` (
 --
 
 --
+-- Indices de la tabla `cedula_table`
+--
+ALTER TABLE `cedula_table`
+  ADD PRIMARY KEY (`id_cedula`);
+
+--
 -- Indices de la tabla `compras`
 --
 ALTER TABLE `compras`
@@ -139,10 +174,22 @@ ALTER TABLE `compras`
   ADD KEY `id_usuario` (`id_usuario`);
 
 --
+-- Indices de la tabla `direccion`
+--
+ALTER TABLE `direccion`
+  ADD PRIMARY KEY (`id_direccion`);
+
+--
 -- Indices de la tabla `moneda`
 --
 ALTER TABLE `moneda`
   ADD PRIMARY KEY (`id_moneda`);
+
+--
+-- Indices de la tabla `nombre_usuario`
+--
+ALTER TABLE `nombre_usuario`
+  ADD PRIMARY KEY (`id_nombre_usuario`);
 
 --
 -- Indices de la tabla `producto`
@@ -162,7 +209,10 @@ ALTER TABLE `rol`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id_usuario`),
-  ADD KEY `id_rol` (`id_rol`);
+  ADD KEY `id_rol` (`id_rol`),
+  ADD KEY `id_nombre_usuario` (`id_nombre_usuario`),
+  ADD KEY `id_cedula` (`id_cedula`),
+  ADD KEY `id_direccion` (`id_direccion`);
 
 --
 -- Indices de la tabla `ventas`
@@ -177,16 +227,34 @@ ALTER TABLE `ventas`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `cedula_table`
+--
+ALTER TABLE `cedula_table`
+  MODIFY `id_cedula` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
   MODIFY `id_compras` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `direccion`
+--
+ALTER TABLE `direccion`
+  MODIFY `id_direccion` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `moneda`
 --
 ALTER TABLE `moneda`
   MODIFY `id_moneda` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `nombre_usuario`
+--
+ALTER TABLE `nombre_usuario`
+  MODIFY `id_nombre_usuario` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
@@ -233,7 +301,10 @@ ALTER TABLE `producto`
 -- Filtros para la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `usuario_ibfk_2` FOREIGN KEY (`id_nombre_usuario`) REFERENCES `nombre_usuario` (`id_nombre_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `usuario_ibfk_3` FOREIGN KEY (`id_cedula`) REFERENCES `cedula_table` (`id_cedula`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `usuario_ibfk_4` FOREIGN KEY (`id_direccion`) REFERENCES `direccion` (`id_direccion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `ventas`

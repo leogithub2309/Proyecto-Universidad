@@ -2,7 +2,7 @@ export interface Response {
     title: string;
     status: number;
     description?: string;
-    result?: object;
+    result?: any;
 }
 
 export class Login {
@@ -16,10 +16,15 @@ export class Login {
 }
 
 export interface Register {
-    nombre: string;
+    primer_nombre: string;
+    segundo_nombre: string;
+    primer_apellido: string;
+    segundo_apellido: string;
     cedula: string;
+    tipo_identificacion: string;
     telefono: string;
-    direccion: string;  
+    direccion_1: string;
+    direccion_2: string;  
     codigo_postal: number;
     username: string;
     password: string;

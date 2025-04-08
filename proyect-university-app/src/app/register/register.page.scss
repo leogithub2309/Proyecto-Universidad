@@ -51,3 +51,18 @@
     align-items: center;
     gap: .821rem;
 }
+
+.select-input{
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    gap: -10px;
+}
+
+.select-input ion-select{
+    width: 10% !important;
+}
+
+.select-input ion-input{
+    width: 90% !important;
+}
