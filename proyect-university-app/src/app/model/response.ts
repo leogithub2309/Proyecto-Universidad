@@ -21,7 +21,7 @@ export interface Register {
     primer_apellido: string;
     segundo_apellido: string;
     cedula: string;
-    tipo_identificacion: string;
+    tipo_identidad: string;
     telefono: string;
     direccion_1: string;
     direccion_2: string;  

@@ -50,7 +50,7 @@ export class RegisterPage implements OnInit {
     primer_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[A-Za-zÁáÉéÍíÓóÚú]/)]),
     segundo_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[A-Za-zÁáÉéÍíÓóÚú]/)]),
     cedula: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+$/), Validators.maxLength(8)]),
-    tipo_identificacion:  new FormControl('V-', [Validators.required]),
+    tipo_identidad:  new FormControl('V-', [Validators.required]),
     telefono: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+$/), Validators.maxLength(11)]),
     direccion_1: new FormControl('', [Validators.required, Validators.pattern(/^[A-Za-z0-9ÁáÉéÍíÓóÚú]/)]),
     direccion_2: new FormControl('', [Validators.required, Validators.pattern(/^[A-Za-z0-9ÁáÉéÍíÓóÚú]/)]),
@@ -70,7 +70,7 @@ export class RegisterPage implements OnInit {
       primer_apellido: String(this.registerForm.get('primer_apellido')?.value),
       segundo_apellido: String(this.registerForm.get('segundo_apellido')?.value),
       cedula: String(this.registerForm.get('cedula')?.value),
-      tipo_identificacion: String(this.registerForm.get('tipo_identificacion')?.value),
+      tipo_identidad: String(this.registerForm.get('tipo_identidad')?.value),
       telefono: String(this.registerForm.get('telefono')?.value),
       direccion_1: String(this.registerForm.get('direccion_1')?.value),
       direccion_2: String(this.registerForm.get('direccion_2')?.value),
@@ -82,7 +82,7 @@ export class RegisterPage implements OnInit {
 
     this.loginService.registerUser(registerUser).subscribe({
       next: async (response) => {
-       if(response.status === 200){
+       if(response){
         const toast = await this.toastController.create({
           message: response.description || "Se agregò un nuevo usuario correctamente",
           duration: 3000,
