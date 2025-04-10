@@ -34,8 +34,8 @@ export class HomePage implements OnInit{
   });
 
   ngOnInit(): void {
-    if(!sessionStorage.getItem("tokenUserSession") && !this.cookieService.check("tokenUser")){
-      this._router.navigate(['/home']);
+    if(sessionStorage.getItem("tokenUserSession") && this.cookieService.check("tokenUser")){
+      this._router.navigate(['/dashboard']);
     }
   }
   
@@ -48,7 +48,7 @@ export class HomePage implements OnInit{
 
     this.loginService.loginUser(loginUser).subscribe({
       next: (response) => {
-        const joinToken: any = response.result,
+        const joinToken = response.result,
           tokenUser = joinToken.createTokenUser.split(".").join("");
         
         this.cookieService.set("tokenUser", tokenUser);

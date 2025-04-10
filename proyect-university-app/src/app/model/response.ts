@@ -20,7 +20,7 @@ export interface Register {
     segundo_nombre: string;
     primer_apellido: string;
     segundo_apellido: string;
-    cedula: string;
+    cedula: number;
     tipo_identidad: string;
     telefono: string;
     direccion_1: string;
