@@ -109,7 +109,8 @@ const register = async (req, res) => {
     
         //Insercion en la tabla nombre_usuario
         const [usersResult] = await pool.query(
-            "INSERT INTO nombre_usuario(primer_nombre, segundo_nombre, primer_apellido, segundo_apellido) VALUES(?, ?, ?, ?)", [primer_nombre, segundo_nombre, primer_apellido, segundo_apellido]
+            "INSERT INTO nombre_usuario(primer_nombre, segundo_nombre, primer_apellido, segundo_apellido) VALUES(?, ?, ?, ?)", 
+            [primer_nombre, segundo_nombre, primer_apellido, segundo_apellido]
         );
     
         //Insercion en la tabla cedula_table

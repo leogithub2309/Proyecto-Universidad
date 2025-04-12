@@ -1,3 +1,35 @@
-<p>
-  ventas works!
-</p>
+<div class="flex-container">
+  <ion-button size="default" color="success" class="flex-button" style="width: auto; margin-top: 1rem;">
+    <ion-icon name="add-circle" slot="start"></ion-icon>
+    <span>Agregar</span>
+  </ion-button>
+</div>
+<ion-list [inset]="true" style="padding: 0 !important;">
+  <ion-item [button]="true">
+    <div style="margin-right: .85rem; font-size: 1.8rem;">
+      <ion-icon name="trending-up-outline" color="success" ></ion-icon>
+    </div>
+    <ion-label style="display: flex; flex-direction: column; gap: .25rem;">
+      <strong>Doritos</strong>
+      <ion-text class="text-subtitle">Consumible</ion-text>
+      <ion-note color="medium">
+        Cliente Compro un Dorito y pagó en Divisa.
+      </ion-note>
+    </ion-label>
+    <aside class="date">
+      <span>05:40 pm</span>
+    </aside>
+  </ion-item>
+  <ion-item [button]="true">
+    <div style="margin-right: .85rem; font-size: 1.8rem;">
+      <ion-icon name="trending-up-outline" color="danger" ></ion-icon>
+    </div>
+    <ion-label>
+      <strong>Rick Astley</strong> 
+      <ion-text> Never Gonna Give You Up</ion-text><br />
+      <ion-note color="medium" class="ion-text-wrap">
+        Never gonna give you up Never gonna let you down Never gonna run...
+      </ion-note>
+    </ion-label>
+  </ion-item>
+</ion-list>

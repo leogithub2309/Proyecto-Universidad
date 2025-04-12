@@ -5,6 +5,8 @@ import { RouterLink, Router } from '@angular/router';
 import { Login } from '../model/response';
 import { LoginService } from '../services/login.service';
 import { CookieService } from 'ngx-cookie-service';
+
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -17,8 +19,8 @@ import { CookieService } from 'ngx-cookie-service';
     IonInput, 
     IonButton,
     IonInputPasswordToggle,
+    RouterLink,
     ReactiveFormsModule,
-    RouterLink
   ],
 })
 export class HomePage implements OnInit{

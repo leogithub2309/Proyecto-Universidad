@@ -1,0 +1,26 @@
+.flex-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    padding: 0 1rem;
+}
+
+.flex-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.text-subtitle{
+    color: #c5c5c5;
+}
+
+.date{
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    font-weight: 700;
+    font-size: .85rem;
+    color: #b6b6b6;
+}
