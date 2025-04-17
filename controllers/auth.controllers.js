@@ -15,7 +15,10 @@ const login = async (req, res) => {
         description: "Error, los campos del formulario no pueden estar vacios."
     });
 
-    const [data] = await pool.query("SELECT * FROM usuario WHERE usuario.username = ?", [username]);
+    const [data] = await pool.query(
+        "SELECT * FROM usuario u INNER JOIN rol r ON u.id_rol=r.id_rol WHERE u.username = ?", 
+        [username]
+    );
 
     if(data.length === 0) return res.status(409).json({
         title: "Error",
@@ -24,11 +27,11 @@ const login = async (req, res) => {
     });
 
     const createTokenUser = jsonwebtoken.sign(
-        {user: data[0].username},
+        {user: data[0].username, rol: data[0].id_rol, userId: data[0].id_usuario},
         process.env.SECRET_KEY,
         {expiresIn: process.env.EXPIRE_TOKEN}
     );
-
+    
     const cookieOption = {
         MaxAge: new Date(Date.now() + process.env.EXPIRE_TOKEN *24*60*60*1000), 
         path: "/",

@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Ventas</ion-title>
+     <ion-buttons slot="start">
+      <ion-back-button text="Back" color="success"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Nueva Venta</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -10,4 +13,7 @@
       <ion-title size="large">Ventas</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <app-add-ventas></app-add-ventas>
+
 </ion-content>

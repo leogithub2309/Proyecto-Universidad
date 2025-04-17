@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { IonItem, IonList, IonLabel, IonIcon, IonButton, IonText, IonNote } from '@ionic/angular/standalone';
 
 @Component({
@@ -12,7 +13,8 @@ import { IonItem, IonList, IonLabel, IonIcon, IonButton, IonText, IonNote } from
     IonIcon,
     IonButton,
     IonText,
-    IonNote
+    IonNote,
+    RouterLink
   ]
 })
 export class VentasComponent  implements OnInit {

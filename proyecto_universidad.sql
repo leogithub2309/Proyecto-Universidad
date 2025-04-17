@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-04-2025 a las 17:39:59
+-- Tiempo de generación: 17-04-2025 a las 23:18:37
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -32,6 +32,13 @@ CREATE TABLE `cedula_table` (
   `tipo_identidad` varchar(5) NOT NULL,
   `cedula` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `cedula_table`
+--
+
+INSERT INTO `cedula_table` (`id_cedula`, `tipo_identidad`, `cedula`) VALUES
+(1, 'V-', 32758403);
 
 -- --------------------------------------------------------
 
@@ -62,6 +69,13 @@ CREATE TABLE `direccion` (
   `direccion_2` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `direccion`
+--
+
+INSERT INTO `direccion` (`id_direccion`, `direccion_1`, `direccion_2`) VALUES
+(1, 'Av Principal', 'Urb altos prados');
+
 -- --------------------------------------------------------
 
 --
@@ -70,8 +84,7 @@ CREATE TABLE `direccion` (
 
 CREATE TABLE `moneda` (
   `id_moneda` int(11) NOT NULL,
-  `tipo_moneda` varchar(5) NOT NULL,
-  `moneda` varchar(10) NOT NULL,
+  `id_tipo_moneda` int(11) NOT NULL,
   `monto_moneda` decimal(10,3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -89,6 +102,13 @@ CREATE TABLE `nombre_usuario` (
   `segundo_apellido` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `nombre_usuario`
+--
+
+INSERT INTO `nombre_usuario` (`id_nombre_usuario`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`) VALUES
+(1, 'Leonel', NULL, 'Linares', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -98,7 +118,7 @@ CREATE TABLE `nombre_usuario` (
 CREATE TABLE `producto` (
   `id_producto` int(11) NOT NULL,
   `producto_detalle` varchar(50) NOT NULL,
-  `producto` varchar(50) NOT NULL,
+  `titulo_producto` varchar(50) NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `moneda` int(11) NOT NULL,
   `foto_producto` varchar(255) NOT NULL
@@ -126,6 +146,27 @@ INSERT INTO `rol` (`id_rol`, `rol`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tipo_moneda_table`
+--
+
+CREATE TABLE `tipo_moneda_table` (
+  `id_tipo_moneda` int(11) NOT NULL,
+  `moneda` varchar(10) NOT NULL,
+  `descripcion_moneda` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tipo_moneda_table`
+--
+
+INSERT INTO `tipo_moneda_table` (`id_tipo_moneda`, `moneda`, `descripcion_moneda`) VALUES
+(1, '$', 'Dollar'),
+(2, '€', 'Euro'),
+(3, 'Bs', 'Bolívares');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuario`
 --
 
@@ -141,6 +182,13 @@ CREATE TABLE `usuario` (
   `id_rol` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id_usuario`, `id_nombre_usuario`, `id_cedula`, `telefono`, `id_direccion`, `codigo_postal`, `username`, `password`, `id_rol`) VALUES
+(9, 1, 1, '55584739217', 1, '9102', 'leoadmin', 'leoadmin123', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -150,7 +198,7 @@ CREATE TABLE `usuario` (
 CREATE TABLE `ventas` (
   `id_venta_detalle` int(11) NOT NULL,
   `venta_detalle` varchar(50) NOT NULL,
-  `producto` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -183,7 +231,8 @@ ALTER TABLE `direccion`
 -- Indices de la tabla `moneda`
 --
 ALTER TABLE `moneda`
-  ADD PRIMARY KEY (`id_moneda`);
+  ADD PRIMARY KEY (`id_moneda`),
+  ADD KEY `id_tipo_moneda` (`id_tipo_moneda`);
 
 --
 -- Indices de la tabla `nombre_usuario`
@@ -205,6 +254,12 @@ ALTER TABLE `rol`
   ADD PRIMARY KEY (`id_rol`);
 
 --
+-- Indices de la tabla `tipo_moneda_table`
+--
+ALTER TABLE `tipo_moneda_table`
+  ADD PRIMARY KEY (`id_tipo_moneda`);
+
+--
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
@@ -219,7 +274,7 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `ventas`
   ADD PRIMARY KEY (`id_venta_detalle`),
-  ADD KEY `producto` (`producto`),
+  ADD KEY `producto` (`id_producto`),
   ADD KEY `id_usuario` (`id_usuario`);
 
 --
@@ -230,7 +285,7 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `cedula_table`
 --
 ALTER TABLE `cedula_table`
-  MODIFY `id_cedula` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_cedula` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `compras`
@@ -242,7 +297,7 @@ ALTER TABLE `compras`
 -- AUTO_INCREMENT de la tabla `direccion`
 --
 ALTER TABLE `direccion`
-  MODIFY `id_direccion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_direccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `moneda`
@@ -254,7 +309,7 @@ ALTER TABLE `moneda`
 -- AUTO_INCREMENT de la tabla `nombre_usuario`
 --
 ALTER TABLE `nombre_usuario`
-  MODIFY `id_nombre_usuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_nombre_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
@@ -269,10 +324,16 @@ ALTER TABLE `rol`
   MODIFY `id_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de la tabla `tipo_moneda_table`
+--
+ALTER TABLE `tipo_moneda_table`
+  MODIFY `id_tipo_moneda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`
@@ -290,6 +351,12 @@ ALTER TABLE `ventas`
 ALTER TABLE `compras`
   ADD CONSTRAINT `compras_ibfk_1` FOREIGN KEY (`moneda`) REFERENCES `moneda` (`id_moneda`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `compras_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `moneda`
+--
+ALTER TABLE `moneda`
+  ADD CONSTRAINT `moneda_ibfk_1` FOREIGN KEY (`id_tipo_moneda`) REFERENCES `tipo_moneda_table` (`id_tipo_moneda`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `producto`
@@ -310,7 +377,7 @@ ALTER TABLE `usuario`
 -- Filtros para la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  ADD CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`producto`) REFERENCES `producto` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `ventas_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 

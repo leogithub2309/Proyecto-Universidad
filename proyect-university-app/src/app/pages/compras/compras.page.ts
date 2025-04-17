@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 
 @Component({
-  selector: 'app-compras',
+  selector: 'app-compras-pages',
   templateUrl: './compras.page.html',
   styleUrls: ['./compras.page.scss'],
   standalone: true,
