@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { IonInput, IonSelect, IonSelectOption, IonIcon, IonTextarea, IonButton } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 
@@ -11,10 +11,13 @@ import { addIcons } from 'ionicons';
     IonSelect,
     IonSelectOption,
     IonTextarea,
-    IonButton
+    IonButton,
+    IonIcon,
   ]
 })
 export class AddVentasComponent  implements OnInit {
+
+  @ViewChild('previewImage') previewImage!: ElementRef;
 
   constructor() {
     addIcons({});

@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import authControllers from './controllers/auth.controllers.js';
-
+import roles from './controllers/auth.user.controllers.js';
 
 const app = express(),
     port = process.env.PORT || 3000;
@@ -24,9 +24,10 @@ app.get("/", (req, res) => {
         description: "Ruta principal de la aplicacion"
     });
 });
-
+ 
 app.post("/crearUsuario", authControllers.register);
 app.post("/authUsuario", authControllers.login);
+app.get("/rolesUser", roles.authRoutes);
 
 //Server Listen
 app.listen(port, () => {

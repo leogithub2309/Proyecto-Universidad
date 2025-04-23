@@ -15,7 +15,7 @@
         <ion-input
         type="text"
         label="username"
-        color="danger"
+        color="success"
         formControlName="username"
         id="username" 
         label-placement="floating"
@@ -29,7 +29,7 @@
       <div class="mb-3">
         <ion-input 
          type="password"
-         color="danger"
+         color="success"
          formControlName="password"
          label="Password" 
          id="password"
@@ -45,10 +45,10 @@
           } 
         </ion-input>
       </div>
-      <p class="text-help">
-        No tienes cuenta todavía? <a [routerLink]="['/register']" style="color: #cb1a27; font-weight: 700;">Registrate</a>
+      <p class="text-help"><!-- #cb1a27 -->
+        No tienes cuenta todavía? <a [routerLink]="['/register']" style="color: #2dd55b; font-weight: 700;">Registrate</a>
       </p>
-      <ion-button [disabled]="this.login.invalid" color="danger" expand="block" size="default" class="btn-default" style="height: 2.9rem;" (click)="onLogin()">Login</ion-button>
+      <ion-button [disabled]="this.login.invalid" color="success" expand="block" size="default" class="btn-default" style="height: 2.9rem;" (click)="onLogin()">Login</ion-button>
     </form>
   </div>
 </ion-content>

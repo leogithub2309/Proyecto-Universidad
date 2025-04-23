@@ -20,7 +20,7 @@
           <ion-input
           type="text"
           label="Primer Nombre"
-          color="danger"
+          color="success"
           formControlName="primer_nombre"
           id="primer_nombre" 
           label-placement="floating"
@@ -33,7 +33,7 @@
           <ion-input
           type="text"
           label="Segundo Nombre"
-          color="danger"
+          color="success"
           formControlName="segundo_nombre"
           id="segundo_nombre" 
           label-placement="floating"
@@ -48,7 +48,7 @@
           <ion-input
           type="text"
           label="Primer Apellido"
-          color="danger"
+          color="success"
           formControlName="primer_apellido"
           id="primer_apellido" 
           label-placement="floating"
@@ -61,7 +61,7 @@
           <ion-input
           type="text"
           label="Segundo Apellido"
-          color="danger"
+          color="success"
           formControlName="segundo_apellido"
           id="segundo_apellido" 
           label-placement="floating"
@@ -79,7 +79,7 @@
         <ion-input
         type="text"
         label="Cedula"
-        color="danger"
+        color="success"
         formControlName="cedula"
         maxlength="8"
         id="cedula" 
@@ -93,7 +93,7 @@
         <ion-input
         type="text"
         label="Telefono"
-        color="danger"
+        color="success"
         formControlName="telefono"
         maxlength="11"
         id="telefono" 
@@ -107,7 +107,7 @@
         <ion-input
         type="text"
         label="Dicreccion 1"
-        color="danger"
+        color="success"
         formControlName="direccion_1"
         id="direccion_1" 
         label-placement="floating"
@@ -118,7 +118,7 @@
         <ion-input
         type="text"
         label="Direccion 2"
-        color="danger"
+        color="success"
         formControlName="direccion_2"
         id="direccion_2" 
         label-placement="floating"
@@ -131,7 +131,7 @@
         <ion-input
         type="text"
         label="Codigo Postal"
-        color="danger"
+        color="success"
         formControlName="codigo_postal"
         id="codigo_postal"
         maxlength="4"
@@ -146,7 +146,7 @@
             <ion-input
             type="text"
             label="Username"
-            color="danger"
+            color="success"
             formControlName="username"
             id="username" 
             label-placement="floating"
@@ -159,7 +159,7 @@
             <ion-input
             type="password"
             label="Password"
-            color="danger"
+            color="success"
             formControlName="password"
             id="password" 
             label-placement="floating"
@@ -172,7 +172,7 @@
       <p class="text-help">
         Ya se encuentra registrado? <a [routerLink]="['/home']">Login</a>
       </p>
-      <ion-button [disabled]="this.registerForm.invalid" color="danger" expand="block" size="default" style="width: 100%; font-size: 1.1rem; height: 2.9rem;" (click)="onRegisterUser()">Registrarse</ion-button>
+      <ion-button [disabled]="this.registerForm.invalid" color="success" expand="block" size="default" style="width: 100%; font-size: 1.1rem; height: 2.9rem;" (click)="onRegisterUser()">Registrarse</ion-button>
     </form>
   </div>
 
