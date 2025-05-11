@@ -51,10 +51,10 @@ export class HomePage implements OnInit{
     this.loginService.loginUser(loginUser).subscribe({
       next: (response) => {
         const joinToken = response.result,
-          tokenUser = joinToken.createTokenUser.split(".").join("");
+          tokenUser = joinToken.createTokenUser;
         
         this.cookieService.set("tokenUser", tokenUser);
-        sessionStorage.setItem("tokenUserSession", JSON.stringify(tokenUser));
+        sessionStorage.setItem("tokenUserSession", tokenUser);
         this._router.navigate([joinToken.path]);
       },
       error: (err) => console.error(err)

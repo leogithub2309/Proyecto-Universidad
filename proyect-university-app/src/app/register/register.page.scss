@@ -9,7 +9,7 @@
 
 .text-help{
     font-size: .815rem !important;
-    color: currentColor !important;
+    color: #000 !important;
     margin-bottom: .567rem !important;
     margin-left: .62rem !important;
     text-align: right;
@@ -17,7 +17,7 @@
 
 .text-help > a {
     text-decoration: none;
-    color: #2dd55b; 
+    color: #ffce31;;
     font-weight: 800; 
     text-align: right;
 }
@@ -39,6 +39,10 @@
     flex-direction: column;
     justify-content: center;
     gap: 1rem;
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 4px;
+    box-shadow: 2px 2px 5px 1px rgba($color: #000000, $alpha: .15);
 }
 
 .form-register div:not(.input-item) {
@@ -66,3 +70,4 @@
 .select-input ion-input{
     width: 90% !important;
 }
+

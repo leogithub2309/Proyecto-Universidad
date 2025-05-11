@@ -1,21 +1,21 @@
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" >
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Blank</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
+  <div id="container" style="background-color:#f8f0e6 !important;">
     <form autocomplete="off" class="form-login" [formGroup]="login">
-      <h1 style="text-align: left; font-weight: 700; font-size: 1.45rem; display: flex; flex-direction: column; gap: .623rem; margin-bottom: .863rem;">
+      <h1 style="text-align: left; font-weight: 700; font-size: 1.45rem; display: flex; flex-direction: column; gap: .623rem; margin-bottom: .963rem; color: #000;">
         Login
-        <span style="color: #555; font-size: .753rem; letter-spacing: .5px; font-weight: 400;">Ingrese su usuario y contraseña para poder ingresar a la aplicacion (Todos los campos son requeridos).</span>
+        <span style="color: #979696; font-size: .753rem; letter-spacing: .5px; font-weight: 400;">Ingrese su usuario y contraseña para poder ingresar a la aplicacion (Todos los campos son requeridos).</span>
       </h1>
       <div class="mb-3">
         <ion-input
         type="text"
         label="username"
-        color="success"
+        color="warning"
         formControlName="username"
         id="username" 
         label-placement="floating"
@@ -29,8 +29,8 @@
       <div class="mb-3">
         <ion-input 
          type="password"
-         color="success"
          formControlName="password"
+         color="warning"
          label="Password" 
          id="password"
          label-placement="floating"
@@ -41,14 +41,14 @@
          placeholder="Enter Password"
          >
           @if(this.login.get('password')?.touched) {
-            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+            <ion-input-password-toggle slot="end" color="warning"></ion-input-password-toggle>
           } 
         </ion-input>
       </div>
       <p class="text-help"><!-- #cb1a27 -->
-        No tienes cuenta todavía? <a [routerLink]="['/register']" style="color: #2dd55b; font-weight: 700;">Registrate</a>
+        No tienes cuenta todavía? <a [routerLink]="['/register']" style="color: #ffce31; font-weight: 700;">Registrate</a>
       </p>
-      <ion-button [disabled]="this.login.invalid" color="success" expand="block" size="default" class="btn-default" style="height: 2.9rem;" (click)="onLogin()">Login</ion-button>
+      <ion-button [disabled]="this.login.invalid" color="warning" expand="block" size="default" class="btn-default" style="height: 2.9rem;" (click)="onLogin()">Login</ion-button>
     </form>
   </div>
 </ion-content>

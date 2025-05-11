@@ -17,7 +17,6 @@ import { ComprasComponent } from 'src/app/components/compras/compras.component';
   styleUrls: ['./dashboard.page.scss'],
   standalone: true,
   imports: [
-    IonContent,
     IonHeader,
     IonTitle,
     IonToolbar,

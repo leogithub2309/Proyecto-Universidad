@@ -5,6 +5,8 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import authControllers from './controllers/auth.controllers.js';
 import roles from './controllers/auth.user.controllers.js';
+import tipoMoneda from './routes/tipo.moneda.route.js';
+import ventasRoutes from './routes/ventas.routes.js';
 
 const app = express(),
     port = process.env.PORT || 3000;
@@ -28,6 +30,8 @@ app.get("/", (req, res) => {
 app.post("/crearUsuario", authControllers.register);
 app.post("/authUsuario", authControllers.login);
 app.get("/rolesUser", roles.authRoutes);
+app.get("/tipoMoneda", tipoMoneda);
+app.post("/createVenta/:idUser", ventasRoutes.createVenta);
 
 //Server Listen
 app.listen(port, () => {

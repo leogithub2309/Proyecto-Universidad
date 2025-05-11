@@ -5,14 +5,14 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="register">
+  <div id="register" style="background-color:#f8f0e6 !important;">
     <ion-button color="light" [routerLink]="['/home']">
       <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
     </ion-button>
     
-    <h1 style="text-align: left; font-weight: 700; font-size: 1.45rem; display: flex; flex-direction: column; gap: .623rem; margin-bottom: .863rem;">
+    <h1 style="text-align: left; font-weight: 400; font-size: 2.45rem; display: flex; flex-direction: column; gap: .623rem; margin-bottom: .963rem; color: #000;">
       Registrarse
-      <span style="color: #555; font-size: .753rem; letter-spacing: .5px; font-weight: 400;">Todos los campos del formularios son requeridos.</span>
+      <span style="color: #555; font-size: .753rem; letter-spacing: .5px; font-weight: 500;">Todos los campos del formularios son requeridos.</span>
     </h1>
     <form autocomplete="off" [formGroup]="registerForm" class="form-register">
       <div class="input-item">
@@ -20,26 +20,28 @@
           <ion-input
           type="text"
           label="Primer Nombre"
-          color="success"
+          color="warning"
           formControlName="primer_nombre"
           id="primer_nombre" 
           label-placement="floating"
           [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo no es valido' : '' "
           fill="outline" 
           placeholder="Nombre Completo"
+          style="color: #000; background-color: #fff;"
           ></ion-input>
         </div>
         <div>
           <ion-input
           type="text"
           label="Segundo Nombre"
-          color="success"
+          color="warning"
           formControlName="segundo_nombre"
           id="segundo_nombre" 
           label-placement="floating"
           [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo no es valido' : '' "
           fill="outline" 
           placeholder="Segundo Nombre"
+          style="color: #000; background-color: #fff;"
           ></ion-input>
         </div>
       </div>
@@ -48,26 +50,28 @@
           <ion-input
           type="text"
           label="Primer Apellido"
-          color="success"
+          color="warning"
           formControlName="primer_apellido"
           id="primer_apellido" 
           label-placement="floating"
           [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo no es valido' : '' "
           fill="outline" 
           placeholder="Primer Apellido"
+          style="color: #000; background-color: #fff;"
           ></ion-input>
         </div>
         <div>
           <ion-input
           type="text"
           label="Segundo Apellido"
-          color="success"
+          color="warning"
           formControlName="segundo_apellido"
           id="segundo_apellido" 
           label-placement="floating"
           [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo no es valido' : '' "
           fill="outline" 
           placeholder="Segundo Apellido"
+          style="color: #000; background-color: #fff;"
           ></ion-input>
         </div>
       </div>
@@ -79,7 +83,7 @@
         <ion-input
         type="text"
         label="Cedula"
-        color="success"
+        color="warning"
         formControlName="cedula"
         maxlength="8"
         id="cedula" 
@@ -87,13 +91,14 @@
         [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo cedula es requerido o no cumple con un patron valido' : '' "
         fill="outline" 
         placeholder="e.g 12345678"
+        style="color: #000; background-color: #fff;"
         ></ion-input>
       </div>
       <div>
         <ion-input
         type="text"
         label="Telefono"
-        color="success"
+        color="warning"
         formControlName="telefono"
         maxlength="11"
         id="telefono" 
@@ -101,37 +106,40 @@
         [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo telefono es requerido o con cumple con un patron valido' : '' "
         fill="outline" 
         placeholder="e.g 12345788910"
+        style="color: #000; background-color: #fff;"
         ></ion-input>
       </div>
       <div class="input-item">
         <ion-input
         type="text"
         label="Dicreccion 1"
-        color="success"
+        color="warning"
         formControlName="direccion_1"
         id="direccion_1" 
         label-placement="floating"
         [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo direccion 1 no es valido' : '' "
         fill="outline" 
         placeholder="Dirección de Habitación 1"
+        style="color: #000; background-color: #fff;"
         ></ion-input>
         <ion-input
         type="text"
         label="Direccion 2"
-        color="success"
+        color="warning"
         formControlName="direccion_2"
         id="direccion_2" 
         label-placement="floating"
         [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo direccion 2 no es valido' : '' "
         fill="outline" 
         placeholder="Dicreccion de Habitación 2"
+        style="color: #000; background-color: #fff;"
         ></ion-input>
       </div>
       <div>
         <ion-input
         type="text"
         label="Codigo Postal"
-        color="success"
+        color="warning"
         formControlName="codigo_postal"
         id="codigo_postal"
         maxlength="4"
@@ -139,6 +147,7 @@
         [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo codigo postal es requerido o no cumple con un patron valido' : '' "
         fill="outline" 
         placeholder="e.g 0011"
+        style="color: #000; background-color: #fff;"
         ></ion-input>
       </div>
       <div class="input-item">
@@ -146,33 +155,35 @@
             <ion-input
             type="text"
             label="Username"
-            color="success"
+           color="warning"
             formControlName="username"
             id="username" 
             label-placement="floating"
             [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo usuario es no es valido' : '' "
             fill="outline" 
             placeholder="Nombre de Usuario"
+            style="color: #000; background-color: #fff;"
             ></ion-input>
         </div>
         <div>
             <ion-input
             type="password"
             label="Password"
-            color="success"
+            color="warning"
             formControlName="password"
             id="password" 
             label-placement="floating"
             [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo Password no es valido' : ''"
             fill="outline" 
             placeholder="Password"
+            style="color: #000; background-color: #fff;"
             ></ion-input>
         </div>
       </div>
       <p class="text-help">
         Ya se encuentra registrado? <a [routerLink]="['/home']">Login</a>
       </p>
-      <ion-button [disabled]="this.registerForm.invalid" color="success" expand="block" size="default" style="width: 100%; font-size: 1.1rem; height: 2.9rem;" (click)="onRegisterUser()">Registrarse</ion-button>
+      <ion-button [disabled]="this.registerForm.invalid" color="warning" expand="block" size="default" style="width: 100%; font-size: 1.1rem; height: 2.9rem;" (click)="onRegisterUser()">Registrarse</ion-button>
     </form>
   </div>
 

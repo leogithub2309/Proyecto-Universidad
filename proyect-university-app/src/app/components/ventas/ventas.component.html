@@ -1,10 +1,16 @@
 <div class="flex-container">
-  <ion-button size="default" color="success" class="flex-button" style="width: auto; margin-top: 1rem;" [routerLink]="['/ventas']">
+  <ion-button size="default" color="warning" class="flex-button" style="width: auto; margin-top: 1rem;" [routerLink]="['/ventas']">
     <ion-icon name="add-circle" slot="start"></ion-icon>
     <span>Agregar</span>
   </ion-button>
 </div>
-<ion-list [inset]="true" style="padding: 0 !important;">
+<ion-list [inset]="true" style="padding: 0 !important; position: relative;">
+  <ion-item>
+    <button type="button" class="btn-details">
+    <span>View all</span>
+    <ion-icon name="chevron-forward-outline"></ion-icon>
+  </button>
+  </ion-item>
   <ion-item [button]="true">
     <div style="margin-right: .85rem; font-size: 1.8rem;">
       <ion-icon name="trending-up-outline" color="success" ></ion-icon>

@@ -24,7 +24,7 @@
 
 .text-help{
   font-size: 0.765rem !important;
-  color: currentColor !important;
+  color: #000 !important;
   margin-bottom: .967rem !important;
   margin-left: .62rem !important;
   text-align: right;
@@ -37,6 +37,18 @@
 .form-login{
   border-radius: .245rem;
   width: 100%;
+  background-color: #fff;
+  box-shadow: 2px 2px 5px 1px rgba($color: #000000, $alpha: .15);
+  padding: 1.5rem;
+  border-radius: 4px;
+}
+
+.form-login div ion-input{
+  color: #000 !important;
+}
+
+.form-login div ion-input:is(:focus){
+  outline-color: #000 !important;
 }
 
 .text-error{
