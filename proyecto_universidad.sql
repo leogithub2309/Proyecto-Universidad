@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-04-2025 a las 23:18:37
+-- Tiempo de generación: 19-05-2025 a las 00:18:12
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -85,8 +85,20 @@ INSERT INTO `direccion` (`id_direccion`, `direccion_1`, `direccion_2`) VALUES
 CREATE TABLE `moneda` (
   `id_moneda` int(11) NOT NULL,
   `id_tipo_moneda` int(11) NOT NULL,
-  `monto_moneda` decimal(10,3) NOT NULL
+  `monto_moneda` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `moneda`
+--
+
+INSERT INTO `moneda` (`id_moneda`, `id_tipo_moneda`, `monto_moneda`) VALUES
+(1, 3, 92.00),
+(2, 3, 120.00),
+(3, 1, 5.00),
+(4, 3, 105.00),
+(5, 1, 1.00),
+(6, 1, 5.00);
 
 -- --------------------------------------------------------
 
@@ -123,6 +135,18 @@ CREATE TABLE `producto` (
   `moneda` int(11) NOT NULL,
   `foto_producto` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`id_producto`, `producto_detalle`, `titulo_producto`, `fecha`, `moneda`, `foto_producto`) VALUES
+(1, 'El cliente realizó una compra de un doritos', 'Doritos', '2025-05-18 18:46:36', 1, 'Doritos_logo.png'),
+(2, 'Se vendió una coca cola de 2litros', 'Coca Cola', '2025-05-18 19:56:41', 2, 'kuala-lumpur-malaysia18th-july-2016-600nw-456061381.webp'),
+(3, 'Cliente compro dos coca colas, pago en divisas', 'Coca cola', '2025-05-18 20:11:15', 3, 'kuala-lumpur-malaysia18th-july-2016-600nw-456061381.webp'),
+(4, 'Se vendio un pepito y el cliente pago en Bs', 'Pepito', '2025-05-18 21:16:06', 4, 'Screenshot2024-08-19at11.01.51PM.webp'),
+(5, 'Pagaron con dolares por la pepsi cola.', 'Pepsi Cola', '2025-05-18 21:17:33', 5, 'istockphoto-458611985-612x612.jpg'),
+(6, 'Se vendieron dos cheese tris, pago con divisas', 'Cheese Tris', '2025-05-18 21:23:07', 6, 'cheese-tris.jpg');
 
 -- --------------------------------------------------------
 
@@ -202,6 +226,18 @@ CREATE TABLE `ventas` (
   `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `ventas`
+--
+
+INSERT INTO `ventas` (`id_venta_detalle`, `venta_detalle`, `id_producto`, `fecha`, `id_usuario`) VALUES
+(1, 'Venta de doritos ', 1, '2025-05-18 18:45:20', 9),
+(2, 'Venda de bebida gaseosa', 2, '2025-05-18 19:56:42', 9),
+(3, 'Venda de dos coca cola', 3, '2025-05-18 20:11:15', 9),
+(4, 'Venta de Pepito', 4, '2025-05-18 21:16:06', 9),
+(5, 'Venta de Pepsi Cola ', 5, '2025-05-18 21:17:33', 9),
+(6, 'Venta de Cheese Tris', 6, '2025-05-18 21:23:07', 9);
 
 --
 -- Índices para tablas volcadas
@@ -303,7 +339,7 @@ ALTER TABLE `direccion`
 -- AUTO_INCREMENT de la tabla `moneda`
 --
 ALTER TABLE `moneda`
-  MODIFY `id_moneda` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_moneda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `nombre_usuario`
@@ -315,7 +351,7 @@ ALTER TABLE `nombre_usuario`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
@@ -339,7 +375,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id_venta_detalle` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_venta_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
