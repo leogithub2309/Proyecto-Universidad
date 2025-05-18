@@ -1,10 +1,11 @@
 import { Component, ElementRef, inject, OnInit, resource, signal, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonInput, IonSelect, IonSelectOption, IonIcon, IonTextarea, IonButton } from '@ionic/angular/standalone';
+import { IonInput, IonSelect, IonSelectOption, IonIcon, IonTextarea, IonButton, ToastController } from '@ionic/angular/standalone';
 import e from 'cors';
 import { addIcons } from 'ionicons';
 import { ApiVentasService } from 'src/app/services/api-ventas.service';
 import crypto from 'crypto-js';
+import { VentasInterface } from 'src/app/model/ventas';
 
 @Component({
   selector: 'app-add-ventas',
@@ -29,6 +30,8 @@ export class AddVentasComponent  implements OnInit {
 
   typeMoney = signal<any[]>([]);
 
+  toastControllers = inject(ToastController);
+
   images!: File;
 
   fb = inject(FormBuilder);
@@ -42,7 +45,7 @@ export class AddVentasComponent  implements OnInit {
       producto_detalle: new FormControl('', [Validators.required, Validators.pattern(/^[A-Za-z]/)]),
       titulo_producto: new FormControl('', [Validators.required, Validators.pattern(/^[A-Za-z]/)]),
       tipo_moneda: new FormControl('', [Validators.required]),
-      monto_moneda: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+$/)]),
+      monto_moneda: new FormControl('', [Validators.required, Validators.pattern(/^(\d+(\.\d+)?|\.\d+)$/)]),
     })
   }
 
@@ -59,36 +62,85 @@ export class AddVentasComponent  implements OnInit {
 
 
   changeImagePreview(event: any){
+    let path = "../../../assets/" + event.target.files[0].name || "http://localhost:80/uploaderImages/uploads/" + event.target.files[0].name;
 
-    if(event.target.files[0]) this.foto_producto.nativeElement.src = "http://localhost:80/uploaderImages/uploads/" + event.target.files[0].name;
+    if(event.target.files[0]) this.foto_producto.nativeElement.src = path;
     
-    else this.foto_producto.nativeElement.src = "../../../assets/user-svgrepo-com.svg";
-
-    if(!event.target.files[0]) this.foto_producto.nativeElement.src = "../../../assets/user-svgrepo-com.svg";
+    else this.foto_producto.nativeElement.src = path;
 
     this.images = event.target.files[0];
   }
 
-  onSubmit(){
+  async onSubmit(){
 
+    const VENTA: VentasInterface = {
+      venta_detalle: this.formVenta.get('venta_detalle')?.value,
+      producto_detalle: this.formVenta.get('producto_detalle')?.value,
+      titulo_producto: this.formVenta.get('titulo_producto')?.value,
+      tipo_moneda: this.formVenta.get('tipo_moneda')?.value,
+      monto_moneda: this.formVenta.get('monto_moneda')?.value,
+      foto_producto: this.images.name,
+      idUser: this.decripDataSession().userId
+    }
+
+    // Agregar una nueva venta
+    this.apiVentasService.createNewDetailsVenta(VENTA).subscribe({
+      next: async (res: any) => {
+        console.log(res);
+        this.formVenta.reset();
+          const toast = await this.toastControllers.create({
+            message: res.description || "Se agregò un nuevo usuario correctamente",
+            duration: 3000,
+            color: "success",
+            position:"bottom"
+          });
+          await toast.present();
+      },
+      error: async (err) => {
+
+        this.formVenta.reset();
+          const toast = await this.toastControllers.create({
+            message: err.description || "Se agregò un nuevo usuario correctamente",
+            duration: 3000,
+            color: "success",
+            position:"bottom"
+          });
+          await toast.present();
+      }
+    });
+
+    // Agregar una nueva imagen
     if(this.images){
       const formData = new FormData();
       formData.append("foto_producto", this.images, this.images.name);
       formData.append('Content-Type','multipart/form-data');
-
       this.apiVentasService.uploadFiles(formData).subscribe({
-        next: (res) => {
+        next: (res: any) => {
           console.log(res);
         },
-        error: (err) => console.error(err)
+        error: (err) => {
+          console.error(err);
+          this.foto_producto.nativeElement.src = "../../../assets/user-svgrepo-com.svg";
+        }
       });
+    }else{
+       this.foto_producto.nativeElement.src = "../../../assets/user-svgrepo-com.svg";
     }
 
-    
+    //Reset de los campos del formulario.
+    this.formVenta.reset(); 
+    this.foto_producto.nativeElement.src = "../../../assets/user-svgrepo-com.svg";
+    const toast = await this.toastControllers.create({
+      message: "Se agregò una nueva venta correctamente",
+      duration: 3000,
+      color: "success",
+      position:"bottom"
+    });
+    await toast.present();
   }
 
 
-  decripDataSession(): any{
+  decripDataSession(){
 
     let separate = String(sessionStorage.getItem("tokenUserSession")).split(".");
 

@@ -32,6 +32,8 @@ app.post("/authUsuario", authControllers.login);
 app.get("/rolesUser", roles.authRoutes);
 app.get("/tipoMoneda", tipoMoneda);
 app.post("/createVenta/:idUser", ventasRoutes.createVenta);
+app.get("/firstVentas", ventasRoutes.getVentasSelects);
+app.get("/allVentas", ventasRoutes.getAllVentas);
 
 //Server Listen
 app.listen(port, () => {

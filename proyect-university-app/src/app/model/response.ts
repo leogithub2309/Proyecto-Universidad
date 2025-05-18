@@ -30,3 +30,19 @@ export interface Register {
     password: string;
     id_rol:number;
 }
+
+export interface Ventas{
+    descripcion_moneda: string;
+    fecha: string;
+    foto_producto: string;
+    id_moneda: number;
+    id_producto: number;
+    id_tipo_moneda:number
+    id_usuario: number;
+    id_venta_detalle: number;
+    moneda: string;
+    monto_moneda: string;
+    producto_detalle: string;
+    titulo_producto: string;
+    venta_detalle: string;
+}

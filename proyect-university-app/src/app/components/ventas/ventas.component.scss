@@ -12,17 +12,29 @@
     align-items: center;
 }
 
-.text-subtitle{
+/* .text-subtitle{
     color: #c5c5c5;
 }
-
+ */
 .date{
     position: absolute;
-    top: 20px;
+    top: 10px;
     right: 10px;
-    font-weight: 700;
-    font-size: .85rem;
-    color: #b6b6b6;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    gap: 3px;
+}
+
+.date .text-subtitle{
+    color: teal;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.date ion-note{
+    font-size: .754rem;
 }
 
 .btn-details{
@@ -32,6 +44,26 @@
     align-items: center; 
     position: absolute; 
     right: 10px; 
-    font-size: 15px;
+    font-size: 14px;
     background-color: transparent;
+    font-weight: 500;
+}
+
+.ventas-title{
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.flex-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1.1rem 2rem;
+}
+
+.flex-container span{
+    font-size: 22px;
+    font-weight: 600;
+    color: #000;
 }

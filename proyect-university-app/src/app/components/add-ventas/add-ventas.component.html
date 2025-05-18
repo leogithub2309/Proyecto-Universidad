@@ -2,7 +2,7 @@
 <form autocomplete="off" action="#" style="background-color:#f8f0e6 !important;" [formGroup]="this.formVenta" enctype="multipart/form-data">
   <div style="display: flex; flex-direction: start; justify-content: start; gap: 20px; position: relative;">
     <div class="content-image">
-      <img src="../../../assets/user-svgrepo-com.svg" alt="Avatar" id="prevImage" width="150" height="150" #foto_producto>
+      <img [src]="'../../../assets/user-svgrepo-com.svg'" alt="Avatar" id="prevImage" width="150" height="150" #foto_producto>
     </div>
    <div style="position: relative; width: 12rem;">
     <input 
@@ -20,6 +20,7 @@
     type="text"
     color="warning"
     label="Detalle Venta"
+    placeholder="e.g Venta de Bebida"
     id="venta_detalle" 
     label-placement="floating"
     fill="outline"
@@ -33,6 +34,7 @@
       type="text"
       color="warning"
       label="Descripcion Producto"
+      placeholder="e.g Detalles del producto vendido"
       id="producto_detalle"
       label-placement="floating"
       fill="outline"
@@ -46,6 +48,7 @@
       type="text"
       color="warning"
       label="Título del Producto"
+      placeholder="e.g Doritos"
       id="titulo_producto"
       label-placement="floating"
       fill="outline"

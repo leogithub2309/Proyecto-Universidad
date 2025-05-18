@@ -1,6 +1,7 @@
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { VentasInterface } from '../model/ventas';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,12 @@ export class ApiVentasService {
     return this.http.get(this.url+"/rolesUser/"+rol);
   }
 
+  createNewDetailsVenta(venta: VentasInterface){
+    return this.http.post(this.url+"createVenta/"+venta.idUser, venta);
+  }
 
+  getFirstVentas(){
+    return this.http.get(this.url+"firstVentas");
+  }
 
 }
