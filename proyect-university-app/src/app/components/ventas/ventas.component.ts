@@ -1,6 +1,8 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { c } from '@angular/core/event_dispatcher.d-pVP0-wST';
+import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { IonItem, IonList, IonLabel, IonIcon, IonButton, IonText, IonNote } from '@ionic/angular/standalone';
+import { IonItem, IonList, IonLabel, IonIcon, IonButton, IonText, IonNote, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { Ventas } from 'src/app/model/response';
 import { ApiVentasService } from 'src/app/services/api-ventas.service';
 
@@ -16,16 +18,20 @@ import { ApiVentasService } from 'src/app/services/api-ventas.service';
     IonButton,
     IonText,
     IonNote,
-    RouterLink
+    IonSelect,
+    IonSelectOption,
+    RouterLink,
+    FormsModule
   ]
 })
 export class VentasComponent  implements OnInit {
 
   apiVentasServices = inject(ApiVentasService);
-
   ventas = signal<Ventas[]>([]);
-
+  moneda = signal<any[]>([]);
+  currency = signal<number>(0);
   totalVentas: number = 0;
+  titleVenta: string = "Bs";
 
   constructor() { }
 
@@ -36,7 +42,15 @@ export class VentasComponent  implements OnInit {
         this.getToalBs(res.data);
       },
       error: (err) => console.error(err)
+    });
+
+    this.apiVentasServices.getTipoMoneda().subscribe({
+      next: (res: any) => {
+        this.moneda.set(res.data);
+      },
+      error: (err) => console.error(err)
     })
+
   }
 
   formatVenta(fecha: string){
@@ -46,13 +60,63 @@ export class VentasComponent  implements OnInit {
 
 
   getToalBs(data: any){
-    const totalVentasData = data.filter((data: Ventas) => data.moneda === "Bs");
-    
-    totalVentasData.forEach((value: Ventas) => {
-      this.totalVentas += Number(value.monto_moneda);
+
+    let convertion = 0;
+
+    this.apiVentasServices.getCurrentCurrency("dollar").subscribe({
+      next: (res: any) => {
+        this.currency.set(res.monitors.bcv.price);
+        data.forEach((value: Ventas) => {
+          if(value.moneda === "$"){
+            convertion = this.currency() * Number(value.monto_moneda);
+            this.totalVentas += convertion;
+          }else if(value.moneda === "€"){
+            convertion = this.currency() * Number(value.monto_moneda);
+            this.totalVentas += convertion;
+          }else if(value.moneda === "Bs") this.totalVentas += Number(value.monto_moneda);
+        });
+      },
+      error: (err) => console.error(err)
     });
 
-    console.log(this.totalVentas);
+  }
+
+  getCurrency(event: any){
+
+    let currency = event.target.value === "bolívares" ? "dollar" : event.target.value,
+      convertion = 0;
+
+    this.totalVentas = 0;
+
+    this.apiVentasServices.getCurrentCurrency(currency).subscribe({
+      next: (res: any) => {
+        this.currency.set(res.monitors.bcv.price);
+        this.ventas().forEach((value: Ventas) => {
+          if(value.moneda === "$"){
+            convertion = this.currency() * Number(value.monto_moneda);
+            this.totalVentas += convertion;
+          }else if(value.moneda === "€"){
+            convertion = this.currency() * Number(value.monto_moneda);
+            this.totalVentas += convertion;
+          }else if(value.moneda === "Bs") this.totalVentas += Number(value.monto_moneda);
+        });
+
+        this.totalVentas = this.totalVentas / this.currency();
+      },
+      error: (err) => console.error(err)
+    });
+
+    this.titleVenta = currency === "dollar" ? "$" : currency === "euro" ? "€" : currency === "bolívares" ? 'Bs' : '';
+    
+  }
+
+  getTodayCurrency(tipoMoneda: string, monto: number){
+
+    this.titleVenta = tipoMoneda === "dollar" ? "$" : tipoMoneda === "euro" ? "€" : tipoMoneda === "bolívares" ? 'Bs' : '';
+    
+    let formatCurrency = `${(monto / this.currency()).toFixed(2)}`;
+    
+    return formatCurrency;
   }
 
 }

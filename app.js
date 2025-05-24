@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
  
 app.post("/crearUsuario", authControllers.register);
 app.post("/authUsuario", authControllers.login);
-app.get("/rolesUser", roles.authRoutes);
+app.get("/rolesUser/:rol", roles.authRoutes);
 app.get("/tipoMoneda", tipoMoneda);
 app.post("/createVenta/:idUser", ventasRoutes.createVenta);
 app.get("/firstVentas", ventasRoutes.getVentasSelects);

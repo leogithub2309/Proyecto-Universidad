@@ -1,8 +1,27 @@
-<div>
+<div class="flex-content">
   <ion-button size="default" color="warning" class="flex-button" style="width: 10rem; margin-top: 1rem;" [routerLink]="['/ventas']">
     <ion-icon name="add-circle" slot="start"></ion-icon>
     <span>Agregar</span>
   </ion-button>
+  <form autocomplete="off">
+    <ion-select aria-label="Choice Method of Pay" color="success" id="today_currency" placeholder="Filtrar por Moneda"  style="width: 10rem; color: #000;" (ionChange)="getCurrency($event)">
+      @if (this.moneda().length !== 0) {
+        @for (monedas of this.moneda(); track monedas.id_tipo_moneda;) {
+          <ion-select-option [value]="monedas.descripcion_moneda.toLowerCase()">
+            <span>
+              {{ monedas.descripcion_moneda.toLowerCase() }}
+            </span>
+          </ion-select-option>
+        }
+      } @else {
+        <ion-select-option value="--">
+          <span>
+            No hay Opciones Disponibles
+          </span>
+        </ion-select-option>  
+      }
+  </ion-select>
+  </form>
 </div>
 <ion-list [inset]="true" style="padding: 0 !important; position: relative;">
   <ion-item>
@@ -34,6 +53,6 @@
   }
 </ion-list>
 <div class="flex-container">
-  <span>Total Bs Ventas</span>
-  <span>{{ totalVentas + ".00"}}</span>
+  <span>Total Venta en {{titleVenta}} </span>
+  <span>{{titleVenta}}{{ this.totalVentas.toFixed(2)}}</span>
 </div>
