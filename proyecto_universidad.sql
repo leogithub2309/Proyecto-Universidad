@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-05-2025 a las 00:18:12
+-- Tiempo de generación: 28-05-2025 a las 03:18:48
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -49,9 +49,8 @@ INSERT INTO `cedula_table` (`id_cedula`, `tipo_identidad`, `cedula`) VALUES
 CREATE TABLE `compras` (
   `id_compras` int(11) NOT NULL,
   `compra_detalle` varchar(100) NOT NULL,
-  `compra` varchar(100) NOT NULL,
+  `titulo_compra` varchar(50) NOT NULL,
   `fecha_compra` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `precio_compra` decimal(10,2) NOT NULL,
   `moneda` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `foto_compra` varchar(255) NOT NULL
@@ -233,8 +232,8 @@ CREATE TABLE `ventas` (
 
 INSERT INTO `ventas` (`id_venta_detalle`, `venta_detalle`, `id_producto`, `fecha`, `id_usuario`) VALUES
 (1, 'Venta de doritos ', 1, '2025-05-18 18:45:20', 9),
-(2, 'Venda de bebida gaseosa', 2, '2025-05-18 19:56:42', 9),
-(3, 'Venda de dos coca cola', 3, '2025-05-18 20:11:15', 9),
+(2, 'Venta de bebida gaseosa', 2, '2025-05-27 01:34:26', 9),
+(3, 'Venta de dos coca cola', 3, '2025-05-27 00:59:53', 9),
 (4, 'Venta de Pepito', 4, '2025-05-18 21:16:06', 9),
 (5, 'Venta de Pepsi Cola ', 5, '2025-05-18 21:17:33', 9),
 (6, 'Venta de Cheese Tris', 6, '2025-05-18 21:23:07', 9);
@@ -386,7 +385,8 @@ ALTER TABLE `ventas`
 --
 ALTER TABLE `compras`
   ADD CONSTRAINT `compras_ibfk_1` FOREIGN KEY (`moneda`) REFERENCES `moneda` (`id_moneda`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `compras_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `compras_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `compras_ibfk_3` FOREIGN KEY (`moneda`) REFERENCES `moneda` (`id_moneda`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `moneda`
