@@ -26,13 +26,13 @@
 <ion-list [inset]="true" style="padding: 0 !important; position: relative;">
   <ion-item>
     <h3 class="ventas-title">Ventas</h3>
-    <button type="button" class="btn-details">
+    <button type="button" class="btn-details" [routerLink]="['/all-sales']">
     <span>View all</span>
     <ion-icon name="chevron-forward-outline"></ion-icon>
   </button>
   </ion-item>
   @for (venta of this.ventas(); track venta.id_venta_detalle;) {
-    <ion-item [button]="true">
+    <ion-item [button]="true" [routerLink]="['/ventas-details/'+venta.id_venta_detalle]">
       <ion-label style="display: flex; flex-direction: column; gap: .25rem; padding: .4rem 0; margin-right: 3rem;">
         <p style="margin: 0; padding: 0; font-size: 18px; color: #000;">
           <strong>{{ venta.titulo_producto }}</strong>

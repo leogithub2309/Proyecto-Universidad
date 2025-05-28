@@ -1,0 +1,65 @@
+import { Component, inject, input, OnInit, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonContent, IonHeader, IonTitle, IonToolbar,IonBackButton, IonButtons, } from '@ionic/angular/standalone';
+import { ApiVentasService } from 'src/app/services/api-ventas.service';
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+
+@Component({
+  selector: 'app-ventas-details-page',
+  templateUrl: './ventas-details.page.html',
+  styleUrls: ['./ventas-details.page.scss'],
+  standalone: true,
+  imports: [
+    IonContent, 
+    IonHeader, 
+    IonTitle, 
+    IonToolbar, 
+    CommonModule, 
+    FormsModule,
+    IonBackButton, 
+    IonButtons,
+  ]
+})
+export class VentasDetailsPage implements OnInit {
+
+  apiVentasServices = inject(ApiVentasService);
+  id = inject(ActivatedRoute);
+  singleVenta = signal<any>([]);
+  currency = signal<number>(0);
+
+  constructor() {}
+
+  ngOnInit() {
+
+    this.apiVentasServices.getSingeVenta(Number(this.id.snapshot.params["id"])).subscribe({
+      next: (response: any) => {
+        this.singleVenta.set(...[response.data[0]]);
+      },
+      error: (err) => console.error(err)
+    });
+
+    this.apiVentasServices.getCurrentCurrency("dollar").subscribe({
+      next: (res: any) => {
+        this.currency.set(res.monitors.bcv.price);
+      },
+      error: (err) => console.error(err)
+    })
+
+  }
+
+  formatVenta(fecha: string){
+    const date = new Date(fecha);
+    return `${date.toLocaleString()}`;
+  }
+
+  detailsPrices(prices: string, type: string){
+    let parsePrices = Number(prices);
+    return type === "Bolívares" 
+    ? (parsePrices / this.currency()).toFixed(2)
+    : type === "Dollar" 
+    ? (parsePrices * this.currency()).toFixed(2) 
+    : parsePrices+".00";
+  }
+
+}

@@ -34,6 +34,7 @@ app.get("/tipoMoneda", tipoMoneda);
 app.post("/createVenta/:idUser", ventasRoutes.createVenta);
 app.get("/firstVentas", ventasRoutes.getVentasSelects);
 app.get("/allVentas", ventasRoutes.getAllVentas);
+app.get("/venta/:id", ventasRoutes.getSingleVentas);
 
 //Server Listen
 app.listen(port, () => {

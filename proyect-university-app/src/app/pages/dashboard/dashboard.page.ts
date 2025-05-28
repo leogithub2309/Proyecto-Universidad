@@ -43,9 +43,6 @@ export class DashboardPage implements OnInit {
 
   ngOnInit() {
 
-    if(!sessionStorage.getItem("tokenUserSession") && !this.cookieService.check("tokenUser")){
-      this._router.navigate(['/home']);
-    }
   }
 
 

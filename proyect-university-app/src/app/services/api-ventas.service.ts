@@ -10,9 +10,9 @@ export class ApiVentasService {
 
   private http = inject(HttpClient);
 
-  readonly url = "http://localhost:3000/";
+  private readonly url = "http://localhost:3000/";
 
-  readonly tasa = "https://pydolarve.org/api/v2/";
+  private readonly tasa = "https://pydolarve.org/api/v2/";
 
   getTipoMoneda(){
     return this.http.get(this.url+"tipoMoneda");
@@ -38,6 +38,14 @@ export class ApiVentasService {
   getCurrentCurrency(currency: string){
     //dollar?page=criptodolar&format_date=default&rounded_price=true
     return this.http.get(this.tasa+`${currency}?page=criptodolar&format_date=default&rounded_price=true`)
+  }
+
+  getAllVentas(){
+    return this.http.get(this.url+"allVentas");
+  }
+
+  getSingeVenta(id: number){
+    return this.http.get(this.url+"venta/"+id);
   }
 
 }

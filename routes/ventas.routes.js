@@ -103,10 +103,37 @@ const getAllVentas = async (req, res) => {
     }
 }
 
+const getSingleVentas = async (req, res) => {
+    try {
 
+        let {id} = req.params;
+
+        const [data] = await pool.query(
+            "SELECT * FROM ventas v INNER JOIN producto p ON v.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda WHERE v.id_venta_detalle = ?",
+            [id]
+        );
+
+        if(data.length > 0){
+             return res.status(202).json({
+                title: "Success",
+                status: 202,
+                data
+            });
+        }
+
+    } catch (error) {
+         return res.status(404).json({
+            title: "Error",
+            status: 404,
+            description: "Error, no se pudo conectar con la API.",
+            error
+        });
+    }
+}
 
 export default {
     createVenta,
     getVentasSelects,
-    getAllVentas
+    getAllVentas,
+    getSingleVentas
 }
