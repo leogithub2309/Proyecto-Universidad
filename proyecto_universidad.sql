@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-05-2025 a las 03:18:48
+-- Tiempo de generación: 31-05-2025 a las 20:59:45
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -74,6 +74,22 @@ CREATE TABLE `direccion` (
 
 INSERT INTO `direccion` (`id_direccion`, `direccion_1`, `direccion_2`) VALUES
 (1, 'Av Principal', 'Urb altos prados');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `inventario`
+--
+
+CREATE TABLE `inventario` (
+  `id_inventario` int(11) NOT NULL,
+  `capital` decimal(10,2) NOT NULL,
+  `id_compras` int(11) DEFAULT NULL,
+  `id_venta_detalle` int(11) DEFAULT NULL,
+  `cantidad_inventario` int(11) NOT NULL,
+  `nombre_producto_inventario` varchar(50) NOT NULL,
+  `foto_producto_inventario` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -263,6 +279,12 @@ ALTER TABLE `direccion`
   ADD PRIMARY KEY (`id_direccion`);
 
 --
+-- Indices de la tabla `inventario`
+--
+ALTER TABLE `inventario`
+  ADD PRIMARY KEY (`id_inventario`);
+
+--
 -- Indices de la tabla `moneda`
 --
 ALTER TABLE `moneda`
@@ -333,6 +355,12 @@ ALTER TABLE `compras`
 --
 ALTER TABLE `direccion`
   MODIFY `id_direccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `inventario`
+--
+ALTER TABLE `inventario`
+  MODIFY `id_inventario` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `moneda`

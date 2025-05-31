@@ -1,15 +1,27 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonTab, IonTabs, IonTabBar, IonTabButton} from '@ionic/angular/standalone';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { addIcons } from 'ionicons';
 import { home } from 'ionicons/icons';
-import { VentasPage } from "../ventas/ventas.page";
-import { ComprasPage } from "../compras/compras.page";
 import { VentasComponent } from 'src/app/components/ventas/ventas.component';
 import { ComprasComponent } from 'src/app/components/compras/compras.component';
+import { 
+  ChartComponent, 
+  NgApexchartsModule, 
+  ApexNonAxisChartSeries,
+  ApexResponsive,
+  ApexChart 
+} from "ng-apexcharts";
+
+export type ChartOptions = {
+  series: any;
+  chart: any;
+  responsive: any;
+  labels: any;
+};
 
 @Component({
   selector: 'app-dashboard',
@@ -29,16 +41,40 @@ import { ComprasComponent } from 'src/app/components/compras/compras.component';
     CommonModule,
     FormsModule,
     VentasComponent,
-    ComprasComponent
+    ComprasComponent,
+    NgApexchartsModule,
+    RouterLink
 ]
 })
 export class DashboardPage implements OnInit {
 
   _router = inject(Router);
   cookieService = inject(CookieService);
+  chartOptions!: Partial<ChartOptions>;
+  @ViewChild('chart') chart!: ElementRef;
 
   constructor() {
     addIcons({ home });
+    this.chartOptions = {
+      series: [440, 560],
+      chart: {
+        type: "donut"
+      },
+      labels: ["Ventas", "Compras"],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 400
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ]
+    }
   }
 
   ngOnInit() {

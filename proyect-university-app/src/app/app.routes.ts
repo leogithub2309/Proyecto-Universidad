@@ -41,7 +41,11 @@ export const routes: Routes = [
     canMatch: [authUserGuard],
     path: 'ventas-details/:id',
     loadComponent: () => import('./pages/ventas-details/ventas-details.page').then( m => m.VentasDetailsPage)
+  },  {
+    path: 'all-solds',
+    loadComponent: () => import('./pages/all-solds/all-solds.page').then( m => m.AllSoldsPage)
   },
+
 
 
 ];

@@ -20,14 +20,23 @@
           <h4>Balance Actual</h4>
           <p>$1450.65</p>
         </article>
-        <article class="ventas-balance">
+        <article class="ventas-balance" [routerLink]="['/all-sales']">
           <h4>Total Ventas</h4>
           <p>$740.21</p>
         </article>
-        <article class="compras-balance">
+        <article class="compras-balance" [routerLink]="['/all-solds']">
           <h4>Total Compras</h4>
           <p>$520.88</p>
         </article>
+        <article id="chart">
+          <apx-chart
+            [series]="this.chartOptions.series"
+            [chart]="this.chartOptions.chart"
+            [labels]="this.chartOptions.labels"
+            [responsive]="this.chartOptions.responsive"
+          ></apx-chart>
+        </article>
+        <div style="margin-bottom: 7rem;"></div>
       </div>
     </div>
   </ion-tab>
