@@ -4,11 +4,11 @@ const createVenta = async (req, res) => {
 
     try{
 
-        let {venta_detalle, producto_detalle, titulo_producto, tipo_moneda, monto_moneda, foto_producto} = req.body;
+        let {venta_detalle, producto_detalle, titulo_producto, tipo_moneda, monto_moneda, foto_producto, id_inventario, cantidad_inventario} = req.body;
 
         let {idUser} = req.params;
 
-        if(!venta_detalle || !producto_detalle || !titulo_producto || !tipo_moneda || !monto_moneda) {
+        if(!venta_detalle || !producto_detalle || !titulo_producto || !tipo_moneda || !monto_moneda || !cantidad_inventario) {
             return res.status(404).json({
                 title: "Error",
                 status: 404,
@@ -27,18 +27,27 @@ const createVenta = async (req, res) => {
         );
 
         const [resultVenta] = await pool.query(
-            "INSERT INTO ventas(venta_detalle, id_producto, id_usuario) VALUES(?, ?, ?)",
-            [venta_detalle, resultProducto.insertId, idUser]
+            "INSERT INTO ventas(venta_detalle, id_producto, id_inventario ,id_usuario) VALUES(?, ?, ?)",
+            [venta_detalle, resultProducto.insertId, id_inventario ,idUser]
         );
 
+        const [dataInventario] = await pool.query(`SELECT cantidad_inventario FROM inventario WHERE id_inventario = ${id_inventario}`);
+
         if(resultVenta.length > 0){
+
+            let restInventario = dataInventario.cantidad_inventario - cantidad_inventario
+
+            const [updateResult] = await pool.query(
+                "UPDATE inventario SET cantidad_inventario = ? WHERE id_inventario = ?",
+                [restInventario, id_inventario]
+            );
+
             return res.status(202).json({
                 title: "Success",
                 status: 202,
                 resultVenta
             });
         }
-
 
     }catch(error){
         return res.status(404).json({

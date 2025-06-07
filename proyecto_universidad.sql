@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-05-2025 a las 20:59:45
+-- Tiempo de generación: 07-06-2025 a las 23:30:42
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -48,12 +48,11 @@ INSERT INTO `cedula_table` (`id_cedula`, `tipo_identidad`, `cedula`) VALUES
 
 CREATE TABLE `compras` (
   `id_compras` int(11) NOT NULL,
-  `compra_detalle` varchar(100) NOT NULL,
-  `titulo_compra` varchar(50) NOT NULL,
+  `compra_detalle` varchar(70) NOT NULL,
   `fecha_compra` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `moneda` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
-  `foto_compra` varchar(255) NOT NULL
+  `id_producto` int(11) NOT NULL,
+  `id_inventario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -83,12 +82,11 @@ INSERT INTO `direccion` (`id_direccion`, `direccion_1`, `direccion_2`) VALUES
 
 CREATE TABLE `inventario` (
   `id_inventario` int(11) NOT NULL,
-  `capital` decimal(10,2) NOT NULL,
   `id_compras` int(11) DEFAULT NULL,
   `id_venta_detalle` int(11) DEFAULT NULL,
   `cantidad_inventario` int(11) NOT NULL,
-  `nombre_producto_inventario` varchar(50) NOT NULL,
-  `foto_producto_inventario` varchar(256) NOT NULL
+  `producto_inventario` varchar(70) NOT NULL,
+  `foto_producto_inventario` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -102,18 +100,6 @@ CREATE TABLE `moneda` (
   `id_tipo_moneda` int(11) NOT NULL,
   `monto_moneda` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Volcado de datos para la tabla `moneda`
---
-
-INSERT INTO `moneda` (`id_moneda`, `id_tipo_moneda`, `monto_moneda`) VALUES
-(1, 3, 92.00),
-(2, 3, 120.00),
-(3, 1, 5.00),
-(4, 3, 105.00),
-(5, 1, 1.00),
-(6, 1, 5.00);
 
 -- --------------------------------------------------------
 
@@ -150,18 +136,6 @@ CREATE TABLE `producto` (
   `moneda` int(11) NOT NULL,
   `foto_producto` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Volcado de datos para la tabla `producto`
---
-
-INSERT INTO `producto` (`id_producto`, `producto_detalle`, `titulo_producto`, `fecha`, `moneda`, `foto_producto`) VALUES
-(1, 'El cliente realizó una compra de un doritos', 'Doritos', '2025-05-18 18:46:36', 1, 'Doritos_logo.png'),
-(2, 'Se vendió una coca cola de 2litros', 'Coca Cola', '2025-05-18 19:56:41', 2, 'kuala-lumpur-malaysia18th-july-2016-600nw-456061381.webp'),
-(3, 'Cliente compro dos coca colas, pago en divisas', 'Coca cola', '2025-05-18 20:11:15', 3, 'kuala-lumpur-malaysia18th-july-2016-600nw-456061381.webp'),
-(4, 'Se vendio un pepito y el cliente pago en Bs', 'Pepito', '2025-05-18 21:16:06', 4, 'Screenshot2024-08-19at11.01.51PM.webp'),
-(5, 'Pagaron con dolares por la pepsi cola.', 'Pepsi Cola', '2025-05-18 21:17:33', 5, 'istockphoto-458611985-612x612.jpg'),
-(6, 'Se vendieron dos cheese tris, pago con divisas', 'Cheese Tris', '2025-05-18 21:23:07', 6, 'cheese-tris.jpg');
 
 -- --------------------------------------------------------
 
@@ -238,21 +212,10 @@ CREATE TABLE `ventas` (
   `id_venta_detalle` int(11) NOT NULL,
   `venta_detalle` varchar(50) NOT NULL,
   `id_producto` int(11) NOT NULL,
+  `id_inventario` int(11) NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Volcado de datos para la tabla `ventas`
---
-
-INSERT INTO `ventas` (`id_venta_detalle`, `venta_detalle`, `id_producto`, `fecha`, `id_usuario`) VALUES
-(1, 'Venta de doritos ', 1, '2025-05-18 18:45:20', 9),
-(2, 'Venta de bebida gaseosa', 2, '2025-05-27 01:34:26', 9),
-(3, 'Venta de dos coca cola', 3, '2025-05-27 00:59:53', 9),
-(4, 'Venta de Pepito', 4, '2025-05-18 21:16:06', 9),
-(5, 'Venta de Pepsi Cola ', 5, '2025-05-18 21:17:33', 9),
-(6, 'Venta de Cheese Tris', 6, '2025-05-18 21:23:07', 9);
 
 --
 -- Índices para tablas volcadas
@@ -269,8 +232,9 @@ ALTER TABLE `cedula_table`
 --
 ALTER TABLE `compras`
   ADD PRIMARY KEY (`id_compras`),
-  ADD KEY `compras_ibfk_1` (`moneda`),
-  ADD KEY `id_usuario` (`id_usuario`);
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `compras_ibfk_3` (`id_inventario`),
+  ADD KEY `id_producto` (`id_producto`);
 
 --
 -- Indices de la tabla `direccion`
@@ -282,7 +246,9 @@ ALTER TABLE `direccion`
 -- Indices de la tabla `inventario`
 --
 ALTER TABLE `inventario`
-  ADD PRIMARY KEY (`id_inventario`);
+  ADD PRIMARY KEY (`id_inventario`),
+  ADD KEY `id_compras` (`id_compras`),
+  ADD KEY `id_venta_detalle` (`id_venta_detalle`);
 
 --
 -- Indices de la tabla `moneda`
@@ -332,7 +298,8 @@ ALTER TABLE `usuario`
 ALTER TABLE `ventas`
   ADD PRIMARY KEY (`id_venta_detalle`),
   ADD KEY `producto` (`id_producto`),
-  ADD KEY `id_usuario` (`id_usuario`);
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `id_inventario` (`id_inventario`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -412,9 +379,16 @@ ALTER TABLE `ventas`
 -- Filtros para la tabla `compras`
 --
 ALTER TABLE `compras`
-  ADD CONSTRAINT `compras_ibfk_1` FOREIGN KEY (`moneda`) REFERENCES `moneda` (`id_moneda`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `compras_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `compras_ibfk_3` FOREIGN KEY (`moneda`) REFERENCES `moneda` (`id_moneda`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `compras_ibfk_3` FOREIGN KEY (`id_inventario`) REFERENCES `inventario` (`id_inventario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `compras_ibfk_4` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `inventario`
+--
+ALTER TABLE `inventario`
+  ADD CONSTRAINT `inventario_ibfk_1` FOREIGN KEY (`id_compras`) REFERENCES `compras` (`id_compras`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `inventario_ibfk_2` FOREIGN KEY (`id_venta_detalle`) REFERENCES `ventas` (`id_venta_detalle`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `moneda`
@@ -442,7 +416,8 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `ventas`
   ADD CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `ventas_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `ventas_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ventas_ibfk_3` FOREIGN KEY (`id_inventario`) REFERENCES `inventario` (`id_inventario`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

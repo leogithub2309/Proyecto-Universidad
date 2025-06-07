@@ -46,7 +46,9 @@ export class AddVentasComponent  implements OnInit {
       titulo_producto: new FormControl('', [Validators.required, Validators.pattern(/^[A-Za-z]/)]),
       tipo_moneda: new FormControl('', [Validators.required]),
       monto_moneda: new FormControl('', [Validators.required, Validators.pattern(/^(\d+(\.\d+)?|\.\d+)$/)]),
-    })
+      id_inventario: new FormControl('', [Validators.required]),
+      cantidad_inventario: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]$/)]),
+    });
   }
 
   ngOnInit() {

@@ -45,6 +45,10 @@ export const routes: Routes = [
     path: 'all-solds',
     loadComponent: () => import('./pages/all-solds/all-solds.page').then( m => m.AllSoldsPage)
   },
+  {
+    path: 'add-inventario',
+    loadComponent: () => import('./pages/add-inventario/add-inventario.page').then( m => m.AddInventarioPage)
+  },
 
 
 
