@@ -53,10 +53,10 @@
       </ion-item>
     }
   </ion-list>
+  <div class="flex-container">
+    <span>Total Venta en {{titleVenta}} </span>
+    <span>{{titleVenta}}{{ this.totalVentas.toFixed(2)}}</span>
+  </div>
 } @else {
-  <h3>No hay Ventas Disponibles</h3>
+  <h3 class="text-list">No hay Ventas Disponibles</h3>
 }
-<div class="flex-container">
-  <span>Total Venta en {{titleVenta}} </span>
-  <span>{{titleVenta}}{{ this.totalVentas.toFixed(2)}}</span>
-</div>

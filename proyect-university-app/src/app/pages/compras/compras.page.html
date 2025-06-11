@@ -1,13 +1,19 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Compras</ion-title>
+  <ion-toolbar style="background-color:#f8f0e6 !important;">
+     <ion-buttons slot="start">
+      <ion-back-button text="Back" color="warning"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear Compra</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" style="background-color:#f8f0e6 !important;">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Compras</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <app-add-compras></app-add-compras>
+
 </ion-content>

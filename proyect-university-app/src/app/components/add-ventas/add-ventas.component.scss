@@ -14,6 +14,7 @@ form{
     justify-content: space-between;
     align-items: center;
     gap: .821rem;
+    width: 100%;
 }
 
 .input-file{
@@ -31,4 +32,18 @@ form{
     border: 1px solid transparent;
     border-radius: 50%;
     padding: 0rem;
+}
+
+.btn{
+    cursor:pointer;
+    border-radius: 50%;
+    padding: .436rem;
+    font-size: 14px;
+    color: #000;
+    width: 10%;
+    background: #fff;
+}
+
+ion-item ion-select > ion-select-option:selected {
+    color: #fff !important;
 }

@@ -1,6 +1,6 @@
 import { Component, ElementRef, inject, OnInit, resource, signal, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonInput, IonSelect, IonSelectOption, IonIcon, IonTextarea, IonButton, ToastController } from '@ionic/angular/standalone';
+import { IonInput, IonSelect, IonSelectOption, IonIcon, IonTextarea, IonButton, ToastController,IonItem } from '@ionic/angular/standalone';
 import e from 'cors';
 import { addIcons } from 'ionicons';
 import { ApiVentasService } from 'src/app/services/api-ventas.service';
@@ -12,6 +12,7 @@ import { VentasInterface } from 'src/app/model/ventas';
   templateUrl: './add-ventas.component.html',
   styleUrls: ['./add-ventas.component.scss'],
   imports:[
+    IonItem,
     IonInput,
     IonSelect,
     IonSelectOption,
