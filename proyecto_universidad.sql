@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-06-2025 a las 23:30:42
+-- Tiempo de generación: 12-06-2025 a las 20:23:39
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -88,6 +88,18 @@ CREATE TABLE `inventario` (
   `producto_inventario` varchar(70) NOT NULL,
   `foto_producto_inventario` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `inventario`
+--
+
+INSERT INTO `inventario` (`id_inventario`, `id_compras`, `id_venta_detalle`, `cantidad_inventario`, `producto_inventario`, `foto_producto_inventario`) VALUES
+(1, NULL, NULL, 30, 'Cheese Tris', 'cheese-tris.jpg'),
+(2, NULL, NULL, 50, 'Doritos', 'Doritos_logo.png'),
+(3, NULL, NULL, 22, 'Pepsi Cola 2 litros', 'istockphoto-458611985-612x612.jpg'),
+(4, NULL, NULL, 25, 'Coca Cola 2 Litros', 'kuala-lumpur-malaysia18th-july-2016-600nw-456061381.webp'),
+(5, NULL, NULL, 32, 'Pepito 800gr', 'Screenshot2024-08-19at11.01.51PM.webp'),
+(6, NULL, NULL, 20, 'Ruffles Original', 'unnamed.jpg');
 
 -- --------------------------------------------------------
 
@@ -327,7 +339,7 @@ ALTER TABLE `direccion`
 -- AUTO_INCREMENT de la tabla `inventario`
 --
 ALTER TABLE `inventario`
-  MODIFY `id_inventario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_inventario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `moneda`
