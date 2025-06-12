@@ -48,4 +48,8 @@ export class ApiVentasService {
     return this.http.get(this.url+"venta/"+id);
   }
 
+  getAllInventory(){
+    return this.http.get(this.url+"inventory");
+  }
+
 }

@@ -7,7 +7,7 @@ const tipoMoneda = async (req, res) => {
         const [data] = await pool.execute("SELECT * FROM tipo_moneda_table");
 
         if(data.length > 0){
-            return res.status(202).json({
+            return res.status(201).json({
                 title: "Success",
                 status: 201,
                 data

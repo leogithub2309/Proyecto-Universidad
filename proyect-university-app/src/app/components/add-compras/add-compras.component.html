@@ -41,7 +41,7 @@
     />
   </div>
   <div style="width: 100%; background-color: #fff; color: #000">
-    <ion-input
+    <ion-textarea
     type="text"
     color="warning"
     label="Descripcion Producto"
@@ -51,7 +51,7 @@
     fill="outline"
     formControlName="producto_detalle"
     [errorText]="this.comprasForm.get('producto_detalle')?.invalid && this.comprasForm.get('producto_detalle')?.touched ? 'El campo es requerido o inválido' : ''"
-    />
+    ></ion-textarea>
   </div>
   <div class="input-item">
     <ion-select aria-label="Choice Method of Pay" color="success" id="tipo_moneda" formControlName="tipo_moneda" placeholder="Moneda"  style="width: 10%; background-color: #fff; color: #000; 
@@ -87,9 +87,12 @@
   <ion-item class="input-item" style="border: 1px solid #333; border-radius: 4px;">
      <ion-select aria-label="Fruit" id="id_inventario" interface="modal" placeholder="Select Inventory" aria-label="Select Inventory" 
      formControlName="id_inventario" style="width: 100%; background-color: #fff; color: #000; ">
-      <ion-select-option value="apples" style="color: #eee;">Apples</ion-select-option>
-      <ion-select-option value="oranges" style="color: #eee;">Oranges</ion-select-option>
-      <ion-select-option value="bananas" style="color: #eee;">Bananas</ion-select-option>
+      @for(inventory of this.inventory(); track inventory.id_inventario;) {
+        <ion-select-option [value]="inventory.id_inventario" style="color: #eee; font-weight: bold;" class="flex-content">
+          <img [src]="'../../../assets/' + inventory.foto_producto_inventario" [alt]="inventory.producto_inventario" width="80" height="80">
+          <span style="font-size: 22px !important; font-weight: 700 !important;">{{ inventory.producto_inventario }}</span>
+        </ion-select-option>
+      }
     </ion-select>
   </ion-item>
   <div class="input-item">
@@ -106,7 +109,7 @@
       [errorText]="this.comprasForm.get('cantidad_inventario')?.invalid && this.comprasForm.get('cantidad_inventario')?.touched ? 'El campo es requerido o inválido' : ''"
     ></ion-input>
   </div>
-  <ion-button size="default" [disabled]="this.comprasForm.invalid" color="warning" expand="block" style="width: 100%; height: 3rem;">
+  <ion-button size="default" [disabled]="this.comprasForm.invalid" color="warning" expand="block" style="width: 100%; height: 3rem;" (click)="onSubmitCompras()">
     <ion-icon name="add-circle"></ion-icon>
     <span>Agregar Compra</span>
   </ion-button>

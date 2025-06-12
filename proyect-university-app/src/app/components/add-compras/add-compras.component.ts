@@ -11,6 +11,9 @@ import {
   IonButton,
   IonIcon, } from '@ionic/angular/standalone';
 import { ApiVentasService } from 'src/app/services/api-ventas.service';
+import { ApiComprasService } from 'src/app/services/api-compras.service';
+import { InventarioInterface } from 'src/app/model/inventario';
+import { Compras } from 'src/app/model/compras';
 
 @Component({
   selector: 'app-add-compras',
@@ -36,6 +39,8 @@ export class AddComprasComponent  implements OnInit {
   @ViewChild('foto_producto') foto_producto!: ElementRef;
   monedaCompras = signal<any[]>([]);
   apiVentasService = inject(ApiVentasService);
+  apiComprasService = inject(ApiComprasService);
+  inventory = signal<InventarioInterface[]>([]);
 
   constructor() {
 
@@ -58,6 +63,41 @@ export class AddComprasComponent  implements OnInit {
       },
       error: (err) => console.error(err)
     });
+
+    this.apiComprasService.getAllInventory().subscribe({
+      next: (response: any) => {
+          this.inventory.set(response.data);
+          console.log(this.inventory());
+      },
+      error: (err) => console.error(err)
+    });
+
+  }
+
+  onSubmitCompras(){
+
+    let userId = this.decripDataSession().userId;
+
+    const COMPRAS: Compras = {
+      compra_detalle: this.comprasForm.get('compra_detalle')?.value,
+      producto_detalle: this.comprasForm.get('producto_detalle')?.value,
+      titulo_producto: this.comprasForm.get('titulo_producto')?.value,
+      tipo_moneda: this.comprasForm.get('tipo_moneda')?.value,
+      monto_moneda: Number(this.comprasForm.get('monto_moneda')?.value),
+      id_inventario: Number(this.comprasForm.get('id_inventario')?.value),
+      cantidad_inventario: Number(this.comprasForm.get('cantidad_inventario')?.value),
+      foto_producto: this.images.name,
+    }
+
+    console.log(COMPRAS);
+
+    this.apiComprasService.createNewSold(COMPRAS, userId).subscribe({
+      next: (response) => {
+        console.log(response);
+      },
+      error: (err) => console.error(err)
+    });
+
   }
 
 
@@ -70,6 +110,24 @@ export class AddComprasComponent  implements OnInit {
 
     this.images = event.target.files[0];
   }
+
+
+  decripDataSession(){
+
+    let separate = String(sessionStorage.getItem("tokenUserSession")).split(".");
+
+    const encrypt = window.atob(separate[1]),
+      objectParse = JSON.parse(encrypt);
+
+    return {
+      user: objectParse.user,
+      rol: objectParse.rol,
+      userId : objectParse.userId
+    }
+
+  }
+
+
 
 
 }

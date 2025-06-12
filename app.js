@@ -7,6 +7,8 @@ import authControllers from './controllers/auth.controllers.js';
 import roles from './controllers/auth.user.controllers.js';
 import tipoMoneda from './routes/tipo.moneda.route.js';
 import ventasRoutes from './routes/ventas.routes.js';
+import inventarioRoutes from './routes/inventario.routes.js';
+import comprasRoutes from './routes/compras.routes.js';
 
 const app = express(),
     port = process.env.PORT || 3000;
@@ -35,6 +37,9 @@ app.post("/createVenta/:idUser", ventasRoutes.createVenta);
 app.get("/firstVentas", ventasRoutes.getVentasSelects);
 app.get("/allVentas", ventasRoutes.getAllVentas);
 app.get("/venta/:id", ventasRoutes.getSingleVentas);
+app.get("/inventory", inventarioRoutes.getInventory);
+app.post("/createCompra/:id_usuario", comprasRoutes.createSold);
+
 
 //Server Listen
 app.listen(port, () => {

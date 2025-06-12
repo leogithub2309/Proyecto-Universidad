@@ -91,9 +91,12 @@
   <ion-item class="input-item" style="border: 1px solid #333; border-radius: 4px;">
      <ion-select aria-label="Fruit" id="id_inventario" interface="modal" placeholder="Select fruit" aria-label="Select Inventory" 
      formControlName="id_inventario" style="width: 100%; background-color: #fff; color: #000; ">
-      <ion-select-option value="apples" style="color: #eee;">Apples</ion-select-option>
-      <ion-select-option value="oranges" style="color: #eee;">Oranges</ion-select-option>
-      <ion-select-option value="bananas" style="color: #eee;">Bananas</ion-select-option>
+      @for(inventario of this.inventario(); track inventario.id_inventario;) {
+        <ion-select-option [value]="inventario.id_inventario" style="color: #eee; font-weight: bold;" class="flex-content">
+          <img [src]="'../../../assets/' + inventario.foto_producto_inventario" [alt]="inventario.producto_inventario" width="80" height="80">
+          <span style="font-size: 22px !important; font-weight: 700 !important;">{{ inventario.producto_inventario }}</span>
+        </ion-select-option>
+      }
     </ion-select>
   </ion-item>
   <div class="input-item">

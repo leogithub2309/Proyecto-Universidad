@@ -6,6 +6,7 @@ import { addIcons } from 'ionicons';
 import { ApiVentasService } from 'src/app/services/api-ventas.service';
 import crypto from 'crypto-js';
 import { VentasInterface } from 'src/app/model/ventas';
+import { InventarioInterface } from 'src/app/model/inventario';
 
 @Component({
   selector: 'app-add-ventas',
@@ -30,6 +31,8 @@ export class AddVentasComponent  implements OnInit {
   apiVentasService = inject(ApiVentasService);
 
   typeMoney = signal<any[]>([]);
+
+  inventario = signal<any[]>([]);
 
   toastControllers = inject(ToastController);
 
@@ -60,7 +63,12 @@ export class AddVentasComponent  implements OnInit {
       error: (err) => console.error(err)
     });
 
-    console.info(this.decripDataSession());
+    this.apiVentasService.getAllInventory().subscribe({
+      next: (res: any) => {
+        this.inventario.set(res.data);
+      },
+      error: (err) => console.error(err)
+    })
   }
 
 

@@ -44,7 +44,7 @@ const createSold = async (req, res) => {
             return res.status(202).json({
                 title: "Success",
                 status: 202,
-                resultVenta
+                resultCompra
             });
         }
         
@@ -58,4 +58,9 @@ const createSold = async (req, res) => {
         });
     }
 
+}
+
+
+export default {
+    createSold
 }   
