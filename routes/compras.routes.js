@@ -1,12 +1,12 @@
 import pool from "../database.js";
 
 const createSold = async (req, res) => {
-
+    
     try {
-
+       
         let { compra_detalle, id_inventario, monto_moneda, id_tipo_moneda, producto_detalle, titulo_producto, tipo_moneda, foto_producto, cantidad_inventario} = req.body;
 
-        let { id_usuario } = req.params;
+        let { id } = req.params;
 
         if(!compra_detalle || !titulo_compra || !producto_detalle || !titulo_producto || !monto_moneda || !tipo_moneda || !id_tipo_moneda || !foto_producto || !cantidad_inventario) {
             return res.status(404).json({
@@ -20,21 +20,21 @@ const createSold = async (req, res) => {
             "INSERT INTO moneda(id_tipo_moneda, monto_moneda) VALUES(?, ?)", 
             [id_tipo_moneda, monto_moneda]
         );
-
+        console.log(req.body);
         const [resultProducto] = await pool.query(
             "INSERT INTO producto(producto_detalle, titulo_producto, moneda ,foto_producto) VALUES(?,?,?,?)",
             [producto_detalle, titulo_producto, resultMoneda.insertId, foto_producto]
         );
 
         const [resultCompra] = await pool.query(
-            "INSERT INTO compras(compra_detalle, id_inventario, id_producto, id_usuario) VALUES(?,?,?,?)",
-            [compra_detalle, id_inventario, resultProducto.insertId, id_usuario]
+            "INSERT INTO compras(compra_detalle, id_usuario, id_producto, id_inventario) VALUES(?,?,?,?)",
+            [compra_detalle, id, resultProducto.insertId, id_inventario]
         );
-
+        
         const [dataInventario] = await pool.query(`SELECT cantidad_inventario FROM inventario WHERE id_inventario = ${id_inventario}`);
-
+        
         if(resultCompra.length > 0){
-            let sumInventario = dataInventario.cantidad_inventario + cantidad_inventario;
+            let sumInventario = dataInventario[0].cantidad_inventario + cantidad_inventario;
             
             const [updateResult] = await pool.query(
                 "UPDATE inventario SET cantidad_inventario = ? WHERE id_inventario = ?",

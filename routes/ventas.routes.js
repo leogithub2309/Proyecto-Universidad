@@ -27,7 +27,7 @@ const createVenta = async (req, res) => {
         );
 
         const [resultVenta] = await pool.query(
-            "INSERT INTO ventas(venta_detalle, id_producto, id_inventario ,id_usuario) VALUES(?, ?, ?)",
+            "INSERT INTO ventas(venta_detalle, id_producto, id_inventario ,id_usuario) VALUES(?, ?, ?, ?)",
             [venta_detalle, resultProducto.insertId, id_inventario ,idUser]
         );
 
@@ -35,7 +35,7 @@ const createVenta = async (req, res) => {
 
         if(resultVenta.length > 0){
 
-            let restInventario = dataInventario.cantidad_inventario - cantidad_inventario
+            let restInventario = dataInventario[0].cantidad_inventario - cantidad_inventario;
 
             const [updateResult] = await pool.query(
                 "UPDATE inventario SET cantidad_inventario = ? WHERE id_inventario = ?",

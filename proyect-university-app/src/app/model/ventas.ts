@@ -6,4 +6,6 @@ export interface VentasInterface {
     monto_moneda: string;
     foto_producto: string;
     idUser: number;
+    id_inventario: number;
+    cantidad_inventario: number;
 }

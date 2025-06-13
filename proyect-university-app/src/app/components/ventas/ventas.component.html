@@ -23,14 +23,14 @@
   </ion-select>
   </form>
 </div>
-@if (this.ventas().length > 0) {
+@if (this.ventas().length !== 0 && this.ventas().length < 5) {
   <ion-list [inset]="true" style="padding: 0 !important; position: relative;">
     <ion-item>
       <h3 class="ventas-title">Ventas</h3>
       <button type="button" class="btn-details" [routerLink]="['/all-sales']">
-      <span>View all</span>
-      <ion-icon name="chevron-forward-outline"></ion-icon>
-    </button>
+        <span>View all</span>
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </button>
     </ion-item>
     @for (venta of this.ventas(); track venta.id_venta_detalle;) {
       <ion-item [button]="true" [routerLink]="['/ventas-details/'+venta.id_venta_detalle]">

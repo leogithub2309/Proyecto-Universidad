@@ -7,6 +7,7 @@ import { ApiVentasService } from 'src/app/services/api-ventas.service';
 import crypto from 'crypto-js';
 import { VentasInterface } from 'src/app/model/ventas';
 import { InventarioInterface } from 'src/app/model/inventario';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-ventas',
@@ -30,6 +31,8 @@ export class AddVentasComponent  implements OnInit {
 
   apiVentasService = inject(ApiVentasService);
 
+  router = inject(Router);
+
   typeMoney = signal<any[]>([]);
 
   inventario = signal<any[]>([]);
@@ -51,7 +54,7 @@ export class AddVentasComponent  implements OnInit {
       tipo_moneda: new FormControl('', [Validators.required]),
       monto_moneda: new FormControl('', [Validators.required, Validators.pattern(/^(\d+(\.\d+)?|\.\d+)$/)]),
       id_inventario: new FormControl('', [Validators.required]),
-      cantidad_inventario: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]$/)]),
+      cantidad_inventario: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]/)]),
     });
   }
 
@@ -91,8 +94,12 @@ export class AddVentasComponent  implements OnInit {
       tipo_moneda: this.formVenta.get('tipo_moneda')?.value,
       monto_moneda: this.formVenta.get('monto_moneda')?.value,
       foto_producto: this.images.name,
-      idUser: this.decripDataSession().userId
+      idUser: this.decripDataSession().userId,
+      id_inventario: this.formVenta.get('id_inventario')?.value,
+      cantidad_inventario: this.formVenta.get('cantidad_inventario')?.value
     }
+
+    console.log(VENTA);
 
     // Agregar una nueva venta
     this.apiVentasService.createNewDetailsVenta(VENTA).subscribe({
@@ -111,7 +118,7 @@ export class AddVentasComponent  implements OnInit {
 
         this.formVenta.reset();
           const toast = await this.toastControllers.create({
-            message: err.description || "Se agregò un nuevo usuario correctamente",
+            message: err.description || "Error, no se pudo agregar un nuevo usuario",
             duration: 3000,
             color: "success",
             position:"bottom"
@@ -148,6 +155,10 @@ export class AddVentasComponent  implements OnInit {
       position:"bottom"
     });
     await toast.present();
+    
+    setTimeout(() => {
+      this.router.navigate(['/dashboard']);
+    }, 1000);
   }
 
 

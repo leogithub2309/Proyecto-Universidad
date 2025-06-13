@@ -19,7 +19,6 @@ import { Compras } from 'src/app/model/compras';
   selector: 'app-add-compras',
   templateUrl: './add-compras.component.html',
   imports: [
-    IonItem,
     IonInput,
     IonSelect,
     IonSelectOption,

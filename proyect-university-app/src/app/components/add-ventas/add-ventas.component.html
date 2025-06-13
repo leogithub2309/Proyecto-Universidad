@@ -88,10 +88,9 @@
       [errorText]="this.formVenta.get('monto_moneda')?.invalid && this.formVenta.get('monto_moneda')?.touched ? 'El campo es requerido o inválido' : ''"
     ></ion-input>
   </div>
-  <ion-item class="input-item" style="border: 1px solid #333; border-radius: 4px;">
-     <ion-select aria-label="Fruit" id="id_inventario" interface="modal" placeholder="Select fruit" aria-label="Select Inventory" 
-     formControlName="id_inventario" style="width: 100%; background-color: #fff; color: #000; ">
-      @for(inventario of this.inventario(); track inventario.id_inventario;) {
+  <ion-item class="input-item">
+    <ion-select interface="modal" placeholder="Select Item" aria-label="Inventory" id="id_inventario" interface="modal" aria-label="Select Inventory" formControlName="id_inventario">
+     @for(inventario of this.inventario(); track inventario.id_inventario;) {
         <ion-select-option [value]="inventario.id_inventario" style="color: #eee; font-weight: bold;" class="flex-content">
           <img [src]="'../../../assets/' + inventario.foto_producto_inventario" [alt]="inventario.producto_inventario" width="80" height="80">
           <span style="font-size: 22px !important; font-weight: 700 !important;">{{ inventario.producto_inventario }}</span>
@@ -113,8 +112,8 @@
     ></ion-input>
   </div>
   <ion-button size="default" [disabled]="this.formVenta.invalid" color="warning" expand="block" style="height: 3rem;" (click)="onSubmit()">
-    <ion-icon name="add-circle"></ion-icon>
-    <span>Agregar Producto</span>
+    <ion-icon name="cash-outline"></ion-icon> 
+    <span style="margin-left: 1rem;">Vender Producto</span>
   </ion-button>
 
 </form><!-- formControlName="username" -->

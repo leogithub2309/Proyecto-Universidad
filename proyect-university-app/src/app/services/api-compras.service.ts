@@ -8,7 +8,7 @@ export class ApiComprasService {
 
   http = inject(HttpClient);
 
-  private readonly url = "http://localhost:3000/";
+  private readonly url = "http://localhost:3000/"; 
 
   private readonly tasa = "https://pydolarve.org/api/v2/";
 
@@ -19,8 +19,8 @@ export class ApiComprasService {
     return this.http.get(this.url+"inventory");
   }
 
-  createNewSold(form: any, id_usuario: number){
-    return this.http.post(this.url+"createCompra/"+id_usuario, form);
+  createNewSold(form: any, id: number){
+    return this.http.post(this.url+"createCompra/"+id, form);
   }
 
   getCurrentCurrency(currency: string){

@@ -10,6 +10,7 @@ import ventasRoutes from './routes/ventas.routes.js';
 import inventarioRoutes from './routes/inventario.routes.js';
 import comprasRoutes from './routes/compras.routes.js';
 
+
 const app = express(),
     port = process.env.PORT || 3000;
 
@@ -38,7 +39,7 @@ app.get("/firstVentas", ventasRoutes.getVentasSelects);
 app.get("/allVentas", ventasRoutes.getAllVentas);
 app.get("/venta/:id", ventasRoutes.getSingleVentas);
 app.get("/inventory", inventarioRoutes.getInventory);
-app.post("/createCompra/:id_usuario", comprasRoutes.createSold);
+app.post("/createCompra/:id", comprasRoutes.createSold);
 
 
 //Server Listen

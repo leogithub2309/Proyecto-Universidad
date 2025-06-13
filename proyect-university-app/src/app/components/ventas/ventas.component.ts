@@ -36,7 +36,7 @@ export class VentasComponent  implements OnInit {
   constructor() { }
 
   ngOnInit(){
-    this.apiVentasServices.getFirstVentas().subscribe({
+    this.apiVentasServices.getAllVentas().subscribe({
       next: (res: any) => {
         this.ventas.set(res.data);
         this.getToalBs(res.data);

@@ -84,9 +84,8 @@
       [errorText]="this.comprasForm.get('monto_moneda')?.invalid && this.comprasForm.get('monto_moneda')?.touched ? 'El campo es requerido o inválido' : ''"
     ></ion-input>
   </div>
-  <ion-item class="input-item" style="border: 1px solid #333; border-radius: 4px;">
-     <ion-select aria-label="Fruit" id="id_inventario" interface="modal" placeholder="Select Inventory" aria-label="Select Inventory" 
-     formControlName="id_inventario" style="width: 100%; background-color: #fff; color: #000; ">
+  <div class="input-item" style="border: 1px solid #333; border-radius: 4px; background-color: #fff; padding: 0 10px;">
+     <ion-select aria-label="Fruit" id="id_inventario" interface="modal" placeholder="Select Inventory" aria-label="Select Inventory" formControlName="id_inventario">
       @for(inventory of this.inventory(); track inventory.id_inventario;) {
         <ion-select-option [value]="inventory.id_inventario" style="color: #eee; font-weight: bold;" class="flex-content">
           <img [src]="'../../../assets/' + inventory.foto_producto_inventario" [alt]="inventory.producto_inventario" width="80" height="80">
@@ -94,7 +93,7 @@
         </ion-select-option>
       }
     </ion-select>
-  </ion-item>
+  </div>
   <div class="input-item">
     <ion-input 
       type="number"
