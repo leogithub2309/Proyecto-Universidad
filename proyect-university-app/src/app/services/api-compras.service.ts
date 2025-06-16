@@ -20,12 +20,16 @@ export class ApiComprasService {
   }
 
   createNewSold(form: any, id: number){
-    return this.http.post(this.url+"createCompra/"+id, form);
+    return this.http.post(this.url+"compra/"+id, form);
   }
 
   getCurrentCurrency(currency: string){
     //dollar?page=criptodolar&format_date=default&rounded_price=true
     return this.http.get(this.tasa+`${currency}?page=criptodolar&format_date=default&rounded_price=true`)
+  }
+
+  getAllCompras(){
+    return this.http.get(this.url+"AllCompras");
   }
 
 }

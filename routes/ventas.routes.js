@@ -2,60 +2,85 @@ import pool from "../database.js";
 
 const createVenta = async (req, res) => {
 
+    let {venta_detalle, producto_detalle, titulo_producto, tipo_moneda, monto_moneda, foto_producto, id_inventario, cantidad_inventario} = req.body;
+
+    let {idUser} = req.params;
+
+    if(!venta_detalle || !producto_detalle || !titulo_producto || !tipo_moneda || !monto_moneda || !cantidad_inventario) {
+        return res.status(404).json({
+            title: "Error",
+            status: 404,
+            description: "Error, los campos del formulario no pueden estar vacios."
+        });
+    }
+
+    let connection; // Declarar la conexión fuera del try para que sea accesible en finally
+
     try{
 
-        let {venta_detalle, producto_detalle, titulo_producto, tipo_moneda, monto_moneda, foto_producto, id_inventario, cantidad_inventario} = req.body;
-
-        let {idUser} = req.params;
-
-        if(!venta_detalle || !producto_detalle || !titulo_producto || !tipo_moneda || !monto_moneda || !cantidad_inventario) {
-            return res.status(404).json({
-                title: "Error",
-                status: 404,
-                description: "Error, los campos del formulario no pueden estar vacios."
-            });
-        }
+        connection = await pool.getConnection();
+        await connection.beginTransaction();
 
         const [resultMoneda] = await pool.query(
             "INSERT INTO moneda(id_tipo_moneda, monto_moneda) VALUES(?, ?)", 
             [tipo_moneda, monto_moneda]
         );
 
+        if(!resultMoneda.insertId){
+            throw new Error("No se pudo insertar en la tabla moneda"); 
+        }
+
         const [resultProducto] = await pool.query(
             "INSERT INTO producto(producto_detalle, titulo_producto, moneda ,foto_producto) VALUES(?,?,?,?)",
             [producto_detalle, titulo_producto, resultMoneda.insertId, foto_producto]
         );
+
+        if(!resultProducto.insertId){
+            throw new Error("No se pudo realizar la inserción en la tabla Producto");
+        }
 
         const [resultVenta] = await pool.query(
             "INSERT INTO ventas(venta_detalle, id_producto, id_inventario ,id_usuario) VALUES(?, ?, ?, ?)",
             [venta_detalle, resultProducto.insertId, id_inventario ,idUser]
         );
 
-        const [dataInventario] = await pool.query(`SELECT cantidad_inventario FROM inventario WHERE id_inventario = ${id_inventario}`);
-
-        if(resultVenta.length > 0){
-
-            let restInventario = dataInventario[0].cantidad_inventario - cantidad_inventario;
-
-            const [updateResult] = await pool.query(
-                "UPDATE inventario SET cantidad_inventario = ? WHERE id_inventario = ?",
-                [restInventario, id_inventario]
-            );
-
-            return res.status(202).json({
-                title: "Success",
-                status: 202,
-                resultVenta
-            });
+        if(!resultVenta.insertId){
+            throw new Error("Error durante la inserción en la tabla Ventas");
         }
 
-    }catch(error){
-        return res.status(404).json({
-            title: "Error",
-            status: 404,
-            description: "Error, no se pudo conectar con la API.",
-            error
+        const [updateResult] = await pool.query(
+            "UPDATE inventario SET cantidad_inventario = cantidad_inventario - ? WHERE id_inventario = ?",
+            [cantidad_inventario, id_inventario]
+        );
+
+        if (updateResult.affectedRows === 0) {
+            throw new Error("No se pudo actualizar el inventario o el id_inventario no existe.");
+        }
+
+        await connection.commit();
+
+        return res.status(202).json({
+            title: "Venta Exitosa",
+            status: 202,
+            description: "La venta se realizó correctamente.",
+            idVenta: resultVenta.insertId
         });
+
+    }catch(error){
+        if (connection) {
+            await connection.rollback(); // Revertir la transacción en caso de error
+        }
+        console.error("Error al procesar la venta:", error); // Log del error para depuración
+        return res.status(500).json({
+            title: "Error Interno del Servidor",
+            status: 500,
+            description: "Ocurrió un error al procesar la compra. Por favor, inténtalo de nuevo más tarde.",
+            error: error.message // Incluir el mensaje de error para depuración (opcional en producción)
+        });
+    }finally {
+        if (connection) {
+            connection.release(); // Siempre liberar la conexión al pool
+        }
     }
 }
 
@@ -67,6 +92,8 @@ const getVentasSelects = async (req, res) => {
         const [data] = await pool.execute(
             "SELECT * FROM ventas v INNER JOIN producto p ON v.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda WHERE v.id_venta_detalle < 6"
         );
+
+        (await pool.getConnection()).commit();
 
         if(data.length > 0){
             return res.status(202).json({
@@ -83,6 +110,8 @@ const getVentasSelects = async (req, res) => {
             description: "Error, no se pudo conectar con la API.",
             error
         });
+    }finally {
+        (await pool.getConnection()).release();
     }
 }
 
@@ -93,6 +122,8 @@ const getAllVentas = async (req, res) => {
         const [data] = await pool.execute(
             "SELECT * FROM ventas v INNER JOIN producto p ON v.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda"
         );
+
+        (await pool.getConnection()).commit();
 
         if(data.length > 0){
             return res.status(202).json({

@@ -9,7 +9,9 @@ import {
   IonSelectOption,
   IonTextarea,
   IonButton,
-  IonIcon, } from '@ionic/angular/standalone';
+  IonIcon,
+  ToastController
+} from '@ionic/angular/standalone';
 import { ApiVentasService } from 'src/app/services/api-ventas.service';
 import { ApiComprasService } from 'src/app/services/api-compras.service';
 import { InventarioInterface } from 'src/app/model/inventario';
@@ -40,6 +42,8 @@ export class AddComprasComponent  implements OnInit {
   apiVentasService = inject(ApiVentasService);
   apiComprasService = inject(ApiComprasService);
   inventory = signal<InventarioInterface[]>([]);
+  toastControllers = inject(ToastController);
+  compras = signal<Compras[]>([]);
 
   constructor() {
 
@@ -66,7 +70,6 @@ export class AddComprasComponent  implements OnInit {
     this.apiComprasService.getAllInventory().subscribe({
       next: (response: any) => {
           this.inventory.set(response.data);
-          console.log(this.inventory());
       },
       error: (err) => console.error(err)
     });
@@ -88,13 +91,28 @@ export class AddComprasComponent  implements OnInit {
       foto_producto: this.images.name,
     }
 
-    console.log(COMPRAS);
-
     this.apiComprasService.createNewSold(COMPRAS, userId).subscribe({
-      next: (response) => {
-        console.log(response);
+      next: async (res: any) => {
+        console.log(res);
+         const toast = await this.toastControllers.create({
+            message: res.description || "Se agregó una nueva compra correctamente",
+            duration: 3000,
+            color: "success",
+            position:"bottom"
+          });
+          await toast.present();
+          this.comprasForm.reset();
       },
-      error: (err) => console.error(err)
+      error: async (err) => {
+        console.error(err);
+        const toast = await this.toastControllers.create({
+            message: err.description || "Error, no se pudo agregar una nueva compra",
+            duration: 3000,
+            color: "danger",
+            position:"bottom"
+          });
+          await toast.present();
+      }
     });
 
   }
