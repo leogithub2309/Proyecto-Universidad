@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-06-2025 a las 20:23:39
+-- Tiempo de generación: 16-06-2025 a las 02:26:56
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -55,6 +55,16 @@ CREATE TABLE `compras` (
   `id_inventario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Volcado de datos para la tabla `compras`
+--
+
+INSERT INTO `compras` (`id_compras`, `compra_detalle`, `fecha_compra`, `id_usuario`, `id_producto`, `id_inventario`) VALUES
+(1, 'Bulto de Coca Cola', '2025-06-15 17:57:11', 9, 16, 4),
+(2, 'Bulto de Pepsi Cola', '2025-06-15 18:02:47', 9, 17, 3),
+(3, 'Compra de Bulto de Pepito', '2025-06-15 18:38:25', 9, 18, 5),
+(4, 'Compra de Bulto de Pepito', '2025-06-15 18:41:32', 9, 19, 5);
+
 -- --------------------------------------------------------
 
 --
@@ -96,10 +106,10 @@ CREATE TABLE `inventario` (
 INSERT INTO `inventario` (`id_inventario`, `id_compras`, `id_venta_detalle`, `cantidad_inventario`, `producto_inventario`, `foto_producto_inventario`) VALUES
 (1, NULL, NULL, 30, 'Cheese Tris', 'cheese-tris.jpg'),
 (2, NULL, NULL, 50, 'Doritos', 'Doritos_logo.png'),
-(3, NULL, NULL, 22, 'Pepsi Cola 2 litros', 'istockphoto-458611985-612x612.jpg'),
+(3, NULL, NULL, 27, 'Pepsi Cola 2 litros', 'istockphoto-458611985-612x612.jpg'),
 (4, NULL, NULL, 25, 'Coca Cola 2 Litros', 'kuala-lumpur-malaysia18th-july-2016-600nw-456061381.webp'),
-(5, NULL, NULL, 32, 'Pepito 800gr', 'Screenshot2024-08-19at11.01.51PM.webp'),
-(6, NULL, NULL, 20, 'Ruffles Original', 'unnamed.jpg');
+(5, NULL, NULL, 62, 'Pepito 800gr', 'Screenshot2024-08-19at11.01.51PM.webp'),
+(6, NULL, NULL, 16, 'Ruffles Original', 'unnamed.jpg');
 
 -- --------------------------------------------------------
 
@@ -112,6 +122,26 @@ CREATE TABLE `moneda` (
   `id_tipo_moneda` int(11) NOT NULL,
   `monto_moneda` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `moneda`
+--
+
+INSERT INTO `moneda` (`id_moneda`, `id_tipo_moneda`, `monto_moneda`) VALUES
+(7, 3, 125.54),
+(8, 3, 323.00),
+(9, 3, 323.00),
+(10, 3, 323.00),
+(11, 3, 323.00),
+(12, 3, 323.00),
+(13, 3, 323.00),
+(14, 1, 20.00),
+(15, 3, 400.00),
+(16, 1, 15.00),
+(17, 3, 700.00),
+(18, 1, 15.00),
+(19, 1, 15.00),
+(20, 3, 250.00);
 
 -- --------------------------------------------------------
 
@@ -148,6 +178,26 @@ CREATE TABLE `producto` (
   `moneda` int(11) NOT NULL,
   `foto_producto` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`id_producto`, `producto_detalle`, `titulo_producto`, `fecha`, `moneda`, `foto_producto`) VALUES
+(7, 'Se vendieron dos cheese tris', 'Cheese Tris', '2025-06-12 22:46:45', 7, 'cheese-tris.jpg'),
+(8, 'grgwergwer', 'fhjfghjfgf', '2025-06-12 22:52:33', 8, 'cheese-tris.jpg'),
+(9, 'Se vendieron 4 cheese tris', 'Cheese Tris', '2025-06-12 22:55:47', 9, 'cheese-tris.jpg'),
+(10, 'Se vendieron 4 cheese tris', 'Cheese Tris', '2025-06-12 22:58:56', 10, 'cheese-tris.jpg'),
+(11, 'Se vendieron 4 cheese tris', 'Cheese Tris', '2025-06-12 22:59:34', 11, 'cheese-tris.jpg'),
+(12, 'Se vendieron 4 cheese tris', 'Cheese Tris', '2025-06-12 23:02:11', 12, 'cheese-tris.jpg'),
+(13, 'Se vendieron 4 cheese tris', 'Cheese Tris', '2025-06-12 23:02:53', 13, 'cheese-tris.jpg'),
+(14, 'Se vendieron cinco ruffles', 'Ruffles', '2025-06-12 23:04:16', 14, 'unnamed.jpg'),
+(15, 'Un total de 5 doritos fueron vendidos', 'Doritos', '2025-06-12 23:21:37', 15, 'Doritos_logo.png'),
+(16, 'Se compro un bulto de Coca Cola de 2 litros', 'Coca Cola', '2025-06-15 17:57:11', 16, 'kuala-lumpur-malaysia18th-july-2016-600nw-456061381.webp'),
+(17, 'Se compro un bulto de Pepsi Cola de 2 litros', 'Pepsi Cola', '2025-06-15 18:02:47', 17, 'istockphoto-458611985-612x612.jpg'),
+(18, 'Se restableció el pepito que ya no quedaba', 'Pepito', '2025-06-15 18:38:25', 18, 'Screenshot2024-08-19at11.01.51PM.webp'),
+(19, 'Se restableció el pepito que ya no quedaba', 'Pepito', '2025-06-15 18:41:32', 19, 'Screenshot2024-08-19at11.01.51PM.webp'),
+(20, 'Se vendieron 4 ruffles el cliente pagó en bolívare', 'Ruffles', '2025-06-15 19:41:14', 20, 'unnamed.jpg');
 
 -- --------------------------------------------------------
 
@@ -228,6 +278,16 @@ CREATE TABLE `ventas` (
   `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `ventas`
+--
+
+INSERT INTO `ventas` (`id_venta_detalle`, `venta_detalle`, `id_producto`, `id_inventario`, `fecha`, `id_usuario`) VALUES
+(7, 'Venta de Cheese Tris', 12, 1, '2025-06-12 23:02:11', 9),
+(9, 'Venta de ruffles', 14, 6, '2025-06-12 23:04:16', 9),
+(10, 'Venta de Doritos', 15, 2, '2025-06-12 23:21:37', 9),
+(11, 'Venta de 4 ruffles', 20, 6, '2025-06-15 19:41:14', 9);
 
 --
 -- Índices para tablas volcadas
@@ -327,7 +387,7 @@ ALTER TABLE `cedula_table`
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id_compras` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_compras` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `direccion`
@@ -345,7 +405,7 @@ ALTER TABLE `inventario`
 -- AUTO_INCREMENT de la tabla `moneda`
 --
 ALTER TABLE `moneda`
-  MODIFY `id_moneda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_moneda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `nombre_usuario`
@@ -357,7 +417,7 @@ ALTER TABLE `nombre_usuario`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
@@ -381,7 +441,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id_venta_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_venta_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restricciones para tablas volcadas
