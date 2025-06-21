@@ -102,6 +102,11 @@ export class VentasComponent  implements OnInit {
         });
 
         this.totalVentas = this.totalVentas / this.currency();
+
+        if(event.target.value === "bolívares"){
+            this.totalVentas = this.totalVentas * this.currency();
+            this.titleVenta = "Bs";
+          }
       },
       error: (err) => console.error(err)
     });

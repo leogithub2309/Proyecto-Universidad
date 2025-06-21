@@ -88,10 +88,10 @@
      <ion-select aria-label="Fruit" id="id_inventario" interface="modal" placeholder="Select Inventory" aria-label="Select Inventory" formControlName="id_inventario">
       @for(inventory of this.inventory(); track inventory.id_inventario;) {
         <ion-select-option [value]="inventory.id_inventario" style="color: #eee; font-weight: bold;" class="flex-content">
-          <span style="font-size: 22px !important; font-weight: 700 !important;">
-            <img [src]="'../../../assets/' + inventory.foto_producto_inventario" [alt]="inventory.producto_inventario" width="80" height="80">
-            {{ inventory.producto_inventario }}
-          </span>
+          <div style="font-size: 22px !important; font-weight: 700 !important;">
+            {{ inventory.producto_inventario }}  
+             <strong>Cantidad: {{  inventory.cantidad_inventario }}</strong>
+          </div>
         </ion-select-option>
       }
     </ion-select>

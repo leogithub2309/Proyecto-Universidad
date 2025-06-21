@@ -25,7 +25,7 @@ export class ApiComprasService {
 
   getCurrentCurrency(currency: string){
     //dollar?page=criptodolar&format_date=default&rounded_price=true
-    return this.http.get(this.tasa+`${currency}?page=criptodolar&format_date=default&rounded_price=true`)
+    return this.http.get(this.tasa+`${currency}`);
   }
 
   getAllCompras(){

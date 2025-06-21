@@ -53,20 +53,20 @@
     </div>
   </ion-tab>
   <ion-tab tab="compras">
-    <div id="radio-page">
+    <div id="radio-page" style=" background-color: #f8f0e6; overflow: auto; scrollbar-width: none;">
       <ion-header>
         <ion-toolbar>
           <ion-title>Compras</ion-title>
         </ion-toolbar>
       </ion-header>
-      <div style="height: 100vh; background-color: #f8f0e6;">
+      <div>
         <app-compras></app-compras>
       </div>
     </div>
   </ion-tab>
   <ion-tab-bar slot="bottom">
      <ion-tab-button tab="graficos">
-      <ion-icon name="cash-outline"></ion-icon>
+      <ion-icon name="bar-chart-outline"></ion-icon>
       graficos
     </ion-tab-button>
     <ion-tab-button tab="ventas">
@@ -74,7 +74,7 @@
       ventas
     </ion-tab-button>
     <ion-tab-button tab="compras">
-      <ion-icon name="trending-up-outline"></ion-icon>
+      <ion-icon name="trending-down-outline"></ion-icon>
       Compras
     </ion-tab-button>
   </ion-tab-bar>

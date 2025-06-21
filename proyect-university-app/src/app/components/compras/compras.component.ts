@@ -1,7 +1,9 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IonButton, IonIcon, IonItem, IonLabel, IonList, IonNote, IonSelect, IonSelectOption, IonText } from '@ionic/angular/standalone';
+import { CompraInterface, Compras } from 'src/app/model/compras';
 import { Ventas } from 'src/app/model/response';
+import { ApiComprasService } from 'src/app/services/api-compras.service';
 import { ApiVentasService } from 'src/app/services/api-ventas.service';
 
 @Component({
@@ -25,10 +27,13 @@ export class ComprasComponent  implements OnInit {
 
   moneda = signal<any[]>([]);
   compras = signal<any[]>([]);
+  comprasData = signal<CompraInterface[]>([]);
   totalCompras: number = 0;
   currency = signal<number>(0);
+  symbol = signal<string>('Bs');
 
   apiVentasServices = inject(ApiVentasService);
+  apiComprasServices = inject(ApiComprasService);
 
   constructor() { }
 
@@ -39,37 +44,82 @@ export class ComprasComponent  implements OnInit {
       },
       error: (err) => console.error(err)
     })
+
+    this.apiComprasServices.getAllCompras().subscribe({
+      next: (res: any) => {
+        
+        this.comprasData.set(res.data);
+        console.log(this.comprasData());
+        this.getTotalBs(res.data);
+      },
+      error: (err) => console.error(err)
+    })
+
+    
   }
 
   getCurrency(event: any){
   
-      let currency = event.target.value === "bolívares" ? "dollar" : event.target.value,
-        convertion = 0;
+      let currency = (event.target.value === "dollar" || event.target.value === "bolívares") ? "dollar" : "euro", 
+      convertion = 0;
   
       this.totalCompras = 0;
   
       this.apiVentasServices.getCurrentCurrency(currency).subscribe({
         next: (res: any) => {
           this.currency.set(res.monitors.bcv.price);
-          this.compras().forEach((value: Ventas) => {
+          this.comprasData().forEach((value: CompraInterface) => {
             if(value.moneda === "$"){
               convertion = this.currency() * Number(value.monto_moneda);
               this.totalCompras += convertion;
             }else if(value.moneda === "€"){
               convertion = this.currency() * Number(value.monto_moneda);
               this.totalCompras += convertion;
-            }else if(value.moneda === "Bs") this.totalCompras += Number(value.monto_moneda);
+            }else if(value.moneda === "Bs"){
+              this.totalCompras += Number(value.monto_moneda);
+            }
           });
-  
+
           this.totalCompras = this.totalCompras / this.currency();
+
+          if(event.target.value === "bolívares"){
+            this.totalCompras = this.totalCompras * this.currency();
+            this.symbol.set("Bs");
+          }
+          
+          this.symbol.set(currency === "dollar" ? "$" : currency === "euro" ? "€" : currency === "bolívares" ? 'Bs' : '');
         },
         error: (err) => console.error(err)
       });
   }
 
+  getTotalBs(data: any){
+
+    let convertion = 0;
+
+    this.apiComprasServices.getCurrentCurrency("dollar").subscribe({
+      next: (res: any) => {
+        this.currency.set(res.monitors.bcv.price);
+        data.forEach((value: Ventas) => {
+          if(value.moneda === "$"){
+            convertion = this.currency() * Number(value.monto_moneda);
+            this.totalCompras += convertion;
+          }else if(value.moneda === "€"){
+            convertion = this.currency() * Number(value.monto_moneda);
+            this.totalCompras += convertion;
+          }else if(value.moneda === "Bs"){
+            this.totalCompras += Number(value.monto_moneda);
+          }
+        });
+      },
+      error: (err) => console.error(err)
+    });
+
+  }
+
   formatVenta(fecha: string){
     const date = new Date(fecha);
-    return `${date.getDate()},${date.toLocaleString('es', { month: 'long' })} ${date.getFullYear()}`;
+    return `${date.getDate()} ${date.toLocaleString('es', { month: 'long' })} ${date.getFullYear()}`;
   }
 
 }

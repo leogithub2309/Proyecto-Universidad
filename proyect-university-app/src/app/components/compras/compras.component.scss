@@ -48,3 +48,24 @@
     padding: 0 .5rem;
     color: #000;
 }
+
+.date{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    gap: 3px;
+}
+
+.date .text-subtitle{
+    color: crimson;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.date ion-note{
+    font-size: .754rem;
+}

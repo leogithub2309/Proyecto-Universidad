@@ -23,9 +23,7 @@
   </ion-select>
   </form>
 </div>
-@if (this.compras().length === 0) {
-  <h2 class="title-compras">No Hay Compras Realizadas</h2>
-} @else {
+@if (this.comprasData().length > 0 && this.comprasData().length < 6) {
   <ion-list [inset]="true" style="padding: 0 !important; position: relative;">
     <ion-item>
       <h3 class="ventas-title">Compras</h3>
@@ -34,26 +32,33 @@
       <ion-icon name="chevron-forward-outline"></ion-icon>
     </button>
     </ion-item>
-    @for (venta of this.compras(); track venta.id_venta_detalle;) {
-        <ion-item [button]="true" [routerLink]="['/ventas-details/'+venta.id_venta_detalle]">
+    @for (compras of this.comprasData(); track compras.id_compras;) {
+        <ion-item [button]="true" [routerLink]="['/ventas-details/'+compras.id_compras]">
           <ion-label style="display: flex; flex-direction: column; gap: .25rem; padding: .4rem 0; margin-right: 3rem;">
             <p style="margin: 0; padding: 0; font-size: 18px; color: #000;">
-              <strong>{{ venta.titulo_producto }}</strong>
+              <strong>{{ compras.titulo_producto }}</strong>
             </p>
             <p style="margin: 0; padding: 0;">
-              {{ venta.producto_detalle }}
+              {{ compras.producto_detalle }}
             </p>
           </ion-label>
           <aside class="date">
             <ion-text class="text-subtitle">
-              + {{ venta.moneda }}{{ venta.monto_moneda }}
+              - {{ compras.moneda }}{{ compras.monto_moneda }}
             </ion-text>
             <ion-note color="medium">
-              {{ formatVenta(venta.fecha) }}
+              {{ formatVenta(compras.fecha_compra) }}
             </ion-note>
           </aside>
         </ion-item>
       }
   </ion-list>
+  <div class="flex-container">
+    <span>Total Compras en {{ symbol() }}</span>
+    <span>{{ symbol() }}  {{  this.totalCompras.toFixed(2)}}</span>
+  </div>
+} @else {
+  <h2 class="title-compras">No Hay Compras Realizadas</h2>
+  
 }
 

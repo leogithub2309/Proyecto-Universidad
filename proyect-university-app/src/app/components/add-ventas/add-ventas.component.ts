@@ -1,7 +1,6 @@
 import { Component, ElementRef, inject, OnInit, resource, signal, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonInput, IonSelect, IonSelectOption, IonIcon, IonTextarea, IonButton, ToastController,IonItem } from '@ionic/angular/standalone';
-import e from 'cors';
 import { addIcons } from 'ionicons';
 import { ApiVentasService } from 'src/app/services/api-ventas.service';
 import crypto from 'crypto-js';
@@ -35,7 +34,7 @@ export class AddVentasComponent  implements OnInit {
 
   typeMoney = signal<any[]>([]);
 
-  inventario = signal<any[]>([]);
+  inventario = signal<InventarioInterface[]>([]);
 
   toastControllers = inject(ToastController);
 
@@ -99,12 +98,9 @@ export class AddVentasComponent  implements OnInit {
       cantidad_inventario: this.formVenta.get('cantidad_inventario')?.value
     }
 
-    console.log(VENTA);
-
     // Agregar una nueva venta
     this.apiVentasService.createNewDetailsVenta(VENTA).subscribe({
       next: async (res: any) => {
-        console.log(res);
         this.formVenta.reset();
           const toast = await this.toastControllers.create({
             message: res.description || "Se agregò un nuevo usuario correctamente",
@@ -148,13 +144,7 @@ export class AddVentasComponent  implements OnInit {
     //Reset de los campos del formulario.
     this.formVenta.reset(); 
     this.foto_producto.nativeElement.src = "../../../assets/user-svgrepo-com.svg";
-    const toast = await this.toastControllers.create({
-      message: "Se agregò una nueva venta correctamente",
-      duration: 3000,
-      color: "success",
-      position:"bottom"
-    });
-    await toast.present();
+    
     
     setTimeout(() => {
       this.router.navigate(['/dashboard']);
