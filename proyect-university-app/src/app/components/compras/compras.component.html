@@ -33,7 +33,7 @@
     </button>
     </ion-item>
     @for (compras of this.comprasData(); track compras.id_compras;) {
-        <ion-item [button]="true" [routerLink]="['/ventas-details/'+compras.id_compras]">
+        <ion-item [button]="true" [routerLink]="['/compras-details/'+compras.id_compras]">
           <ion-label style="display: flex; flex-direction: column; gap: .25rem; padding: .4rem 0; margin-right: 3rem;">
             <p style="margin: 0; padding: 0; font-size: 18px; color: #000;">
               <strong>{{ compras.titulo_producto }}</strong>

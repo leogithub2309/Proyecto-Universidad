@@ -32,4 +32,8 @@ export class ApiComprasService {
     return this.http.get(this.url+"AllCompras");
   }
 
+  getSingleCompra(id: number){
+    return this.http.get(this.url+"compraDetalle/"+id);
+  }
+
 }

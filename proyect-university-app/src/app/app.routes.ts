@@ -41,13 +41,21 @@ export const routes: Routes = [
     canMatch: [authUserGuard],
     path: 'ventas-details/:id',
     loadComponent: () => import('./pages/ventas-details/ventas-details.page').then( m => m.VentasDetailsPage)
-  },  {
+  },
+  {
+    canMatch: [authUserGuard],
     path: 'all-solds',
     loadComponent: () => import('./pages/all-solds/all-solds.page').then( m => m.AllSoldsPage)
   },
   {
+    canMatch: [authUserGuard],
     path: 'add-inventario',
     loadComponent: () => import('./pages/add-inventario/add-inventario.page').then( m => m.AddInventarioPage)
+  },
+  {
+    canMatch: [authUserGuard],
+    path: 'compras-details/:id',
+    loadComponent: () => import('./pages/compras-details/compras-details.page').then( m => m.ComprasDetailsPage)
   },
 
 

@@ -65,7 +65,7 @@ export class VentasComponent  implements OnInit {
 
     this.apiVentasServices.getCurrentCurrency("dollar").subscribe({
       next: (res: any) => {
-        this.currency.set(res.monitors.bcv.price);
+        this.currency.set(res.monitors.bcv.price || 105.32);
         data.forEach((value: Ventas) => {
           if(value.moneda === "$"){
             convertion = this.currency() * Number(value.monto_moneda);
@@ -104,9 +104,9 @@ export class VentasComponent  implements OnInit {
         this.totalVentas = this.totalVentas / this.currency();
 
         if(event.target.value === "bolívares"){
-            this.totalVentas = this.totalVentas * this.currency();
-            this.titleVenta = "Bs";
-          }
+          this.totalVentas = this.totalVentas * this.currency();
+          this.titleVenta = "Bs";
+        }
       },
       error: (err) => console.error(err)
     });

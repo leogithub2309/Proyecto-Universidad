@@ -1,4 +1,4 @@
-<ion-list [inset]="true" style="padding: 0 !important; position: relative;" >
+<ion-list [inset]="true" style="padding: 0 !important; position: relative; width: 100%; margin-left: 0;" >
     @for (venta of this.ventas(); track venta.id_venta_detalle;) {
     <ion-item [button]="true" [routerLink]="['/ventas-details/'+venta.id_venta_detalle]">
       <ion-label style="display: flex; flex-direction: column; gap: .25rem; padding: .4rem 0; margin-right: 3rem;">

@@ -41,6 +41,7 @@ app.get("/venta/:id", ventasRoutes.getSingleVentas);
 app.get("/inventory", inventarioRoutes.getInventory);
 app.post("/compra/:id", comprasRoutes.createSold);
 app.get("/AllCompras", comprasRoutes.getAllSolds);
+app.get("/compraDetalle/:id", comprasRoutes.getSingleCompra);
 
 //Server Listen
 app.listen(port, () => {

@@ -1,9 +1,9 @@
 import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar,IonBackButton, IonButtons, } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar,IonBackButton, IonButtons, IonButton, IonIcon, } from '@ionic/angular/standalone';
 import { ApiVentasService } from 'src/app/services/api-ventas.service';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-ventas-details-page',
@@ -14,11 +14,14 @@ import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
     IonContent, 
     IonHeader, 
     IonTitle, 
-    IonToolbar, 
+    IonToolbar,
+    IonButton,
+    IonIcon, 
     CommonModule, 
     FormsModule,
     IonBackButton, 
     IonButtons,
+    RouterLink
   ]
 })
 export class VentasDetailsPage implements OnInit {

@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>all-solds</ion-title>
+     <ion-buttons slot="start">
+      <ion-back-button text="Back" color="warning"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Todas las Compras</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -10,4 +13,7 @@
       <ion-title size="large">all-solds</ion-title>
     </ion-toolbar>
   </ion-header>
+  <div class="container">
+    <app-all-sold></app-all-sold>
+  </div>
 </ion-content>

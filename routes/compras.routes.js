@@ -135,8 +135,57 @@ const getAllSolds = async (req, res) => {
     }
 }
 
+const getSingleCompra = async (req, res) => {
+    
+    let connection;
+    
+    try {
+
+        connection = await pool.getConnection();
+        await connection.beginTransaction();
+
+        let {id} = req.params;
+
+        const [data] = await pool.query(
+            "SELECT * FROM compras c INNER JOIN producto p ON c.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda WHERE c.id_compras = ?",
+            [id]
+        );
+
+        if(!data){
+            throw new Error("No se pudo realizar la consulta con la Base de Datos");
+        }
+
+        connection.commit();
+
+        if(data.length > 0){
+             return res.status(202).json({
+                title: "Success",
+                status: 202,
+                data
+            });
+        }
+
+    } catch (error) {
+        if (connection) {
+            await connection.rollback(); // Revertir la transacción en caso de error
+        }
+        console.error("Error:", error); // Log del error para depuración
+        return res.status(500).json({
+            title: "Error Interno del Servidor",
+            status: 500,
+            description: "Ocurrió un error al procesar la compra. Por favor, inténtalo de nuevo más tarde.",
+            error: error.message // Incluir el mensaje de error para depuración (opcional en producción)
+        });
+    }finally {
+        if (connection) {
+            connection.release(); // Siempre liberar la conexión al pool
+        }
+    }
+}
+
 
 export default {
     createSold,
-    getAllSolds
+    getAllSolds,
+    getSingleCompra
 }   
