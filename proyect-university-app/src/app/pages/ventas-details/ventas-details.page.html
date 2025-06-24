@@ -13,28 +13,30 @@
       <ion-title size="large">Ventas-Details</ion-title>
     </ion-toolbar>
   </ion-header>
-  <section class="container">
+  <section>
     <article class="details-sales">
       <img [src]="'../assets/'+this.singleVenta().foto_producto" alt="Foto Producto" height="400" style="width: 100%;">
-      <h2>{{ this.singleVenta().titulo_producto }}</h2>
-      <p class="details-product"><b>Descripción: </b> {{ this.singleVenta().producto_detalle }}</p>
-      <p class="sales"><b>Detalle:</b> {{ this.singleVenta().venta_detalle }}</p>
-      <span class="date-create">Ingreso: </span>{{ formatVenta(this.singleVenta().fecha) }}
-      <p class="prices">
-        <b>Precio en Bolívares:</b> Bs {{ 
-            this.singleVenta().descripcion_moneda === "Bolívares" 
-            ? this.singleVenta().monto_moneda
-            : detailsPrices(this.singleVenta().monto_moneda, "Dollar")
-          }}
-      </p>
-      <p class="prices">
-        <b>Precio en Dólares:</b> $ {{ 
-        this.singleVenta().descripcion_moneda === "Bolívares" 
-            ? detailsPrices(this.singleVenta().monto_moneda, "Bolívares")
-            : this.singleVenta().monto_moneda }}
-      </p>
+      <div style="padding: 0 .8rem;">
+        <h2>{{ this.singleVenta().titulo_producto }}</h2>
+        <p class="details-product"><b>Descripción: </b> {{ this.singleVenta().producto_detalle }}</p>
+        <p class="sales"><b>Detalle:</b> {{ this.singleVenta().venta_detalle }}</p>
+        <span class="date-create">Fecha: </span>{{ formatVenta(this.singleVenta().fecha) }}
+        <p class="prices">
+          <b>Precio en Bolívares:</b> Bs {{ 
+              this.singleVenta().descripcion_moneda === "Bolívares" 
+              ? this.singleVenta().monto_moneda
+              : detailsPrices(this.singleVenta().monto_moneda, "Dollar")
+            }}
+        </p>
+        <p class="prices">
+          <b>Precio en Dólares:</b> $ {{ 
+          this.singleVenta().descripcion_moneda === "Bolívares" 
+              ? detailsPrices(this.singleVenta().monto_moneda, "Bolívares")
+              : this.singleVenta().monto_moneda }}
+        </p>
+      </div>
     </article>
-    <div style="display: flex; justify-content: center; align-items: center; gap: 20px">
+    <div style="display: flex; justify-content: center; align-items: center; gap: 20px; padding: 0 .8rem; margin-bottom: .8rem;">
       <ion-button color="danger" size="block" style="width: 50%; height: 3rem; font-weight: bold;">
         <ion-icon name="trash-outline"></ion-icon>
         <span style="margin-left: .4rem;">Eliminar</span>

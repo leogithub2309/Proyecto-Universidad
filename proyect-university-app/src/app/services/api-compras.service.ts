@@ -36,4 +36,8 @@ export class ApiComprasService {
     return this.http.get(this.url+"compraDetalle/"+id);
   }
 
+  getDataChart(){
+    return this.http.get(this.url+"dataChart");
+  }
+
 }

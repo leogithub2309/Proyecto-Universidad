@@ -155,15 +155,66 @@ const getSingleCompra = async (req, res) => {
             throw new Error("No se pudo realizar la consulta con la Base de Datos");
         }
 
-        connection.commit();
+        await connection.commit();
 
-        if(data.length > 0){
-             return res.status(202).json({
-                title: "Success",
-                status: 202,
-                data
-            });
+        return res.status(202).json({
+            title: "Success",
+            status: 202,
+            data
+        });
+
+    } catch (error) {
+        if (connection) {
+            await connection.rollback(); // Revertir la transacción en caso de error
         }
+        console.error("Error:", error); // Log del error para depuración
+        return res.status(500).json({
+            title: "Error Interno del Servidor",
+            status: 500,
+            description: "Ocurrió un error al procesar la compra. Por favor, inténtalo de nuevo más tarde.",
+            error: error.message // Incluir el mensaje de error para depuración (opcional en producción)
+        });
+    }finally {
+        if (connection) {
+            connection.release(); // Siempre liberar la conexión al pool
+        }
+    }
+}
+
+const dataChart = async (req, res) => {
+
+    let connection;
+
+    try {
+        connection = await pool.getConnection();
+        await connection.beginTransaction();
+
+        const[dataCompras] = await pool.query(
+            "SELECT m.monto_moneda, tmp.moneda FROM compras c INNER JOIN producto p ON c.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda"
+        );
+
+        if(!dataCompras){
+            throw new Error("No se pudo conectar con la tabla compras de la Base de Datos");
+        }
+
+        const [dataVentas] = await pool.execute(
+            "SELECT m.monto_moneda, tmp.moneda FROM ventas v INNER JOIN producto p ON v.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda"
+        );
+
+        if(!dataVentas){
+            throw new Error("No se pudo conectar con la tabla ventas de la Base de Datos");
+        }
+
+        await connection.commit();
+
+        return res.status(202).json({
+            title: "Success",
+            status: 202,
+            data: [
+                dataCompras,
+                dataVentas
+            ]
+        });
 
     } catch (error) {
         if (connection) {
@@ -187,5 +238,6 @@ const getSingleCompra = async (req, res) => {
 export default {
     createSold,
     getAllSolds,
-    getSingleCompra
+    getSingleCompra,
+    dataChart
 }   
