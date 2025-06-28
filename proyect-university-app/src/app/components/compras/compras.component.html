@@ -23,7 +23,7 @@
   </ion-select>
   </form>
 </div>
-@if (this.comprasData().length > 0 && this.comprasData().length < 6) {
+@if (this.comprasData().length !== 0) {
   <ion-list [inset]="true" style="padding: 0 !important; position: relative;">
     <ion-item>
       <h3 class="ventas-title">Compras</h3>

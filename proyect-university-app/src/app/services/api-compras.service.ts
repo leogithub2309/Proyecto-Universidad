@@ -40,4 +40,8 @@ export class ApiComprasService {
     return this.http.get(this.url+"dataChart");
   }
 
+  createInventory(form: any){
+    return this.http.post(this.url+"createInventory", form);
+  }
+
 }

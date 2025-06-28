@@ -47,7 +47,9 @@ export class ComprasComponent  implements OnInit {
 
     this.apiComprasServices.getAllCompras().subscribe({
       next: (res: any) => {
-        this.comprasData.set(res.data);
+        for(let i=0; i<4; i++){
+          this.comprasData().push(res.data[i]);
+        }
         this.getTotalBs(res.data);
       },
       error: (err) => console.error(err)

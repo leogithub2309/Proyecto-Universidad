@@ -38,7 +38,12 @@ export class VentasComponent  implements OnInit {
   ngOnInit(){
     this.apiVentasServices.getAllVentas().subscribe({
       next: (res: any) => {
-        this.ventas.set(res.data);
+
+        for(let i=0; i<5; i++){
+          this.ventas().push(res.data[i]);
+        }
+
+       
         this.getToalBs(res.data);
       },
       error: (err) => console.error(err)

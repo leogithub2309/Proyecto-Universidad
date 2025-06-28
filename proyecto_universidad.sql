@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-06-2025 a las 22:11:41
+-- Tiempo de generación: 28-06-2025 a las 23:05:54
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -92,8 +92,6 @@ INSERT INTO `direccion` (`id_direccion`, `direccion_1`, `direccion_2`) VALUES
 
 CREATE TABLE `inventario` (
   `id_inventario` int(11) NOT NULL,
-  `id_compras` int(11) DEFAULT NULL,
-  `id_venta_detalle` int(11) DEFAULT NULL,
   `cantidad_inventario` int(11) NOT NULL,
   `producto_inventario` varchar(70) NOT NULL,
   `foto_producto_inventario` varchar(255) NOT NULL
@@ -103,13 +101,13 @@ CREATE TABLE `inventario` (
 -- Volcado de datos para la tabla `inventario`
 --
 
-INSERT INTO `inventario` (`id_inventario`, `id_compras`, `id_venta_detalle`, `cantidad_inventario`, `producto_inventario`, `foto_producto_inventario`) VALUES
-(1, NULL, NULL, 30, 'Cheese Tris', 'cheese-tris.jpg'),
-(2, NULL, NULL, 50, 'Doritos', 'Doritos_logo.png'),
-(3, NULL, NULL, 27, 'Pepsi Cola 2 litros', 'istockphoto-458611985-612x612.jpg'),
-(4, NULL, NULL, 25, 'Coca Cola 2 Litros', 'kuala-lumpur-malaysia18th-july-2016-600nw-456061381.webp'),
-(5, NULL, NULL, 62, 'Pepito 800gr', 'Screenshot2024-08-19at11.01.51PM.webp'),
-(6, NULL, NULL, 16, 'Ruffles Original', 'unnamed.jpg');
+INSERT INTO `inventario` (`id_inventario`, `cantidad_inventario`, `producto_inventario`, `foto_producto_inventario`) VALUES
+(1, 25, 'Cheese Tris', 'cheese-tris.jpg'),
+(2, 40, 'Doritos', 'Doritos_logo.png'),
+(3, 27, 'Pepsi Cola 2 litros', 'istockphoto-458611985-612x612.jpg'),
+(4, 25, 'Coca Cola 2 Litros', 'kuala-lumpur-malaysia18th-july-2016-600nw-456061381.webp'),
+(5, 62, 'Pepito 800gr', 'Screenshot2024-08-19at11.01.51PM.webp'),
+(6, 16, 'Ruffles Original', 'unnamed.jpg');
 
 -- --------------------------------------------------------
 
@@ -141,7 +139,9 @@ INSERT INTO `moneda` (`id_moneda`, `id_tipo_moneda`, `monto_moneda`) VALUES
 (17, 3, 700.00),
 (18, 1, 15.00),
 (19, 1, 15.00),
-(20, 3, 250.00);
+(20, 3, 250.00),
+(21, 1, 10.00),
+(22, 1, 20.00);
 
 -- --------------------------------------------------------
 
@@ -197,7 +197,9 @@ INSERT INTO `producto` (`id_producto`, `producto_detalle`, `titulo_producto`, `f
 (17, 'Se compro un bulto de Pepsi Cola de 2 litros', 'Pepsi Cola', '2025-06-15 18:02:47', 17, 'istockphoto-458611985-612x612.jpg'),
 (18, 'Se restableció el pepito que ya no quedaba', 'Pepito', '2025-06-15 18:38:25', 18, 'Screenshot2024-08-19at11.01.51PM.webp'),
 (19, 'Se restableció el pepito que ya no quedaba', 'Pepito', '2025-06-15 18:41:32', 19, 'Screenshot2024-08-19at11.01.51PM.webp'),
-(20, 'Se vendieron 4 ruffles el cliente pagó en bolívare', 'Ruffles', '2025-06-15 19:41:14', 20, 'unnamed.jpg');
+(20, 'Se vendieron 4 ruffles el cliente pagó en bolívare', 'Ruffles', '2025-06-15 19:41:14', 20, 'unnamed.jpg'),
+(21, 'Cliente compró 5 Cheese Tris', 'Cheese Tris', '2025-06-28 20:34:23', 21, 'cheese-tris.jpg'),
+(22, 'Cliente compró 10 doritos pagó en divisas', 'Doritos', '2025-06-28 20:41:09', 22, 'Doritos_logo.png');
 
 -- --------------------------------------------------------
 
@@ -287,7 +289,9 @@ INSERT INTO `ventas` (`id_venta_detalle`, `venta_detalle`, `id_producto`, `id_in
 (7, 'Venta de Cheese Tris', 12, 1, '2025-06-12 23:02:11', 9),
 (9, 'Venta de ruffles', 14, 6, '2025-06-12 23:04:16', 9),
 (10, 'Venta de Doritos', 15, 2, '2025-06-12 23:21:37', 9),
-(11, 'Venta de 4 ruffles', 20, 6, '2025-06-15 19:41:14', 9);
+(11, 'Venta de 4 ruffles', 20, 6, '2025-06-15 19:41:14', 9),
+(12, 'Se vendieron 5 Cheese Tris', 21, 1, '2025-06-28 20:34:23', 9),
+(13, 'Se vendieron 10 doritos', 22, 2, '2025-06-28 20:41:09', 9);
 
 --
 -- Índices para tablas volcadas
@@ -318,9 +322,7 @@ ALTER TABLE `direccion`
 -- Indices de la tabla `inventario`
 --
 ALTER TABLE `inventario`
-  ADD PRIMARY KEY (`id_inventario`),
-  ADD KEY `id_compras` (`id_compras`),
-  ADD KEY `id_venta_detalle` (`id_venta_detalle`);
+  ADD PRIMARY KEY (`id_inventario`);
 
 --
 -- Indices de la tabla `moneda`
@@ -405,7 +407,7 @@ ALTER TABLE `inventario`
 -- AUTO_INCREMENT de la tabla `moneda`
 --
 ALTER TABLE `moneda`
-  MODIFY `id_moneda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_moneda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `nombre_usuario`
@@ -417,7 +419,7 @@ ALTER TABLE `nombre_usuario`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
@@ -441,7 +443,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id_venta_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_venta_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Restricciones para tablas volcadas
@@ -454,13 +456,6 @@ ALTER TABLE `compras`
   ADD CONSTRAINT `compras_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `compras_ibfk_3` FOREIGN KEY (`id_inventario`) REFERENCES `inventario` (`id_inventario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `compras_ibfk_4` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `inventario`
---
-ALTER TABLE `inventario`
-  ADD CONSTRAINT `inventario_ibfk_1` FOREIGN KEY (`id_compras`) REFERENCES `compras` (`id_compras`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `inventario_ibfk_2` FOREIGN KEY (`id_venta_detalle`) REFERENCES `ventas` (`id_venta_detalle`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `moneda`
