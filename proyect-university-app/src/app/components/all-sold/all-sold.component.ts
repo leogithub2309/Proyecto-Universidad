@@ -31,16 +31,14 @@ export class AllSoldComponent  implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.apiComprasServices.getAllCompras().subscribe({
+    let id = String(sessionStorage.getItem("userIdSession"));
+    this.apiComprasServices.getAllCompras(Number(id)).subscribe({
       next: (res: any) => {
         this.compras.set(res.data);
       },
       error: (err) => console.error(err)
     })
   }
-
-
-
 
   formatVenta(fecha: string){
     const date = new Date(fecha);

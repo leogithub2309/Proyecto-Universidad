@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar,IonBackButton, IonButtons, IonButton, IonIcon, } from '@ionic/angular/standalone';
 import { ApiVentasService } from 'src/app/services/api-ventas.service';
-import { ActivatedRoute, ActivatedRouteSnapshot, RouterLink } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-ventas-details-page',
@@ -30,6 +30,7 @@ export class VentasDetailsPage implements OnInit {
   id = inject(ActivatedRoute);
   singleVenta = signal<any>([]);
   currency = signal<number>(0);
+  _router = inject(Router);
 
   constructor() {}
 
@@ -63,6 +64,15 @@ export class VentasDetailsPage implements OnInit {
     : type === "Dollar" 
     ? (parsePrices * this.currency()).toFixed(2) 
     : parsePrices+".00";
+  }
+
+  deleteVenta(){
+    this.apiVentasServices.deleteVenta(this.id.snapshot.params['id']).subscribe({
+      next: (response) => {
+        this._router.navigate(['/dashboard']);
+      },
+      error: (err) => console.error(err)
+    })
   }
 
 }

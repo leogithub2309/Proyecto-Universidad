@@ -27,7 +27,9 @@ export class AllVentasComponent  implements OnInit {
 
   ngOnInit() {
 
-    this.apiVentasServices.getAllVentas().subscribe({
+    let id = String(sessionStorage.getItem("userIdSession"));
+
+    this.apiVentasServices.getAllVentas(Number(id)).subscribe({
       next: (res: any) => {
         this.ventas.set(res.data);
       },

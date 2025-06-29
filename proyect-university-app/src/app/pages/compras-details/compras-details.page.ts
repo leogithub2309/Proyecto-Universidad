@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonBackButton, IonButtons, IonButton, IonIcon } from '@ionic/angular/standalone';
 import { CompraInterface } from 'src/app/model/compras';
 import { ApiComprasService } from 'src/app/services/api-compras.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-compras-details',
@@ -31,6 +31,7 @@ export class ComprasDetailsPage implements OnInit {
   apiCompraServices = inject(ApiComprasService);
   currency = signal<number>(0);
   id = inject(ActivatedRoute);
+  _router = inject(Router)
 
   constructor() { }
 
@@ -65,6 +66,15 @@ export class ComprasDetailsPage implements OnInit {
     : type === "Dollar" 
     ? (parsePrices * this.currency()).toFixed(2) 
     : parsePrices+".00";
+  }
+
+  deleteCompra(){
+    this.apiCompraServices.deleteCompra(this.id.snapshot.params['id']).subscribe({
+      next: (response) => {
+        this._router.navigate(['/dashboard']);
+      },
+      error: (err) => console.error(err)
+    })
   }
 
 }

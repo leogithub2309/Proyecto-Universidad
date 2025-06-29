@@ -28,20 +28,24 @@ export class ApiComprasService {
     return this.http.get(this.tasa+`${currency}`);
   }
 
-  getAllCompras(){
-    return this.http.get(this.url+"AllCompras");
+  getAllCompras(id: number){
+    return this.http.get(this.url+"AllCompras/"+id);
   }
 
   getSingleCompra(id: number){
     return this.http.get(this.url+"compraDetalle/"+id);
   }
 
-  getDataChart(){
-    return this.http.get(this.url+"dataChart");
+  getDataChart(id: number){
+    return this.http.get(this.url+"dataChart/"+id);
   }
 
   createInventory(form: any){
     return this.http.post(this.url+"createInventory", form);
+  }
+
+  deleteCompra(id: number){
+    return this.http.delete(this.url+"deleteCompra/"+id);
   }
 
 }

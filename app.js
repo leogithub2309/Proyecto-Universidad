@@ -34,16 +34,21 @@ app.post("/crearUsuario", authControllers.register);
 app.post("/authUsuario", authControllers.login);
 app.get("/rolesUser/:rol", roles.authRoutes);
 app.get("/tipoMoneda", tipoMoneda);
+
 app.post("/createVenta/:idUser", ventasRoutes.createVenta);
-app.get("/firstVentas", ventasRoutes.getVentasSelects);
-app.get("/allVentas", ventasRoutes.getAllVentas);
+app.get("/firstVentas/:id", ventasRoutes.getVentasSelects);
+app.get("/allVentas/:id", ventasRoutes.getAllVentas);
 app.get("/venta/:id", ventasRoutes.getSingleVentas);
+app.delete("/deleteVenta/:id", ventasRoutes.deleteVenta);
+
 app.get("/inventory", inventarioRoutes.getInventory);
-app.post("/compra/:id", comprasRoutes.createSold);
-app.get("/AllCompras", comprasRoutes.getAllSolds);
-app.get("/compraDetalle/:id", comprasRoutes.getSingleCompra);
-app.get("/dataChart", comprasRoutes.dataChart);
 app.post("/createInventory", inventarioRoutes.createInventory);
+
+app.post("/compra/:id", comprasRoutes.createSold);
+app.get("/AllCompras/:id", comprasRoutes.getAllSolds);
+app.get("/compraDetalle/:id", comprasRoutes.getSingleCompra);
+app.get("/dataChart/:id", comprasRoutes.dataChart);
+app.delete("/deleteCompra/:id", comprasRoutes.deleteCompra);
 
 //Server Listen
 app.listen(port, () => {

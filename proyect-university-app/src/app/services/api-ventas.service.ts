@@ -40,8 +40,8 @@ export class ApiVentasService {
     return this.http.get(this.tasa+`${currency}?page=criptodolar&format_date=default&rounded_price=true`)
   }
 
-  getAllVentas(){
-    return this.http.get(this.url+"allVentas");
+  getAllVentas(id: number){
+    return this.http.get(this.url+"allVentas/"+id);
   }
 
   getSingeVenta(id: number){
@@ -50,6 +50,10 @@ export class ApiVentasService {
 
   getAllInventory(){
     return this.http.get(this.url+"inventory");
+  }
+
+   deleteVenta(id: number){
+    return this.http.delete(this.url+"deleteVenta/"+id);
   }
 
 }

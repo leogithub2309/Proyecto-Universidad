@@ -37,9 +37,9 @@
       </div>
     </article>
     <div style="display: flex; justify-content: center; align-items: center; gap: 20px; padding: 0 .8rem; margin-bottom: .8rem;">
-      <ion-button color="danger" size="block" style="width: 50%; height: 3rem; font-weight: bold;">
+      <ion-button color="danger" size="block" style="width: 50%; height: 3rem; font-weight: bold;" (click)="deleteCompra()" >
         <ion-icon name="trash-outline"></ion-icon>
-        <span style="margin-left: .4rem;">Eliminar</span>
+        <span style="margin-left: .4rem; pointer-events: none;">Eliminar</span>
       </ion-button>
       <ion-button color="warning" size="block" [routerLink]="['/dashboard']" style="width: 50%; height: 3rem; font-weight: bold;">
         <ion-icon name="arrow-back-outline"></ion-icon>

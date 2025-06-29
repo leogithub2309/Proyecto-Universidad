@@ -4,7 +4,7 @@ const createVenta = async (req, res) => {
 
     let {venta_detalle, producto_detalle, titulo_producto, tipo_moneda, monto_moneda, foto_producto, id_inventario, cantidad_inventario} = req.body;
 
-    let {idUser} = req.params;
+    let { idUser } = req.params;
 
     if(!venta_detalle || !producto_detalle || !titulo_producto || !tipo_moneda || !monto_moneda || !cantidad_inventario) {
         return res.status(404).json({
@@ -87,21 +87,31 @@ const createVenta = async (req, res) => {
 
 const getVentasSelects = async (req, res) => {
 
+    let { id } = req.params;
+
     try {
 
         const [data] = await pool.execute(
-            "SELECT * FROM ventas v INNER JOIN producto p ON v.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda WHERE v.id_venta_detalle < 6"
+            "SELECT * FROM ventas v INNER JOIN producto p ON v.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda WHERE v.id_venta_detalle < 6 AND v.id_usuario = ?",
+            [id]
         );
+
+        if(data.length === 0){
+            return res.status(202).json({
+                title: "Success",
+                status: 202,
+                data: []
+            });
+        }
 
         (await pool.getConnection()).commit();
 
-        if(data.length > 0){
-            return res.status(202).json({
+        if(data.length > 0) return res.status(202).json({
                 title: "Success",
                 status: 202,
                 data
             });
-        }
+        
         
     } catch (error) {
          return res.status(404).json({
@@ -117,21 +127,31 @@ const getVentasSelects = async (req, res) => {
 
 const getAllVentas = async (req, res) => {
 
+    let { id } = req.params;
+
     try {
 
         const [data] = await pool.execute(
-            "SELECT * FROM ventas v INNER JOIN producto p ON v.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda"
+            "SELECT * FROM ventas v INNER JOIN producto p ON v.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda WHERE v.id_usuario = ?",
+            [id]
         );
+
+        if(data.length === 0){
+            return res.status(202).json({
+                title: "Success",
+                status: 202,
+                data: []
+            });
+        }
 
         (await pool.getConnection()).commit();
 
-        if(data.length > 0){
-            return res.status(202).json({
+        if(data.length > 0) return res.status(202).json({
                 title: "Success",
                 status: 202,
                 data
             });
-        }
+        
         
     } catch (error) {
          return res.status(404).json({
@@ -146,20 +166,25 @@ const getAllVentas = async (req, res) => {
 const getSingleVentas = async (req, res) => {
     try {
 
-        let {id} = req.params;
+        let { id } = req.params;
 
         const [data] = await pool.query(
             "SELECT * FROM ventas v INNER JOIN producto p ON v.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda WHERE v.id_venta_detalle = ?",
             [id]
         );
 
-        if(data.length > 0){
-             return res.status(202).json({
+        if(data.length > 0) return res.status(202).json({
                 title: "Success",
                 status: 202,
                 data
             });
-        }
+        
+        else return res.status(202).json({
+                title: "Success",
+                status: 202,
+                data: []
+            });
+        
 
     } catch (error) {
          return res.status(404).json({
@@ -171,9 +196,53 @@ const getSingleVentas = async (req, res) => {
     }
 }
 
+const deleteVenta = async (req, res) => {
+
+    let { id } = req.params;
+
+    let connection;
+
+    try {
+        connection = await pool.getConnection();
+        await connection.beginTransaction();
+
+        const [result] = await pool.execute("DELETE FROM ventas WHERE ventas.id_venta_detalle = ?", [id]);
+
+        if(!result) {
+            throw new Error("No se pudo realizar la acción de borrar una venta");
+        }
+
+        await connection.commit();
+
+        if(result) res.status(201).json({ // Cambié 202 a 201 porque es una creación exitosa
+            title: "Eliminación Exitosa",
+            status: 201,
+            description: "La venta se eliminó de manera exitosa."
+        });
+
+
+    } catch (error) {
+        if (connection) {
+            await connection.rollback(); // Revertir la transacción en caso de error
+        }
+        console.error("Error:", error); // Log del error para depuración
+        return res.status(500).json({
+            title: "Error Interno del Servidor",
+            status: 500,
+            description: "Ocurrió un error al procesar la compra. Por favor, inténtalo de nuevo más tarde.",
+            error: error.message // Incluir el mensaje de error para depuración (opcional en producción)
+        });
+    }finally {
+        if (connection) {
+            connection.release(); // Siempre liberar la conexión al pool
+        }
+    }
+}
+
 export default {
     createVenta,
     getVentasSelects,
     getAllVentas,
-    getSingleVentas
+    getSingleVentas,
+    deleteVenta
 }

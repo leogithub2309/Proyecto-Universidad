@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-06-2025 a las 23:05:54
+-- Tiempo de generación: 29-06-2025 a las 21:00:28
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -38,7 +38,8 @@ CREATE TABLE `cedula_table` (
 --
 
 INSERT INTO `cedula_table` (`id_cedula`, `tipo_identidad`, `cedula`) VALUES
-(1, 'V-', 32758403);
+(1, 'V-', 32758403),
+(2, 'V-', 32098765);
 
 -- --------------------------------------------------------
 
@@ -82,7 +83,8 @@ CREATE TABLE `direccion` (
 --
 
 INSERT INTO `direccion` (`id_direccion`, `direccion_1`, `direccion_2`) VALUES
-(1, 'Av Principal', 'Urb altos prados');
+(1, 'Av Principal', 'Urb altos prados'),
+(2, 'Av Blanco Edif Flores 1', '');
 
 -- --------------------------------------------------------
 
@@ -162,7 +164,8 @@ CREATE TABLE `nombre_usuario` (
 --
 
 INSERT INTO `nombre_usuario` (`id_nombre_usuario`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`) VALUES
-(1, 'Leonel', NULL, 'Linares', NULL);
+(1, 'Leonel', NULL, 'Linares', NULL),
+(2, 'Carlos', 'Daniel', 'Díaz', 'Medina');
 
 -- --------------------------------------------------------
 
@@ -264,7 +267,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id_usuario`, `id_nombre_usuario`, `id_cedula`, `telefono`, `id_direccion`, `codigo_postal`, `username`, `password`, `id_rol`) VALUES
-(9, 1, 1, '55584739217', 1, '9102', 'leoadmin', 'leoadmin123', 1);
+(9, 1, 1, '55584739217', 1, '9102', 'leoadmin', 'leoadmin123', 1),
+(10, 2, 2, '55584792115', 2, '1045', 'carlos', '$2b$10$pIitG1.O0fwQGP6AJgNQneIDRNz70yvKkSaWxtuMcw8K9YELvWy1O', 2);
 
 -- --------------------------------------------------------
 
@@ -383,7 +387,7 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `cedula_table`
 --
 ALTER TABLE `cedula_table`
-  MODIFY `id_cedula` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_cedula` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `compras`
@@ -395,7 +399,7 @@ ALTER TABLE `compras`
 -- AUTO_INCREMENT de la tabla `direccion`
 --
 ALTER TABLE `direccion`
-  MODIFY `id_direccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_direccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `inventario`
@@ -413,7 +417,7 @@ ALTER TABLE `moneda`
 -- AUTO_INCREMENT de la tabla `nombre_usuario`
 --
 ALTER TABLE `nombre_usuario`
-  MODIFY `id_nombre_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_nombre_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
@@ -437,7 +441,7 @@ ALTER TABLE `tipo_moneda_table`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`

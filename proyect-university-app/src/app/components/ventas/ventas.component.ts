@@ -36,15 +36,19 @@ export class VentasComponent  implements OnInit {
   constructor() { }
 
   ngOnInit(){
-    this.apiVentasServices.getAllVentas().subscribe({
+
+    let id = String(sessionStorage.getItem("userIdSession"));
+
+    this.apiVentasServices.getAllVentas(Number(id)).subscribe({
       next: (res: any) => {
 
-        for(let i=0; i<5; i++){
-          this.ventas().push(res.data[i]);
+        if(this.ventas().length !== 0){
+          for(let i=0; i<5; i++){
+            if(res.data[i]) this.ventas().push(res.data[i]);
+          }
+   
+          this.getToalBs(res.data);
         }
-
-       
-        this.getToalBs(res.data);
       },
       error: (err) => console.error(err)
     });
@@ -128,5 +132,7 @@ export class VentasComponent  implements OnInit {
     
     return formatCurrency;
   }
+
+  
 
 }

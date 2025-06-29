@@ -52,10 +52,18 @@ export class HomePage implements OnInit{
       next: (response) => {
         const joinToken = response.result,
           tokenUser = joinToken.createTokenUser;
+
+        let separate = String(tokenUser).split(".");
+
+        const encrypt = window.atob(separate[1]),
+          objectParse = JSON.parse(encrypt);
         
         this.cookieService.set("tokenUser", tokenUser);
         sessionStorage.setItem("tokenUserSession", tokenUser);
+        sessionStorage.setItem("userIdSession", JSON.stringify(objectParse.userId));
+
         this._router.navigate([joinToken.path]);
+        this.login.reset();
       },
       error: (err) => console.error(err)
     });

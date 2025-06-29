@@ -38,6 +38,9 @@ export class ComprasComponent  implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
+    let id = String(sessionStorage.getItem("userIdSession"));
+
      this.apiVentasServices.getTipoMoneda().subscribe({
       next: (res: any) => {
         this.moneda.set(res.data);
@@ -45,12 +48,15 @@ export class ComprasComponent  implements OnInit {
       error: (err) => console.error(err)
     })
 
-    this.apiComprasServices.getAllCompras().subscribe({
+    this.apiComprasServices.getAllCompras(Number(id)).subscribe({
       next: (res: any) => {
-        for(let i=0; i<4; i++){
-          this.comprasData().push(res.data[i]);
+        if(this.comprasData().length !== 0){
+          for(let i=0; i<5; i++){
+            if(res.data[i]) this.comprasData().push(res.data[i]);
+          }
+          this.getTotalBs(res.data);
         }
-        this.getTotalBs(res.data);
+        
       },
       error: (err) => console.error(err)
     })

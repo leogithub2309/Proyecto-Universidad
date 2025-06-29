@@ -89,6 +89,8 @@ export class DashboardPage implements OnInit {
 
   ngOnInit() {
 
+    let id = String(sessionStorage.getItem("userIdSession"));
+
     this.apiVentasServices.getCurrentCurrency("dollar").subscribe({
       next: (res: any) => {
         this.currency.set(res.monitors.bcv.price || 106.43);
@@ -97,7 +99,7 @@ export class DashboardPage implements OnInit {
       error: (err) => console.error(err)
     })
 
-    this.apiVentasServices.getAllVentas().subscribe({
+    this.apiVentasServices.getAllVentas(Number(id)).subscribe({
       next: (res: any) => {
         this.getToalBs(res.data, 'ventas');
       },
@@ -105,14 +107,14 @@ export class DashboardPage implements OnInit {
       error: (err) => console.error(err)
     });
 
-    this.apiComprasServices.getAllCompras().subscribe({
+    this.apiComprasServices.getAllCompras(Number(id)).subscribe({
       next: (res: any) => {
         this.getToalBs(res.data, 'compras');
       },
       error: (err) => console.error(err)
     })
 
-    this.apiComprasServices.getDataChart().subscribe({
+    this.apiComprasServices.getDataChart(Number(id)).subscribe({
       next: (response: any) => {
         let data1 = 0, data2 = 0, convertion = 0;
 
@@ -229,9 +231,8 @@ export class DashboardPage implements OnInit {
     }
   }
 
-
   closeSession(){
-    sessionStorage.removeItem("tokenUserSession");
+    sessionStorage.clear();
     this.cookieService.delete("tokenUser");
     this._router.navigate(['/home']);
   }

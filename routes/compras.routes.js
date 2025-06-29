@@ -95,23 +95,30 @@ const createSold = async (req, res) => {
 
 const getAllSolds = async (req, res) => {
 
-     let connection;
+    let { id } = req.params;
+
+    let connection;
 
     try {
        connection = await pool.getConnection();
        await connection.beginTransaction();
 
         const[data] = await pool.query(
-            "SELECT * FROM compras c INNER JOIN producto p ON c.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda"
+            "SELECT * FROM compras c INNER JOIN producto p ON c.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda WHERE c.id_usuario = ?",
+            [id]
         );
 
         if(data.length === 0){
-            throw new Error("No se pudo conectar con la tabla compras");
+            return res.status(202).json({
+                title: "Success",
+                status: 202,
+                data: []
+            });
         }
 
         await connection.commit();
 
-        return res.status(201).json({
+        if(data.length > 0) return res.status(201).json({
             title: "Lista de Compras",
             status: 201,
             data
@@ -137,6 +144,8 @@ const getAllSolds = async (req, res) => {
 
 const getSingleCompra = async (req, res) => {
     
+    let { id } = req.params;
+    
     let connection;
     
     try {
@@ -144,20 +153,22 @@ const getSingleCompra = async (req, res) => {
         connection = await pool.getConnection();
         await connection.beginTransaction();
 
-        let {id} = req.params;
-
         const [data] = await pool.query(
             "SELECT * FROM compras c INNER JOIN producto p ON c.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda WHERE c.id_compras = ?",
             [id]
         );
 
         if(!data){
-            throw new Error("No se pudo realizar la consulta con la Base de Datos");
+            return res.status(202).json({
+                title: "Success",
+                status: 202,
+                data: []
+            });
         }
 
         await connection.commit();
 
-        return res.status(202).json({
+        if(data.length > 0) return res.status(202).json({
             title: "Success",
             status: 202,
             data
@@ -183,6 +194,8 @@ const getSingleCompra = async (req, res) => {
 
 const dataChart = async (req, res) => {
 
+    let { id } = req.params;
+
     let connection;
 
     try {
@@ -190,24 +203,34 @@ const dataChart = async (req, res) => {
         await connection.beginTransaction();
 
         const[dataCompras] = await pool.query(
-            "SELECT m.monto_moneda, tmp.moneda FROM compras c INNER JOIN producto p ON c.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda"
+            "SELECT m.monto_moneda, tmp.moneda FROM compras c INNER JOIN producto p ON c.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda WHERE c.id_usuario = ?",
+            [id]
         );
 
         if(!dataCompras){
-            throw new Error("No se pudo conectar con la tabla compras de la Base de Datos");
+           return res.status(202).json({
+                title: "Success",
+                status: 202,
+                data: []
+            });
         }
 
         const [dataVentas] = await pool.execute(
-            "SELECT m.monto_moneda, tmp.moneda FROM ventas v INNER JOIN producto p ON v.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda"
+            "SELECT m.monto_moneda, tmp.moneda FROM ventas v INNER JOIN producto p ON v.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda WHERE v.id_usuario = ? ",
+            [id]
         );
 
         if(!dataVentas){
-            throw new Error("No se pudo conectar con la tabla ventas de la Base de Datos");
+            return res.status(202).json({
+                title: "Success",
+                status: 202,
+                data: []
+            });
         }
 
         await connection.commit();
 
-        return res.status(202).json({
+        if(dataVentas.length > 0 || dataCompras.length > 0) return res.status(202).json({
             title: "Success",
             status: 202,
             data: [
@@ -234,10 +257,55 @@ const dataChart = async (req, res) => {
     }
 }
 
+const deleteCompra = async (req, res) => {
+
+    let { id } = req.params;
+
+    let connection;
+
+    try {
+        connection = await pool.getConnection();
+        await connection.beginTransaction();
+
+        const [result] = await pool.execute("DELETE FROM compras WHERE compras.id_compras = ?", [id]);
+
+        if(!result) {
+            throw new Error("No se pudo realizar la acción de borrar una compra");
+        }
+
+        await connection.commit();
+
+        if(result) res.status(201).json({ // Cambié 202 a 201 porque es una creación exitosa
+            title: "Eliminación Exitosa",
+            status: 201,
+            description: "La venta se eliminó de manera exitosa."
+        });
+
+
+    } catch (error) {
+        if (connection) {
+            await connection.rollback(); // Revertir la transacción en caso de error
+        }
+        console.error("Error:", error); // Log del error para depuración
+        return res.status(500).json({
+            title: "Error Interno del Servidor",
+            status: 500,
+            description: "Ocurrió un error al procesar la compra. Por favor, inténtalo de nuevo más tarde.",
+            error: error.message // Incluir el mensaje de error para depuración (opcional en producción)
+        });
+    }finally {
+        if (connection) {
+            connection.release(); // Siempre liberar la conexión al pool
+        }
+    }
+
+}
+
 
 export default {
     createSold,
     getAllSolds,
     getSingleCompra,
-    dataChart
+    dataChart,
+    deleteCompra
 }   
