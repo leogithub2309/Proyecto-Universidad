@@ -16,7 +16,7 @@
         </ion-toolbar>
       </ion-header>
       <div class="container-page">
-        <article class="history-balance">
+        <article [class]="`history-balance ${this.statusCapital < 0 ? 'danger-color' : 'success-color'}`">
           <h4>Balance Actual</h4>
           <p>${{ (this.sumVentas - this.sumCompras).toFixed(2)  }}</p>
         </article>

@@ -104,8 +104,6 @@ const getVentasSelects = async (req, res) => {
             });
         }
 
-        (await pool.getConnection()).commit();
-
         if(data.length > 0) return res.status(202).json({
                 title: "Success",
                 status: 202,
@@ -120,8 +118,6 @@ const getVentasSelects = async (req, res) => {
             description: "Error, no se pudo conectar con la API.",
             error
         });
-    }finally {
-        (await pool.getConnection()).release();
     }
 }
 
@@ -143,8 +139,6 @@ const getAllVentas = async (req, res) => {
                 data: []
             });
         }
-
-        (await pool.getConnection()).commit();
 
         if(data.length > 0) return res.status(202).json({
                 title: "Success",

@@ -1,7 +1,7 @@
 import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar,IonBackButton, IonButtons, IonButton, IonIcon, } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar,IonBackButton, IonButtons, IonButton, IonIcon, IonModal } from '@ionic/angular/standalone';
 import { ApiVentasService } from 'src/app/services/api-ventas.service';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterLink } from '@angular/router';
 
@@ -16,7 +16,8 @@ import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterLink } from '@ang
     IonTitle, 
     IonToolbar,
     IonButton,
-    IonIcon, 
+    IonIcon,
+    IonModal,
     CommonModule, 
     FormsModule,
     IonBackButton, 
@@ -73,6 +74,10 @@ export class VentasDetailsPage implements OnInit {
       },
       error: (err) => console.error(err)
     })
+  }
+
+  async canDismiss(data?: undefined, role?: string) {
+    return role !== 'gesture';
   }
 
 }

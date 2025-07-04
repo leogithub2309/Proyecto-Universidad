@@ -42,13 +42,11 @@ export class VentasComponent  implements OnInit {
     this.apiVentasServices.getAllVentas(Number(id)).subscribe({
       next: (res: any) => {
 
-        if(this.ventas().length !== 0){
-          for(let i=0; i<5; i++){
+        for(let i=0; i<5; i++){
             if(res.data[i]) this.ventas().push(res.data[i]);
           }
    
-          this.getToalBs(res.data);
-        }
+        this.getToalBs(res.data);
       },
       error: (err) => console.error(err)
     });
@@ -74,7 +72,7 @@ export class VentasComponent  implements OnInit {
 
     this.apiVentasServices.getCurrentCurrency("dollar").subscribe({
       next: (res: any) => {
-        this.currency.set(res.monitors.bcv.price || 105.32);
+        this.currency.set(res.monitors.bcv.price || 110.52);
         data.forEach((value: Ventas) => {
           if(value.moneda === "$"){
             convertion = this.currency() * Number(value.monto_moneda);
@@ -99,7 +97,7 @@ export class VentasComponent  implements OnInit {
 
     this.apiVentasServices.getCurrentCurrency(currency).subscribe({
       next: (res: any) => {
-        this.currency.set(res.monitors.bcv.price);
+        this.currency.set(res.monitors.bcv.price || 110.52);
         this.ventas().forEach((value: Ventas) => {
           if(value.moneda === "$"){
             convertion = this.currency() * Number(value.monto_moneda);

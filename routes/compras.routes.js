@@ -97,12 +97,8 @@ const getAllSolds = async (req, res) => {
 
     let { id } = req.params;
 
-    let connection;
-
     try {
-       connection = await pool.getConnection();
-       await connection.beginTransaction();
-
+      
         const[data] = await pool.query(
             "SELECT * FROM compras c INNER JOIN producto p ON c.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda WHERE c.id_usuario = ?",
             [id]
@@ -116,8 +112,6 @@ const getAllSolds = async (req, res) => {
             });
         }
 
-        await connection.commit();
-
         if(data.length > 0) return res.status(201).json({
             title: "Lista de Compras",
             status: 201,
@@ -125,9 +119,6 @@ const getAllSolds = async (req, res) => {
         });
         
     } catch (error) {
-        if (connection) {
-            await connection.rollback(); // Revertir la transacción en caso de error
-        }
         console.error("Error:", error); // Log del error para depuración
         return res.status(500).json({
             title: "Error Interno del Servidor",
@@ -135,10 +126,6 @@ const getAllSolds = async (req, res) => {
             description: "Ocurrió un error al procesar la compra. Por favor, inténtalo de nuevo más tarde.",
             error: error.message // Incluir el mensaje de error para depuración (opcional en producción)
         });
-    }finally {
-        if (connection) {
-            connection.release(); // Siempre liberar la conexión al pool
-        }
     }
 }
 
@@ -146,12 +133,7 @@ const getSingleCompra = async (req, res) => {
     
     let { id } = req.params;
     
-    let connection;
-    
     try {
-
-        connection = await pool.getConnection();
-        await connection.beginTransaction();
 
         const [data] = await pool.query(
             "SELECT * FROM compras c INNER JOIN producto p ON c.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda WHERE c.id_compras = ?",
@@ -166,8 +148,6 @@ const getSingleCompra = async (req, res) => {
             });
         }
 
-        await connection.commit();
-
         if(data.length > 0) return res.status(202).json({
             title: "Success",
             status: 202,
@@ -175,9 +155,6 @@ const getSingleCompra = async (req, res) => {
         });
 
     } catch (error) {
-        if (connection) {
-            await connection.rollback(); // Revertir la transacción en caso de error
-        }
         console.error("Error:", error); // Log del error para depuración
         return res.status(500).json({
             title: "Error Interno del Servidor",
@@ -185,10 +162,6 @@ const getSingleCompra = async (req, res) => {
             description: "Ocurrió un error al procesar la compra. Por favor, inténtalo de nuevo más tarde.",
             error: error.message // Incluir el mensaje de error para depuración (opcional en producción)
         });
-    }finally {
-        if (connection) {
-            connection.release(); // Siempre liberar la conexión al pool
-        }
     }
 }
 
@@ -196,12 +169,8 @@ const dataChart = async (req, res) => {
 
     let { id } = req.params;
 
-    let connection;
-
     try {
-        connection = await pool.getConnection();
-        await connection.beginTransaction();
-
+        
         const[dataCompras] = await pool.query(
             "SELECT m.monto_moneda, tmp.moneda FROM compras c INNER JOIN producto p ON c.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda WHERE c.id_usuario = ?",
             [id]
@@ -228,8 +197,6 @@ const dataChart = async (req, res) => {
             });
         }
 
-        await connection.commit();
-
         if(dataVentas.length > 0 || dataCompras.length > 0) return res.status(202).json({
             title: "Success",
             status: 202,
@@ -240,9 +207,6 @@ const dataChart = async (req, res) => {
         });
 
     } catch (error) {
-        if (connection) {
-            await connection.rollback(); // Revertir la transacción en caso de error
-        }
         console.error("Error:", error); // Log del error para depuración
         return res.status(500).json({
             title: "Error Interno del Servidor",
@@ -250,10 +214,6 @@ const dataChart = async (req, res) => {
             description: "Ocurrió un error al procesar la compra. Por favor, inténtalo de nuevo más tarde.",
             error: error.message // Incluir el mensaje de error para depuración (opcional en producción)
         });
-    }finally {
-        if (connection) {
-            connection.release(); // Siempre liberar la conexión al pool
-        }
     }
 }
 
@@ -261,19 +221,13 @@ const deleteCompra = async (req, res) => {
 
     let { id } = req.params;
 
-    let connection;
-
     try {
-        connection = await pool.getConnection();
-        await connection.beginTransaction();
-
+        
         const [result] = await pool.execute("DELETE FROM compras WHERE compras.id_compras = ?", [id]);
 
         if(!result) {
             throw new Error("No se pudo realizar la acción de borrar una compra");
         }
-
-        await connection.commit();
 
         if(result) res.status(201).json({ // Cambié 202 a 201 porque es una creación exitosa
             title: "Eliminación Exitosa",
@@ -283,9 +237,6 @@ const deleteCompra = async (req, res) => {
 
 
     } catch (error) {
-        if (connection) {
-            await connection.rollback(); // Revertir la transacción en caso de error
-        }
         console.error("Error:", error); // Log del error para depuración
         return res.status(500).json({
             title: "Error Interno del Servidor",
@@ -293,10 +244,6 @@ const deleteCompra = async (req, res) => {
             description: "Ocurrió un error al procesar la compra. Por favor, inténtalo de nuevo más tarde.",
             error: error.message // Incluir el mensaje de error para depuración (opcional en producción)
         });
-    }finally {
-        if (connection) {
-            connection.release(); // Siempre liberar la conexión al pool
-        }
     }
 
 }

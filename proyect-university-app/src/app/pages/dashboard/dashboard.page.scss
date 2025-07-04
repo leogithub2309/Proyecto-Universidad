@@ -23,6 +23,14 @@
     box-shadow: 1px 2px 5px -1px rgba(0,0,0,0.54);
 }
 
+.history-balance.danger-color{
+    background-color: crimson !important;
+}
+
+.history-balance.success-color{
+    background-color: teal !important; /* #00e396 */
+}
+
 .history-balance h4{
     font-size: 15px;
     font-weight: 400;

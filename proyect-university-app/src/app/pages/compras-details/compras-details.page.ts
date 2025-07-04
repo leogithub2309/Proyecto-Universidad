@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonBackButton, IonButtons, IonButton, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonBackButton, IonButtons, IonButton, IonIcon, IonModal } from '@ionic/angular/standalone';
 import { CompraInterface } from 'src/app/model/compras';
 import { ApiComprasService } from 'src/app/services/api-compras.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -19,7 +19,8 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
     IonButton,
     IonIcon,
     IonBackButton, 
-    IonButtons, 
+    IonButtons,
+    IonModal,
     CommonModule, 
     FormsModule,
     RouterLink
@@ -75,6 +76,10 @@ export class ComprasDetailsPage implements OnInit {
       },
       error: (err) => console.error(err)
     })
+  }
+
+  async canDismiss(data?: undefined, role?: string) {
+    return role !== 'gesture';
   }
 
 }

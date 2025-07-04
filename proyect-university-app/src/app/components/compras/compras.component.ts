@@ -50,13 +50,10 @@ export class ComprasComponent  implements OnInit {
 
     this.apiComprasServices.getAllCompras(Number(id)).subscribe({
       next: (res: any) => {
-        if(this.comprasData().length !== 0){
-          for(let i=0; i<5; i++){
+        for(let i=0; i<5; i++){
             if(res.data[i]) this.comprasData().push(res.data[i]);
-          }
-          this.getTotalBs(res.data);
         }
-        
+        this.getTotalBs(res.data);
       },
       error: (err) => console.error(err)
     })
@@ -73,7 +70,7 @@ export class ComprasComponent  implements OnInit {
   
       this.apiVentasServices.getCurrentCurrency(currency).subscribe({
         next: (res: any) => {
-          this.currency.set(res.monitors.bcv.price);
+          this.currency.set(res.monitors.bcv.price || 110.52);
           this.comprasData().forEach((value: CompraInterface) => {
             if(value.moneda === "$"){
               convertion = this.currency() * Number(value.monto_moneda);
@@ -105,7 +102,7 @@ export class ComprasComponent  implements OnInit {
 
     this.apiComprasServices.getCurrentCurrency("dollar").subscribe({
       next: (res: any) => {
-        this.currency.set(res.monitors.bcv.price);
+        this.currency.set(res.monitors.bcv.price || 110.52);
         data.forEach((value: Ventas) => {
           if(value.moneda === "$"){
             convertion = this.currency() * Number(value.monto_moneda);

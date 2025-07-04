@@ -36,8 +36,8 @@
         </p>
       </div>
     </article>
-    <div style="display: flex; justify-content: center; align-items: center; gap: 20px; padding: 0 .8rem; margin-bottom: .8rem;">
-      <ion-button color="danger" size="block" style="width: 50%; height: 3rem; font-weight: bold;" (click)="deleteVenta()" >
+    <div class="flex-buttons">
+      <ion-button color="danger" id="open-modal" size="block" style="width: 50%; height: 3rem; font-weight: bold;">
         <ion-icon name="trash-outline"></ion-icon>
         <span style="margin-left: .4rem; pointer-events: none;">Eliminar</span>
       </ion-button>
@@ -47,4 +47,34 @@
       </ion-button>
     </div>
   </section>
+  <ion-modal #modal trigger="open-modal" [canDismiss]="canDismiss">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Modal</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="modal.dismiss()">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding" style="display: flex; justify-content: center; align-items: center; text-align: center;">
+        <div class="circle">
+          <ion-icon name="alert-outline" color="danger" style="font-size: 3rem;"></ion-icon>
+        </div>
+        <p class="text-info">
+          Está seguro que desea realizar la siguiente acción? Si elimina el registro, está accion no tiene vuelta atrás.
+        </p>
+        <div class="flex-buttons">
+          <ion-button color="danger" size="block">
+            <ion-icon name="checkmark-outline"></ion-icon>
+            <span style="margin-left: .4rem;">Eliminar</span>
+          </ion-button>
+          <ion-button color="warning" size="block" (click)="modal.dismiss()">
+            <ion-icon name="close-outline"></ion-icon>
+            <span style="margin-left: .4rem;">Cancelar</span>
+          </ion-button>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>
