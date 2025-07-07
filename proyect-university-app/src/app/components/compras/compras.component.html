@@ -4,7 +4,7 @@
     <span>Agregar</span>
   </ion-button>
   <form autocomplete="off">
-    <ion-select aria-label="Choice Currency" color="success" id="today_currency" placeholder="Filtrar por Moneda" (ionChange)="getCurrency($event)">
+    <ion-select aria-label="Choice Currency" color="success" id="today_currency" placeholder="Filtrar por Moneda" style="width: 10rem; color: #000;" (ionChange)="getCurrency($event)">
       @if (this.moneda().length !== 0) {
         @for (monedas of this.moneda(); track monedas.id_tipo_moneda;) {
           <ion-select-option [value]="monedas.descripcion_moneda.toLowerCase()">
@@ -20,7 +20,7 @@
           </span>
         </ion-select-option>  
       }
-  </ion-select>
+    </ion-select>
   </form>
 </div>
 @if (this.comprasData().length !== 0) {

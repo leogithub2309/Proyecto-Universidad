@@ -62,7 +62,7 @@ export class VentasComponent  implements OnInit {
 
   formatVenta(fecha: string){
     const date = new Date(fecha);
-    return `${date.getDate()},${date.toLocaleString('es', { month: 'long' })} ${date.getFullYear()}`;
+    return `${date.getDate()} ${date.toLocaleString('es', { month: 'long' })} ${date.getFullYear()}`;
   }
 
 
@@ -72,7 +72,7 @@ export class VentasComponent  implements OnInit {
 
     this.apiVentasServices.getCurrentCurrency("dollar").subscribe({
       next: (res: any) => {
-        this.currency.set(res.monitors.bcv.price || 110.52);
+        this.currency.set(Object.keys(res.monitors).length === 0 ? 110.52 : res.monitors.bcv.price);
         data.forEach((value: Ventas) => {
           if(value.moneda === "$"){
             convertion = this.currency() * Number(value.monto_moneda);
@@ -97,7 +97,7 @@ export class VentasComponent  implements OnInit {
 
     this.apiVentasServices.getCurrentCurrency(currency).subscribe({
       next: (res: any) => {
-        this.currency.set(res.monitors.bcv.price || 110.52);
+        this.currency.set(Object.keys(res.monitors).length === 0 ? 110.52 : res.monitors.bcv.price);
         this.ventas().forEach((value: Ventas) => {
           if(value.moneda === "$"){
             convertion = this.currency() * Number(value.monto_moneda);

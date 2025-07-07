@@ -58,9 +58,9 @@ export class DashboardPage implements OnInit {
   @ViewChild('chart') chart!: ElementRef;
   apiVentasServices = inject(ApiVentasService);
   apiComprasServices = inject(ApiComprasService);
-  sumVentas: number = 0
+  sumVentas: number = 0;
   sumCompras: number = 0;
-  currency = signal<number>(0 || 110.52);
+  currency = signal<number>(110.52);
   data: any[] = [];
   statusCapital: number = 0;
 
@@ -94,7 +94,8 @@ export class DashboardPage implements OnInit {
 
     this.apiVentasServices.getCurrentCurrency("dollar").subscribe({
       next: (res: any) => {
-        this.currency.set(res.monitors.bcv.price || 110.52);
+        console.log(res);
+        this.currency.set(Object.keys(res.monitors).length === 0 ? 110.52 : res.monitors.bcv.price);
       },
 
       error: (err) => console.error(err)
@@ -163,7 +164,7 @@ export class DashboardPage implements OnInit {
         case 'ventas':
            this.apiVentasServices.getCurrentCurrency("dollar").subscribe({
             next: (res: any) => {
-              this.currency.set(res.monitors.bcv.price || 110.52);
+              this.currency.set(Object.keys(res.monitors).length === 0 ? 110.52 : res.monitors.bcv.price);
               data.forEach((value: Ventas) => {
                 if(value.moneda === "$"){
                   convertion = this.currency() * Number(value.monto_moneda);
@@ -185,8 +186,7 @@ export class DashboardPage implements OnInit {
         case 'compras':
           this.apiComprasServices.getCurrentCurrency("dollar").subscribe({
             next: (res: any) => {
-              this.currency.set(res.monitors.bcv.price || 110.52);
-              
+              this.currency.set(Object.keys(res.monitors).length === 0 ? 110.52 : res.monitors.bcv.price);
               data.forEach((value: CompraInterface) => {
                 if(value.moneda === "$"){
                   convertion = this.currency() * Number(value.monto_moneda);

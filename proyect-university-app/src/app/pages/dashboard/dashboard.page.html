@@ -1,7 +1,12 @@
 <ion-header [translucent]="false" class="flex-items" id="header">
-  <ion-toolbar class="flex-items" style="background-color:#f8f0e6 !important;">
-    <ion-title>Página Principal</ion-title>
+  <ion-toolbar class="flex-items">
+    <ion-title>
+      Página Principal  
+    </ion-title> 
   </ion-toolbar>
+  <ion-button [routerLink]="['/add-inventario']" color="warning" size="small" shape="round" style="margin-right: 1rem;">
+    <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+  </ion-button> 
   <ion-button color="warning" size="small" (click)="closeSession()">
     <ion-icon name="log-out-outline"></ion-icon>
   </ion-button>
