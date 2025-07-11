@@ -24,13 +24,13 @@
   </form>
 </div>
 @if (this.comprasData().length !== 0) {
-  <ion-list [inset]="true" style="padding: 0 !important; position: relative;">
+  <ion-list [inset]="true" style="padding: 0 !important; position: relative; box-shadow: 1px 2px 5px -1px rgba(0, 0, 0, 0.54);">
     <ion-item>
       <h3 class="ventas-title">Compras</h3>
       <button type="button" class="btn-details" [routerLink]="['/all-solds']">
-      <span>View all</span>
-      <ion-icon name="chevron-forward-outline"></ion-icon>
-    </button>
+        <span>View all</span>
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </button>
     </ion-item>
     @for (compras of this.comprasData(); track compras.id_compras;) {
         <ion-item [button]="true" [routerLink]="['/compras-details/'+compras.id_compras]">

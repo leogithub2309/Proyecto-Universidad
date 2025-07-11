@@ -1,3 +1,48 @@
-<p>
-  inventario works!
-</p>
+<form autocomplete="off" [formGroup]="formInventario" class="form-inventario">
+
+  <div style="display: flex; flex-direction: start; justify-content: start; gap: 20px; position: relative;">
+    <div class="content-image">
+      <img [src]="'../../../assets/user-svgrepo-com.svg'" alt="Avatar" id="prevImage" width="150" height="150">
+    </div>
+   <div style="position: relative; width: 12rem;">
+    <input 
+    type="file"
+    id="foto_producto"
+    name="foto_producto"
+    style="display: none;"
+    >
+    <label for="foto_producto" class="input-file">Agregar Foto</label>
+   </div>
+  </div>
+
+  <div style="width: 100%; background-color: #fff; color: #000">
+    <ion-input
+    type="text"
+    color="warning"
+    label="Producto Inventario"
+    placeholder="Agregar Inventario"
+    id="producto_inventario" 
+    label-placement="floating"
+    fill="outline"
+    formControlName="producto_inventario"
+    [errorText]="this.formInventario.get('producto_inventario')?.invalid && this.formInventario.get('producto_inventario')?.touched ? 'El campo es requerido o inválido' : ''"
+    />
+  </div>
+  <div style="width: 100%; background-color: #fff; color: #000">
+    <ion-input
+    type="text"
+    color="warning"
+    label="Producto Inventario"
+    placeholder="Agregar Cantidad"
+    id="cantidad_inventario" 
+    label-placement="floating"
+    fill="outline"
+    formControlName="cantidad_inventario"
+    [errorText]="this.formInventario.get('cantidad_inventario')?.invalid && this.formInventario.get('cantidad_inventario')?.touched ? 'El campo es requerido o inválido' : ''"
+    />
+  </div>
+
+  <ion-button size="block" color="warning" style="height: 3rem; width: 100%;">
+    Agregar Inventario
+  </ion-button>
+</form>

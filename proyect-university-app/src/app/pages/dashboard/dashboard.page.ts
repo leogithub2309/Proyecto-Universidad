@@ -1,7 +1,7 @@
 import { Component, ElementRef, inject, OnInit, signal, ViewChild, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonTab, IonTabs, IonTabBar, IonTabButton} from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonTab, IonTabs, IonTabBar, IonTabButton, IonBackdrop} from '@ionic/angular/standalone';
 import { Router, RouterLink } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { addIcons } from 'ionicons';
@@ -42,6 +42,7 @@ export type ChartOptions = {
     IonTab,
     IonTabBar,
     IonTabButton,
+    IonBackdrop,
     CommonModule,
     FormsModule,
     VentasComponent,
@@ -62,7 +63,8 @@ export class DashboardPage implements OnInit {
   sumCompras: number = 0;
   currency = signal<number>(110.52);
   data: any[] = [];
-  statusCapital: number = 0;
+  alertButtons = ['Action'];
+  isActive: boolean = true;
 
   constructor() {
     addIcons({ home });
@@ -86,6 +88,8 @@ export class DashboardPage implements OnInit {
         }
       ],
     };
+
+   
   }
 
   ngOnInit() {
@@ -94,7 +98,6 @@ export class DashboardPage implements OnInit {
 
     this.apiVentasServices.getCurrentCurrency("dollar").subscribe({
       next: (res: any) => {
-        console.log(res);
         this.currency.set(Object.keys(res.monitors).length === 0 ? 110.52 : res.monitors.bcv.price);
       },
 
@@ -152,8 +155,11 @@ export class DashboardPage implements OnInit {
 
     })
 
-    
+   
+  }
 
+  hideBackdrop(){
+    this.isActive = false;
   }
 
   getToalBs(data: any, type: string){
@@ -210,8 +216,6 @@ export class DashboardPage implements OnInit {
   }
 
   crearGrafico(){
-
-    this.statusCapital = (this.sumVentas - this.sumCompras);
 
     this.chartOptions = {
       series: this.data || [30, 51.64],

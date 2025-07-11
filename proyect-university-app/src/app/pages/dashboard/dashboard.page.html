@@ -12,6 +12,17 @@
   </ion-button>
 </ion-header>
 
+@if((this.sumVentas - this.sumCompras) < 0){
+  <ion-backdrop [visible]="true" [class]="!this.isActive ? 'hidden-backdrop' : ''"></ion-backdrop>
+  <div id="box" [class]="!this.isActive ? 'hidden-backdrop' : ''">
+    <div class="circle">
+      <ion-icon name="alert-outline" color="warning" style="font-size: 34px;"></ion-icon>
+    </div>
+    <h2>Warning</h2>
+    <p>Tiene un deficit negativo debido a que sus compras son mayores a sus ventas, por favor venda algún producto para equiparar el dificit.</p>
+    <ion-button class="ion-margin-start" color="danger" (click)="hideBackdrop()">Hidden</ion-button>
+  </div>
+}
 <ion-tabs style="background-color:#f8f0e6 !important;">
   <ion-tab tab="graficos">
     <div id="grafic-page" style=" background-color: #f8f0e6;">
@@ -21,7 +32,7 @@
         </ion-toolbar>
       </ion-header>
       <div class="container-page">
-        <article [class]="`history-balance ${this.statusCapital < 0 ? 'danger-color' : 'success-color'}`">
+        <article [class]="`history-balance ${(this.sumVentas - this.sumCompras) < 0 ? 'danger-color' : 'success-color'}`">
           <h4>Balance Actual</h4>
           <p>${{ (this.sumVentas - this.sumCompras).toFixed(2)  }}</p>
         </article>
