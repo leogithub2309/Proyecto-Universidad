@@ -29,9 +29,10 @@ export class VentasComponent  implements OnInit {
   apiVentasServices = inject(ApiVentasService);
   ventas = signal<Ventas[]>([]);
   moneda = signal<any[]>([]);
-  currency = signal<number>(0);
+  currency = signal<number>(114.41);
   totalVentas: number = 0;
   titleVenta: string = "Bs";
+  monitors = 114.41;
 
   constructor() { }
 
@@ -44,7 +45,9 @@ export class VentasComponent  implements OnInit {
 
         for(let i=0; i<5; i++){
             if(res.data[i]) this.ventas().push(res.data[i]);
-          }
+        }
+
+        this.ventas.update(() => res.data);
    
         this.getToalBs(res.data);
       },
@@ -72,7 +75,7 @@ export class VentasComponent  implements OnInit {
 
     this.apiVentasServices.getCurrentCurrency("dollar").subscribe({
       next: (res: any) => {
-        this.currency.set(Object.keys(res.monitors).length === 0 ? 110.52 : res.monitors.bcv.price);
+        this.currency.set(Object.keys(res.monitors).length === 0 ? this.monitors : res.monitors.bcv.price);
         data.forEach((value: Ventas) => {
           if(value.moneda === "$"){
             convertion = this.currency() * Number(value.monto_moneda);
@@ -97,7 +100,7 @@ export class VentasComponent  implements OnInit {
 
     this.apiVentasServices.getCurrentCurrency(currency).subscribe({
       next: (res: any) => {
-        this.currency.set(Object.keys(res.monitors).length === 0 ? 110.52 : res.monitors.bcv.price);
+        this.currency.set(Object.keys(res.monitors).length === 0 ? this.monitors : res.monitors.bcv.price);
         this.ventas().forEach((value: Ventas) => {
           if(value.moneda === "$"){
             convertion = this.currency() * Number(value.monto_moneda);

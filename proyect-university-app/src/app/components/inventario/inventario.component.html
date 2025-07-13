@@ -9,6 +9,8 @@
     type="file"
     id="foto_producto"
     name="foto_producto"
+    formControlName="foto_producto_inventario"
+    (change)="changeImagePreview($event)"
     style="display: none;"
     >
     <label for="foto_producto" class="input-file">Agregar Foto</label>
@@ -32,8 +34,8 @@
     <ion-input
     type="text"
     color="warning"
-    label="Producto Inventario"
-    placeholder="Agregar Cantidad"
+    label="Cantidad Inventario"
+    placeholder="Agregar Cantidad Inventario"
     id="cantidad_inventario" 
     label-placement="floating"
     fill="outline"
@@ -42,7 +44,8 @@
     />
   </div>
 
-  <ion-button size="block" color="warning" style="height: 3rem; width: 100%;">
+  <ion-button size="block" color="warning" style="height: 3rem; width: 100%; font-weight: 700;" (click)="onAddIventory()" [disabled]="this.formInventario.invalid">
+    <ion-icon name="add-circle" slot="start"></ion-icon>
     Agregar Inventario
   </ion-button>
 </form>
