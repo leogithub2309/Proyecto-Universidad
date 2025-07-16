@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-06-2025 a las 21:00:28
+-- Tiempo de generación: 16-07-2025 a las 02:03:25
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -109,7 +109,8 @@ INSERT INTO `inventario` (`id_inventario`, `cantidad_inventario`, `producto_inve
 (3, 27, 'Pepsi Cola 2 litros', 'istockphoto-458611985-612x612.jpg'),
 (4, 25, 'Coca Cola 2 Litros', 'kuala-lumpur-malaysia18th-july-2016-600nw-456061381.webp'),
 (5, 62, 'Pepito 800gr', 'Screenshot2024-08-19at11.01.51PM.webp'),
-(6, 16, 'Ruffles Original', 'unnamed.jpg');
+(6, 16, 'Ruffles Original', 'unnamed.jpg'),
+(7, 18, 'Palitos 30 gr', 'd1a2428f601fe9c1d7516f30115ca2d2_fd1a8f3a-439f-4737-9827-4e108d0cc951.webp');
 
 -- --------------------------------------------------------
 
@@ -143,7 +144,8 @@ INSERT INTO `moneda` (`id_moneda`, `id_tipo_moneda`, `monto_moneda`) VALUES
 (19, 1, 15.00),
 (20, 3, 250.00),
 (21, 1, 10.00),
-(22, 1, 20.00);
+(22, 1, 20.00),
+(23, 3, 160.00);
 
 -- --------------------------------------------------------
 
@@ -202,7 +204,8 @@ INSERT INTO `producto` (`id_producto`, `producto_detalle`, `titulo_producto`, `f
 (19, 'Se restableció el pepito que ya no quedaba', 'Pepito', '2025-06-15 18:41:32', 19, 'Screenshot2024-08-19at11.01.51PM.webp'),
 (20, 'Se vendieron 4 ruffles el cliente pagó en bolívare', 'Ruffles', '2025-06-15 19:41:14', 20, 'unnamed.jpg'),
 (21, 'Cliente compró 5 Cheese Tris', 'Cheese Tris', '2025-06-28 20:34:23', 21, 'cheese-tris.jpg'),
-(22, 'Cliente compró 10 doritos pagó en divisas', 'Doritos', '2025-06-28 20:41:09', 22, 'Doritos_logo.png');
+(22, 'Cliente compró 10 doritos pagó en divisas', 'Doritos', '2025-06-28 20:41:09', 22, 'Doritos_logo.png'),
+(23, 'Se vendieron 2 palitos de 30 gr', 'Palitos', '2025-07-13 21:39:37', 23, 'd1a2428f601fe9c1d7516f30115ca2d2_fd1a8f3a-439f-4737-9827-4e108d0cc951.webp');
 
 -- --------------------------------------------------------
 
@@ -295,7 +298,8 @@ INSERT INTO `ventas` (`id_venta_detalle`, `venta_detalle`, `id_producto`, `id_in
 (10, 'Venta de Doritos', 15, 2, '2025-06-12 23:21:37', 9),
 (11, 'Venta de 4 ruffles', 20, 6, '2025-06-15 19:41:14', 9),
 (12, 'Se vendieron 5 Cheese Tris', 21, 1, '2025-06-28 20:34:23', 9),
-(13, 'Se vendieron 10 doritos', 22, 2, '2025-06-28 20:41:09', 9);
+(13, 'Se vendieron 10 doritos', 22, 2, '2025-06-28 20:41:09', 9),
+(14, 'Venta Palitos 30gr', 23, 7, '2025-07-13 21:39:37', 9);
 
 --
 -- Índices para tablas volcadas
@@ -405,13 +409,13 @@ ALTER TABLE `direccion`
 -- AUTO_INCREMENT de la tabla `inventario`
 --
 ALTER TABLE `inventario`
-  MODIFY `id_inventario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_inventario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `moneda`
 --
 ALTER TABLE `moneda`
-  MODIFY `id_moneda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_moneda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `nombre_usuario`
@@ -423,7 +427,7 @@ ALTER TABLE `nombre_usuario`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
@@ -447,7 +451,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id_venta_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_venta_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Restricciones para tablas volcadas
