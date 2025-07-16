@@ -54,7 +54,7 @@ export class ComprasComponent  implements OnInit {
         for(let i=0; i<5; i++){
             if(res.data[i]) this.comprasData().push(res.data[i]);
         }
-        this.comprasData.update(() => res.data);
+        //this.comprasData.update(() => res.data);
         this.getTotalBs(res.data);
       },
       error: (err) => console.error(err)

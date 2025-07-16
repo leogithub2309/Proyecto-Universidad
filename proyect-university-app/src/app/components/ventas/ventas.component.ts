@@ -47,7 +47,7 @@ export class VentasComponent  implements OnInit {
             if(res.data[i]) this.ventas().push(res.data[i]);
         }
 
-        this.ventas.update(() => res.data);
+        //this.ventas.update(() => res.data);
    
         this.getToalBs(res.data);
       },
