@@ -69,6 +69,7 @@ export class ComprasComponent  implements OnInit {
       convertion = 0;
   
       this.totalCompras = 0;
+      this.currency.set(0);
   
       this.apiVentasServices.getCurrentCurrency(currency).subscribe({
         next: (res: any) => {
@@ -91,6 +92,8 @@ export class ComprasComponent  implements OnInit {
             this.totalCompras = this.totalCompras * this.currency();
             this.symbol.set("Bs");
           }
+
+           if(event.target.value === "euro") this.monitors = 140.00;
           
           this.symbol.set(currency === "dollar" ? "$" : currency === "euro" ? "€" : currency === "bolívares" ? 'Bs' : '');
         },

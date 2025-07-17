@@ -97,6 +97,7 @@ export class VentasComponent  implements OnInit {
       convertion = 0;
 
     this.totalVentas = 0;
+    this.currency.set(0);
 
     this.apiVentasServices.getCurrentCurrency(currency).subscribe({
       next: (res: any) => {
@@ -117,6 +118,9 @@ export class VentasComponent  implements OnInit {
           this.totalVentas = this.totalVentas * this.currency();
           this.titleVenta = "Bs";
         }
+
+        if(event.target.value === "euro") this.monitors = 140.00;
+
       },
       error: (err) => console.error(err)
     });
