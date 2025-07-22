@@ -1,11 +1,14 @@
-<ion-list [inset]="true" style="padding: 0 !important; position: relative; width: 100%; margin-left: 0;" >
-    @for (venta of this.ventas(); track venta.id_venta_detalle;) {
-    <ion-item [button]="true" [routerLink]="['/ventas-details/'+venta.id_venta_detalle]">
-      <ion-label style="display: flex; flex-direction: column; gap: .25rem; padding: .4rem 0; margin-right: 3rem;">
-        <p style="margin: 0; padding: 0; font-size: 18px; color: #000;">
+<ion-list [inset]="true" class="list" >
+  <ion-item class="ion-serach-item">
+    <input type="text" name="search" id="search" placeholder="Buscar..." class="input-search" autocomplete="off" (keyup)="searchData($event)">
+  </ion-item>
+  @for (venta of this.ventas(); track venta.id_venta_detalle;) {
+    <ion-item [button]="true" [routerLink]="['/ventas-details/'+venta.id_venta_detalle]" class="ion-list-items">
+      <ion-label class="label">
+        <p class="titulo_producto">
           <strong>{{ venta.titulo_producto }}</strong>
         </p>
-        <p style="margin: 0; padding: 0;">
+        <p class="detalle">
           {{ venta.producto_detalle }}
         </p>
       </ion-label>

@@ -23,19 +23,40 @@ export class AllVentasComponent  implements OnInit {
 
   ventas = signal<Ventas[]>([]);
 
+  id: string = "";
+
   constructor() { }
 
   ngOnInit() {
 
-    let id = String(sessionStorage.getItem("userIdSession"));
+    this.id = String(sessionStorage.getItem("userIdSession"));
 
-    this.apiVentasServices.getAllVentas(Number(id)).subscribe({
+    this.apiVentasServices.getAllVentas(Number(this.id)).subscribe({
       next: (res: any) => {
         this.ventas.set(res.data);
       },
       error: (err) => console.error(err)
     })
 
+  }
+
+  searchData(event: any){
+    
+    const items: NodeListOf<Element> = document.querySelectorAll("ion-list .ion-list-items");
+
+    items.forEach((ionList) => {
+      
+      let tituloProducto = ionList.querySelector(".titulo_producto strong"),
+        fecha = ionList.querySelector("ion-note"),
+        textFecha = fecha?.textContent?.split(" ")[2];
+
+      if(tituloProducto?.textContent?.toLowerCase().includes(event.target.value.toLowerCase()) || textFecha?.toLowerCase().includes(event.target.value.toLowerCase())){
+        ionList.classList.remove("hidden");
+      }else{
+        ionList.classList.add("hidden");
+      }
+
+    });
   }
 
   formatVenta(fecha: string){

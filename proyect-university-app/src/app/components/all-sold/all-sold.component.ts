@@ -40,6 +40,25 @@ export class AllSoldComponent  implements OnInit {
     })
   }
 
+  searchData(event: any){
+    
+    const items: NodeListOf<Element> = document.querySelectorAll("ion-list .ion-list-items");
+
+    items.forEach((ionList) => {
+      
+      let tituloProducto = ionList.querySelector(".titulo_producto strong"),
+        fecha = ionList.querySelector("ion-note"),
+        textFecha = fecha?.textContent?.split(" ")[2];
+
+      if(tituloProducto?.textContent?.toLowerCase().includes(event.target.value.toLowerCase()) || textFecha?.toLowerCase().includes(event.target.value.toLowerCase())){
+        ionList.classList.remove("hidden");
+      }else{
+        ionList.classList.add("hidden");
+      }
+
+    });
+  }
+
   formatVenta(fecha: string){
     const date = new Date(fecha);
     return `${date.getDate()} ${date.toLocaleString('es', { month: 'long' })} ${date.getFullYear()}`;

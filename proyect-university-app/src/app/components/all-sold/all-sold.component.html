@@ -1,11 +1,14 @@
-<ion-list [inset]="true" style="padding: 0 !important; position: relative; width: 100%; margin-left: 0;" >
+<ion-list [inset]="true" class="list">
+  <ion-item class="ion-serach-item">
+    <input type="text" name="search" id="search" placeholder="Buscar..." class="input-search" autocomplete="off" (keyup)="searchData($event)">
+  </ion-item>
     @for (compra of this.compras(); track compra.id_compras;) {
-    <ion-item [button]="true" [routerLink]="['/compras-details/'+compra.id_compras]">
-      <ion-label style="display: flex; flex-direction: column; gap: .25rem; padding: .4rem 0; margin-right: 3rem;">
-        <p style="margin: 0; padding: 0; font-size: 18px; color: #000;">
+    <ion-item [button]="true" [routerLink]="['/compras-details/'+compra.id_compras]" class="ion-list-items">
+      <ion-label class="label">
+        <p class="titulo_producto">
           <strong>{{ compra.titulo_producto }}</strong>
-        </p>
-        <p style="margin: 0; padding: 0;">
+        </p >
+        <p class="detalle">
           {{ compra.producto_detalle }}
         </p>
       </ion-label>
