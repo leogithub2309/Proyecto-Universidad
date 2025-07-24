@@ -1,6 +1,6 @@
 import { Component, ElementRef, inject, OnInit, resource, signal, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonInput, IonSelect, IonSelectOption, IonIcon, IonTextarea, IonButton, ToastController,IonItem } from '@ionic/angular/standalone';
+import { IonInput, IonSelect, IonSelectOption, IonIcon, IonTextarea, IonButton, ToastController,IonItem, AlertController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { ApiVentasService } from 'src/app/services/api-ventas.service';
 import crypto from 'crypto-js';
@@ -37,6 +37,7 @@ export class AddVentasComponent  implements OnInit {
   inventario = signal<InventarioInterface[]>([]);
 
   toastControllers = inject(ToastController);
+  alertController = inject(AlertController);
 
   images!: File;
 
@@ -73,6 +74,17 @@ export class AddVentasComponent  implements OnInit {
     })
   }
 
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Advertencia',
+      subHeader: 'Inventatio Error',
+      message: 'El producto que intenta vender no tiene inventario disponible.',
+      buttons: ['Action'],
+    });
+
+    await alert.present();
+  }
+
 
   changeImagePreview(event: any){
     let path = "../../../assets/" + event.target.files[0].name || "http://localhost:80/uploaderImages/uploads/" + event.target.files[0].name;
@@ -96,6 +108,15 @@ export class AddVentasComponent  implements OnInit {
       idUser: this.decripDataSession().userId,
       id_inventario: this.formVenta.get('id_inventario')?.value,
       cantidad_inventario: this.formVenta.get('cantidad_inventario')?.value
+    }
+
+    const findInventory = this.inventario().find(function(inventory){
+      return inventory.id_inventario === VENTA.id_inventario
+    });
+
+    if(Number(findInventory?.cantidad_inventario) <= 0){
+      this.presentAlert();
+      return;
     }
 
     // Agregar una nueva venta

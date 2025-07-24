@@ -113,7 +113,7 @@
       [errorText]="this.formVenta.get('cantidad_inventario')?.invalid && this.formVenta.get('cantidad_inventario')?.touched ? 'El campo es requerido o inválido' : ''"
     ></ion-input>
   </div>
-  <ion-button size="default" [disabled]="this.formVenta.invalid" color="warning" expand="block" style="height: 3rem;" (click)="onSubmit()">
+  <ion-button size="default" [disabled]="this.formVenta.invalid" color="warning" expand="block" style="height: 3rem;" (click)=" onSubmit()">
     <ion-icon name="cash-outline"></ion-icon> 
     <span style="margin-left: 1rem;">Vender Producto</span>
   </ion-button>

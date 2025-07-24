@@ -29,9 +29,9 @@ export class ComprasComponent  implements OnInit {
   compras = signal<any[]>([]);
   comprasData = signal<CompraInterface[]>([]);
   totalCompras: number = 0;
-  currency = signal<number>(114.41);
+  currency = signal<number>(120);
   symbol = signal<string>('Bs');
-  monitors = 114.41;
+  monitors = 120;
 
   apiVentasServices = inject(ApiVentasService);
   apiComprasServices = inject(ApiComprasService);
@@ -68,11 +68,11 @@ export class ComprasComponent  implements OnInit {
       let currency = (event.target.value === "dollar" || event.target.value === "bolívares") ? "dollar" : "euro", 
       convertion = 0;
   
-      this.totalCompras = 0;
       this.currency.set(0);
   
       this.apiVentasServices.getCurrentCurrency(currency).subscribe({
         next: (res: any) => {
+          this.totalCompras = 0;
           this.currency.set(Object.keys(res.monitors).length === 0 ? this.monitors : res.monitors.bcv.price);
           this.comprasData().forEach((value: CompraInterface) => {
             if(value.moneda === "$"){
@@ -107,7 +107,10 @@ export class ComprasComponent  implements OnInit {
 
     this.apiComprasServices.getCurrentCurrency("dollar").subscribe({
       next: (res: any) => {
+        this.totalCompras = 0;
+        
         this.currency.set(Object.keys(res.monitors).length === 0 ? this.monitors: res.monitors.bcv.price);
+        
         data.forEach((value: Ventas) => {
           if(value.moneda === "$"){
             convertion = this.currency() * Number(value.monto_moneda);
