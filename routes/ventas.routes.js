@@ -163,7 +163,7 @@ const getSingleVentas = async (req, res) => {
         let { id } = req.params;
 
         const [data] = await pool.query(
-            "SELECT * FROM ventas v INNER JOIN producto p ON v.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda WHERE v.id_venta_detalle = ?",
+            "SELECT * FROM ventas v INNER JOIN producto p ON v.id_producto=p.id_producto INNER JOIN moneda m ON p.moneda=m.id_moneda INNER JOIN tipo_moneda_table tmp ON m.id_tipo_moneda=tmp.id_tipo_moneda INNER JOIN inventario i ON v.id_inventario=i.id_inventario WHERE v.id_venta_detalle = ?",
             [id]
         );
 

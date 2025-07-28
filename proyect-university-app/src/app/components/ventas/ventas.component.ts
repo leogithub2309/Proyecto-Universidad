@@ -29,10 +29,10 @@ export class VentasComponent  implements OnInit {
   apiVentasServices = inject(ApiVentasService);
   ventas = signal<Ventas[]>([]);
   moneda = signal<any[]>([]);
-  currency = signal<number>(120);
+  currency = signal<number>(125.17);
   totalVentas: number = 0;
   titleVenta: string = "Bs";
-  monitors = 120;
+  monitors = 125.17;
 
   constructor() { }
 

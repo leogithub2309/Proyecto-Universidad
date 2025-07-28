@@ -30,12 +30,15 @@ export class VentasDetailsPage implements OnInit {
   apiVentasServices = inject(ApiVentasService);
   id = inject(ActivatedRoute);
   singleVenta = signal<any>([]);
-  currency = signal<number>(114.41);
+  currency = signal<number>(125.17);
   _router = inject(Router);
+  idRouter: number = 0;
 
   constructor() {}
 
   ngOnInit() {
+
+    this.idRouter = Number(this.id.snapshot.params['id']);
 
     this.apiVentasServices.getSingeVenta(Number(this.id.snapshot.params["id"])).subscribe({
       next: (response: any) => {
@@ -46,7 +49,7 @@ export class VentasDetailsPage implements OnInit {
 
     this.apiVentasServices.getCurrentCurrency("dollar").subscribe({
       next: (res: any) => {
-        this.currency.set(Object.keys(res.monitors).length === 0 ? 114.41 : res.monitors.bcv.price);
+        this.currency.set(Object.keys(res.monitors).length === 0 ? 125.17 : res.monitors.bcv.price);
       },
       error: (err) => console.error(err)
     })

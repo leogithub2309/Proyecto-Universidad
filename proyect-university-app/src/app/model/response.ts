@@ -45,4 +45,5 @@ export interface Ventas{
     producto_detalle: string;
     titulo_producto: string;
     venta_detalle: string;
+    cantidad_inventario: number;
 }

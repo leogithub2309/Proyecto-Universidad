@@ -29,9 +29,9 @@ export class ComprasComponent  implements OnInit {
   compras = signal<any[]>([]);
   comprasData = signal<CompraInterface[]>([]);
   totalCompras: number = 0;
-  currency = signal<number>(120);
+  currency = signal<number>(125.17);
   symbol = signal<string>('Bs');
-  monitors = 120;
+  monitors = 125.17;
 
   apiVentasServices = inject(ApiVentasService);
   apiComprasServices = inject(ApiComprasService);
@@ -52,7 +52,7 @@ export class ComprasComponent  implements OnInit {
     this.apiComprasServices.getAllCompras(Number(id)).subscribe({
       next: (res: any) => {
         for(let i=0; i<5; i++){
-            if(res.data[i]) this.comprasData().push(res.data[i]);
+          if(res.data[i]) this.comprasData().push(res.data[i]);
         }
         //this.comprasData.update(() => res.data);
         this.getTotalBs(res.data);

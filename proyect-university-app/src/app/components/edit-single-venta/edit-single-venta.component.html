@@ -1,0 +1,117 @@
+<form autocomplete="off" [formGroup]="editComprasForm" class="form-edit">
+  <div style="display: flex; flex-direction: start; justify-content: start; gap: 20px; position: relative;">
+    <div class="content-image">
+      <img [src]="'../../../assets/user-svgrepo-com.svg'" alt="Avatar" id="prevImage" width="150" height="150" #foto_producto>
+    </div>
+   <div style="position: relative; width: 12rem;">
+    <input 
+    type="file"
+    id="foto_producto"
+    name="foto_producto"
+    style="display: none;"
+    (change)="changeImagePreview($event)"
+    >
+    <label for="foto_producto" class="input-file">Agregar Foto</label>
+   </div>
+  </div>
+  <div style="width: 100%; background-color: #fff; color: #000">
+    <ion-input
+    type="text"
+    color="warning"
+    label="Detalle Compra"
+    placeholder="e.g Compra de Comestibles"
+    id="venta_detalle" 
+    label-placement="floating"
+    fill="outline"
+    formControlName="venta_detalle"
+    [errorText]="this.editComprasForm.get('venta_detalle')?.invalid && this.editComprasForm.get('venta_detalle')?.touched ? 'El campo es requerido o inválido' : ''"
+    />
+  </div>
+  <div style="width: 100%; background-color: #fff; color: #000">
+    <ion-input
+    type="text"
+    color="warning"
+    label="Titulo Producto"
+    placeholder="e.g Dorito o Popito, Etc..."
+    id="titulo_producto" 
+    label-placement="floating"
+    fill="outline"
+    formControlName="titulo_producto"
+    [errorText]="this.editComprasForm.get('titulo_producto')?.invalid && this.editComprasForm.get('titulo_producto')?.touched ? 'El campo es requerido o inválido' : ''"
+    />
+  </div>
+  <div style="width: 100%; background-color: #fff; color: #000">
+    <ion-textarea
+    type="text"
+    color="warning"
+    label="Descripcion Producto"
+    placeholder="e.g El usuario compro..."
+    id="producto_detalle" 
+    label-placement="floating"
+    fill="outline"
+    formControlName="producto_detalle"
+    [errorText]="this.editComprasForm.get('producto_detalle')?.invalid && this.editComprasForm.get('producto_detalle')?.touched ? 'El campo es requerido o inválido' : ''"
+    ></ion-textarea>
+  </div>
+  <div class="input-item">
+    <ion-select aria-label="Choice Method of Pay" color="success" id="tipo_moneda" formControlName="tipo_moneda" placeholder="Moneda"  style="width: 10%; background-color: #fff; color: #000; 
+    padding: .3rem; border: 1px solid #000; border-radius: 4px;">
+      @if(!this.monedaVenta()){
+        <ion-select-option value="">
+          <span>
+            No hay Opciones Disponibles
+          </span>
+        </ion-select-option>
+      } @else {
+       @for(monedaVenta of this.monedaVenta(); track monedaVenta.id_tipo_moneda) {
+        <ion-select-option [value]="monedaVenta.id_tipo_moneda" [ariaSelected]="monedaVenta.id_tipo_moneda === this.venta()[0].id_moneda ? true : false">
+          <span>
+            {{ monedaVenta.moneda }}
+          </span>
+        </ion-select-option>
+        }
+      }
+    </ion-select>
+    <ion-input
+      type="text"
+      color="warning"
+      label="Precio del Producto"
+      id="monto_moneda"
+      label-placement="floating"
+      fill="outline"
+      style="width: 90%; background-color: #fff; color: #000"
+      formControlName="monto_moneda"
+      [errorText]="this.editComprasForm.get('monto_moneda')?.invalid && this.editComprasForm.get('monto_moneda')?.touched ? 'El campo es requerido o inválido' : ''"
+    ></ion-input>
+  </div>
+  <div class="input-item" style="border: 1px solid #333; border-radius: 4px; background-color: #fff; padding: 0 10px;">
+     <ion-select aria-label="Fruit" id="id_inventario" interface="modal" placeholder="Select Inventory" aria-label="Select Inventory" formControlName="id_inventario">
+      @for(inventory of this.inventory(); track inventory.id_inventario;) {
+        <ion-select-option [value]="inventory.id_inventario" style="color: #eee; font-weight: bold;" class="flex-content">
+          <div style="font-size: 22px !important; font-weight: 700 !important;">
+            {{ inventory.producto_inventario }}  
+             <strong>Cantidad: {{  inventory.cantidad_inventario }}</strong>
+          </div>
+        </ion-select-option>
+      }
+    </ion-select>
+  </div>
+  <div class="input-item">
+    <ion-input 
+      type="number"
+      color="warning"
+      label="Cantidad Inventario"
+      id="cantidad_inventario"
+      label-placement="floating"
+      placeholder="e.g Cantidad Artículos"
+      fill="outline"
+      style="width: 100%; background-color: #fff; color: #000"
+      formControlName="cantidad_inventario"
+      [errorText]="this.editComprasForm.get('cantidad_inventario')?.invalid && this.editComprasForm.get('cantidad_inventario')?.touched ? 'El campo es requerido o inválido' : ''"
+    ></ion-input>
+  </div>
+  <ion-button size="default" [disabled]="this.editComprasForm.invalid" color="warning" expand="block" style="width: 100%; height: 3rem;" (click)="onSubmitEditCompras()">
+    <ion-icon name="pencil-outline"></ion-icon> &nbsp;
+    <span>Editar Compra</span>
+  </ion-button>
+</form>
