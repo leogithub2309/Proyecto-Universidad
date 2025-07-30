@@ -33,6 +33,7 @@ export class VentasComponent  implements OnInit {
   totalVentas: number = 0;
   titleVenta: string = "Bs";
   monitors = 125.17;
+  ventasCurrency = signal<Ventas[]>([]);
 
   constructor() { }
 
@@ -44,12 +45,13 @@ export class VentasComponent  implements OnInit {
       next: (res: any) => {
 
         for(let i=0; i<5; i++){
-            if(res.data[i]) this.ventas().push(res.data[i]);
+          if(res.data[i]) this.ventas().push(res.data[i]);
+          
         }
-
-        //this.ventas.update(() => res.data);
-   
-        this.getToalBs(res.data);
+        
+        this.ventasCurrency.set(res.data);
+        
+        this.getTotalBs(res.data);
       },
       error: (err) => console.error(err)
     });
@@ -69,7 +71,7 @@ export class VentasComponent  implements OnInit {
   }
 
 
-  getToalBs(data: any){
+  getTotalBs(data: any){
 
     let convertion = 0;
 
@@ -89,6 +91,7 @@ export class VentasComponent  implements OnInit {
             this.totalVentas += convertion;
           }else if(value.moneda === "Bs") this.totalVentas += Number(value.monto_moneda);
         });
+        
       },
       error: (err) => console.error(err)
     });
@@ -100,17 +103,15 @@ export class VentasComponent  implements OnInit {
     let currency = event.target.value === "bolívares" ? "dollar" : event.target.value,
       convertion = 0;
 
-    
+    this.totalVentas = 0;
     this.currency.set(0);
 
     this.apiVentasServices.getCurrentCurrency(currency).subscribe({
       next: (res: any) => {
         
-        this.totalVentas = 0;
-        
         this.currency.set(Object.keys(res.monitors).length === 0 ? this.monitors : res.monitors.bcv.price);
-        
-        this.ventas().forEach((value: Ventas) => {
+
+        this.ventasCurrency().forEach((value: Ventas) => {
           if(value.moneda === "$"){
             convertion = this.currency() * Number(value.monto_moneda);
             this.totalVentas += convertion;
@@ -118,16 +119,19 @@ export class VentasComponent  implements OnInit {
             convertion = this.currency() * Number(value.monto_moneda);
             this.totalVentas += convertion;
           }else if(value.moneda === "Bs") this.totalVentas += Number(value.monto_moneda);
+          
         });
 
-        this.totalVentas = this.totalVentas / this.currency();
+        if(event.target.value === "euro"){
+          this.currency.set(145);
+          this.totalVentas = this.totalVentas / this.currency();
+       
+        } else this.totalVentas = this.totalVentas / this.currency();
 
         if(event.target.value === "bolívares"){
           this.totalVentas = this.totalVentas * this.currency();
           this.titleVenta = "Bs";
         }
-
-        if(event.target.value === "euro") this.monitors = 140.00;
 
       },
       error: (err) => console.error(err)

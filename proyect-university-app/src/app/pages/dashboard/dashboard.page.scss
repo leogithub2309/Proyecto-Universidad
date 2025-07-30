@@ -57,6 +57,12 @@
     margin: 0 auto;
     box-shadow: 1px 2px 5px -1px rgba(0,0,0,0.54);
     cursor: pointer;
+    transition: background-color .5s ease;
+}
+
+.ventas-balance:hover,
+.compras-balance:hover{
+    background-color: rgba(0,0,0,0.24);
 }
 
 .ventas-balance h4,

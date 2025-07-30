@@ -30,8 +30,9 @@ export class ComprasComponent  implements OnInit {
   comprasData = signal<CompraInterface[]>([]);
   totalCompras: number = 0;
   currency = signal<number>(125.17);
-  symbol = signal<string>('Bs');
+  titleCompra: string = 'Bs';
   monitors = 125.17;
+  compraCurrency = signal<CompraInterface[]>([]);
 
   apiVentasServices = inject(ApiVentasService);
   apiComprasServices = inject(ApiComprasService);
@@ -54,7 +55,9 @@ export class ComprasComponent  implements OnInit {
         for(let i=0; i<5; i++){
           if(res.data[i]) this.comprasData().push(res.data[i]);
         }
-        //this.comprasData.update(() => res.data);
+        
+        this.compraCurrency.set(res.data);
+        
         this.getTotalBs(res.data);
       },
       error: (err) => console.error(err)
@@ -65,16 +68,17 @@ export class ComprasComponent  implements OnInit {
 
   getCurrency(event: any){
   
-      let currency = (event.target.value === "dollar" || event.target.value === "bolívares") ? "dollar" : "euro", 
+      let currency = event.target.value === "bolívares" ? "dollar" : event.target.value, 
       convertion = 0;
   
       this.currency.set(0);
-  
+      this.totalCompras = 0;
+      
       this.apiVentasServices.getCurrentCurrency(currency).subscribe({
         next: (res: any) => {
-          this.totalCompras = 0;
           this.currency.set(Object.keys(res.monitors).length === 0 ? this.monitors : res.monitors.bcv.price);
-          this.comprasData().forEach((value: CompraInterface) => {
+          
+          this.compraCurrency().forEach((value: CompraInterface) => {
             if(value.moneda === "$"){
               convertion = this.currency() * Number(value.monto_moneda);
               this.totalCompras += convertion;
@@ -86,19 +90,22 @@ export class ComprasComponent  implements OnInit {
             }
           });
 
-          this.totalCompras = this.totalCompras / this.currency();
+          if(event.target.value === "euro"){
+            this.currency.set(145);
+            this.totalCompras = this.totalCompras / this.currency();
+        
+          } else this.totalCompras = this.totalCompras / this.currency();
 
           if(event.target.value === "bolívares"){
             this.totalCompras = this.totalCompras * this.currency();
-            this.symbol.set("Bs");
+            this.titleCompra = "Bs";
           }
-
-           if(event.target.value === "euro") this.monitors = 140.00;
           
-          this.symbol.set(currency === "dollar" ? "$" : currency === "euro" ? "€" : currency === "bolívares" ? 'Bs' : '');
         },
         error: (err) => console.error(err)
       });
+
+      this.titleCompra = currency === "dollar" ? "$" : currency === "euro" ? "€" : currency === "bolívares" ? 'Bs' : '';
   }
 
   getTotalBs(data: any){
