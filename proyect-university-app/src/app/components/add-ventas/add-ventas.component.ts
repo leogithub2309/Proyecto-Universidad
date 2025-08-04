@@ -1,6 +1,6 @@
 import { Component, ElementRef, inject, OnInit, resource, signal, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonInput, IonSelect, IonSelectOption, IonIcon, IonTextarea, IonButton, ToastController,IonItem, AlertController } from '@ionic/angular/standalone';
+import { IonInput, IonSelect, IonSelectOption, IonIcon, IonTextarea, IonButton, ToastController,IonItem, AlertController, IonImg, IonAvatar } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { ApiVentasService } from 'src/app/services/api-ventas.service';
 import crypto from 'crypto-js';
@@ -16,6 +16,8 @@ import { Router } from '@angular/router';
     IonItem,
     IonInput,
     IonSelect,
+    IonAvatar,
+    IonImg,
     IonSelectOption,
     IonTextarea,
     IonButton,
@@ -44,6 +46,12 @@ export class AddVentasComponent  implements OnInit {
   fb = inject(FormBuilder);
 
   formVenta!:FormGroup;
+
+  customModalOptions = {
+    header: 'Lista de Inventario',
+    breakpoints: [0, 0.5],
+    initialBreakpoint: 0.5,
+  };
 
   constructor() {
     addIcons({});

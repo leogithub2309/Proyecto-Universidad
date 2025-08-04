@@ -44,6 +44,11 @@ export class AddComprasComponent  implements OnInit {
   inventory = signal<InventarioInterface[]>([]);
   toastControllers = inject(ToastController);
   compras = signal<Compras[]>([]);
+  customModalOptions = {
+    header: 'Lista de Inventario',
+    breakpoints: [0, 0.5],
+    initialBreakpoint: 0.5,
+  };
 
   constructor() {
 

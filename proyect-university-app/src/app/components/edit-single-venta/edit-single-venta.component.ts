@@ -34,6 +34,11 @@ export class EditSingleVentaComponent  implements OnInit {
   venta = signal<Ventas[]>([]);
   labelVenta = computed(() => this.venta());
   @ViewChild ('foto_producto') foto_producto!: ElementRef;
+  customModalOptions = {
+    header: 'Lista de Inventario',
+    breakpoints: [0, 0.5],
+    initialBreakpoint: 0.5,
+  };
 
   constructor(){
     this.editComprasForm = this.fb.group({

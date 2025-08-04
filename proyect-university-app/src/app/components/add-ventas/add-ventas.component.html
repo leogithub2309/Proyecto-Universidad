@@ -89,9 +89,12 @@
     ></ion-input>
   </div>
   <ion-item class="input-item">
-    <ion-select interface="modal" placeholder="Select Item" aria-label="Inventory" id="id_inventario" interface="modal" aria-label="Select Inventory" formControlName="id_inventario">
+    <ion-select interface="modal" [interfaceOptions]="customModalOptions" placeholder="Select Item" aria-label="Inventory" id="id_inventario" interface="modal" aria-label="Select Inventory" formControlName="id_inventario">
      @for(inventario of this.inventario(); track inventario.id_inventario;) {
         <ion-select-option [value]="inventario.id_inventario" style="color: #eee; font-weight: bold;" class="flex-content">
+         <ion-avatar slot="start">
+            <ion-img [src]="inventario.foto_producto_inventario"></ion-img>
+         </ion-avatar>
          <div style="font-size: 22px !important; font-weight: 700 !important;">
             {{ inventario.producto_inventario }}  
              <strong>Cantidad: {{  inventario.cantidad_inventario }}</strong>

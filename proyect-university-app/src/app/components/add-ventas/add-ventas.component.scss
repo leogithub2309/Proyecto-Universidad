@@ -47,3 +47,8 @@ form{
 ion-item ion-select > ion-select-option:selected {
     color: #fff !important;
 }
+
+ion-select::part(text){
+    font-weight: 500;
+    color: #000;
+}

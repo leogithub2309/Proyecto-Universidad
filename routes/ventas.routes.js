@@ -231,19 +231,6 @@ const updateVenta = async (req, res) => {
             throw new Error("No se pudo realizar la actualización de la tabla ventas.");
         }
 
-        const [resultUpdateTipoMoneda] = await pool.query(
-            "UPDATE tipo_moneda_table SET moneda = ?, descripcion_moneda = ? WHERE id_tipo_moneda = ?",
-            [
-                tipo_moneda, 
-                tipo_moneda === "$" ? "Dollar" : tipo_moneda === "€" ? "Euro" : tipo_moneda === "Bs" ? "Bolívares" : '',
-                id_moneda
-            ]
-        );
-
-        if(!resultUpdateTipoMoneda) {
-            throw new Error("No se pudo actualizar la tabla tipo moneda.");
-        }
-
         const [resutlUpdateMoneda] = await pool.query(
             "UPDATE moneda SET monto_moneda = ? WHERE id_moneda = ?",
             [monto_moneda, id_moneda]
@@ -288,7 +275,7 @@ const updateVenta = async (req, res) => {
         return res.status(500).json({
             title: "Error Interno del Servidor",
             status: 500,
-            description: "Ocurrió un error al procesar la compra. Por favor, inténtalo de nuevo más tarde.",
+            description: "Ocurrió un error al procesar la venta. Por favor, inténtalo de nuevo más tarde.",
             error: error.message // Incluir el mensaje de error para depuración (opcional en producción)
         });
     }finally {
