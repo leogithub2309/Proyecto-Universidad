@@ -8,4 +8,8 @@ export interface VentasInterface {
     idUser: number;
     id_inventario: number;
     cantidad_inventario: number;
+    id_producto?: number;
+    id_moneda?: number;
+
 }
+

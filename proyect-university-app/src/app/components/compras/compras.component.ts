@@ -29,9 +29,9 @@ export class ComprasComponent  implements OnInit {
   compras = signal<any[]>([]);
   comprasData = signal<CompraInterface[]>([]);
   totalCompras: number = 0;
-  currency = signal<number>(125.17);
+  currency = signal<number>(130);
   titleCompra: string = 'Bs';
-  monitors = 125.17;
+  monitors = 130;
   compraCurrency = signal<CompraInterface[]>([]);
 
   apiVentasServices = inject(ApiVentasService);

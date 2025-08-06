@@ -49,8 +49,8 @@ export class AddVentasComponent  implements OnInit {
 
   customModalOptions = {
     header: 'Lista de Inventario',
-    breakpoints: [0, 0.5],
-    initialBreakpoint: 0.5,
+    breakpoints: [0, 0.45],
+    initialBreakpoint: 0.65,
   };
 
   constructor() {

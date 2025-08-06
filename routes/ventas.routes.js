@@ -237,7 +237,7 @@ const updateVenta = async (req, res) => {
         );
 
         if(!resutlUpdateMoneda){
-            throw new Error("La table moneda no se pudo actualizar correctamente.");
+            throw new Error("La tabla moneda no se pudo actualizar correctamente.");
         }
 
         const [resultUpdateProducto] = await pool.query(
@@ -250,7 +250,7 @@ const updateVenta = async (req, res) => {
         }
 
         const [resultUpdateInventario] = await pool.query(
-            "UPDATE inventario SET cantidad_inventario = ? WHERE id_inventario = ?",
+            "UPDATE inventario SET cantidad_inventario = cantidad_inventario - ? WHERE id_inventario = ?",
             [cantidad_inventario, id_inventario]
         );
 

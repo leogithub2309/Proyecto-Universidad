@@ -52,6 +52,10 @@ export class ApiVentasService {
     return this.http.get(this.url+"inventory");
   }
 
+  updateVenta(form: VentasInterface, id:number){
+    return this.http.put(this.url+"updateVenta/"+id, form);
+  }
+
    deleteVenta(id: number){
     return this.http.delete(this.url+"deleteVenta/"+id);
   }

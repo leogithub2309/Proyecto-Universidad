@@ -39,6 +39,7 @@ app.post("/createVenta/:idUser", ventasRoutes.createVenta);
 app.get("/firstVentas/:id", ventasRoutes.getVentasSelects);
 app.get("/allVentas/:id", ventasRoutes.getAllVentas);
 app.get("/venta/:id", ventasRoutes.getSingleVentas);
+app.put("/updateVenta/:id", ventasRoutes.updateVenta);
 app.delete("/deleteVenta/:id", ventasRoutes.deleteVenta);
 
 app.get("/inventory", inventarioRoutes.getInventory);
