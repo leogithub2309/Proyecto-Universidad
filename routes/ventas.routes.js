@@ -232,8 +232,8 @@ const updateVenta = async (req, res) => {
         }
 
         const [resutlUpdateMoneda] = await pool.query(
-            "UPDATE moneda SET monto_moneda = ? WHERE id_moneda = ?",
-            [monto_moneda, id_moneda]
+            "UPDATE moneda SET monto_moneda = ?, id_tipo_moneda = ? WHERE id_moneda = ?",
+            [monto_moneda, tipo_moneda ,id_moneda]
         );
 
         if(!resutlUpdateMoneda){

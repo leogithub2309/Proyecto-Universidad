@@ -217,6 +217,102 @@ const dataChart = async (req, res) => {
     }
 }
 
+const updateCompra = async (req, res) => {
+
+    let {
+        compra_detalle, 
+        producto_detalle, 
+        titulo_producto, 
+        tipo_moneda, 
+        monto_moneda, 
+        foto_producto, 
+        id_inventario,
+        id_producto,
+        id_moneda, 
+        cantidad_inventario
+    } = req.body;
+
+    let { id } = req.params;
+
+    if(!compra_detalle || !producto_detalle || !titulo_producto || !tipo_moneda || !monto_moneda || !cantidad_inventario) {
+        return res.status(404).json({
+            title: "Error",
+            status: 404,
+            description: "Error, los campos del formulario no pueden estar vacios."
+        });
+    }
+
+    let connection;
+
+    try {
+
+        connection = await pool.getConnection();
+        await connection.beginTransaction();
+
+        const [resultUpdateVenta] = await pool.query(
+            "UPDATE compras SET compra_detalle = ?, id_inventario = ? WHERE id_compras = ?",
+            [compra_detalle, id_inventario ,id]
+        );
+
+        if(!resultUpdateVenta){
+            throw new Error("No se pudo realizar la actualización de la tabla compras.");
+        }
+
+        const [resutlUpdateMoneda] = await pool.query(
+            "UPDATE moneda SET monto_moneda = ?, id_tipo_moneda = ? WHERE id_moneda = ?",
+            [monto_moneda, tipo_moneda ,id_moneda]
+        );
+
+        if(!resutlUpdateMoneda){
+            throw new Error("La tabla moneda no se pudo actualizar correctamente.");
+        }
+
+        const [resultUpdateProducto] = await pool.query(
+            "UPDATE producto SET producto_detalle = ?, titulo_producto = ?, foto_producto = ? WHERE id_producto = ?",
+            [producto_detalle, titulo_producto, foto_producto ,id_producto]
+        );
+
+        if(!resultUpdateProducto){
+            throw new Error("La tabla producto no se pudo actualizar correctamente.")
+        }
+
+        const [resultUpdateInventario] = await pool.query(
+            "UPDATE inventario SET cantidad_inventario = cantidad_inventario + ? WHERE id_inventario = ?",
+            [cantidad_inventario, id_inventario]
+        );
+
+        if(!resultUpdateInventario){
+            throw new Error("No se pudo realizar la actualización en la tabla inventario.");
+        }
+
+        await connection.commit();
+
+        return res.status(202).json({
+            title: "Compra Actualizada",
+            status: 202,
+            descripcion: "La compra se acualizó exitosamente",
+            resultId: resultUpdateVenta.affectedRows
+        });
+        
+    } catch (error) {
+        if (connection) {
+            await connection.rollback(); // Revertir la transacción en caso de error
+        }
+        console.error("Error al procesar la compra:", error); // Log del error para depuración
+        return res.status(500).json({
+            title: "Error Interno del Servidor",
+            status: 500,
+            description: "Ocurrió un error al procesar la compra. Por favor, inténtalo de nuevo más tarde.",
+            error: error.message // Incluir el mensaje de error para depuración (opcional en producción)
+        });
+    }finally {
+        if (connection) {
+            connection.release(); // Siempre liberar la conexión al pool
+        }
+    }
+}
+
+
 const deleteCompra = async (req, res) => {
 
     let { id } = req.params;
@@ -254,5 +350,6 @@ export default {
     getAllSolds,
     getSingleCompra,
     dataChart,
+    updateCompra,
     deleteCompra
 }   

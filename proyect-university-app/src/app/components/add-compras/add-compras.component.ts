@@ -111,12 +111,12 @@ export class AddComprasComponent  implements OnInit {
       error: async (err) => {
         console.error(err);
         const toast = await this.toastControllers.create({
-            message: err.description || "Error, no se pudo agregar una nueva compra",
-            duration: 3000,
-            color: "danger",
-            position:"bottom"
-          });
-          await toast.present();
+          message: err.description || "Error, no se pudo agregar una nueva compra",
+          duration: 3000,
+          color: "danger",
+          position:"bottom"
+        });
+        await toast.present();
       }
     });
 
