@@ -32,7 +32,7 @@ export interface Register {
 }
 
 export interface Ventas{
-    descripcion_moneda: string;
+    id_inventario: string;
     fecha: string;
     foto_producto: string;
     id_moneda: number;

@@ -48,7 +48,7 @@ export class ComprasDetailsPage implements OnInit {
 
     this.apiCompraServices.getCurrentCurrency("dollar").subscribe({
       next: (res: any) => {
-        this.currency.set(Object.keys(res.monitors).length === 0 ? 114.41 : res.monitors.bcv.price);
+        this.currency.set(Object.keys(res.monitors).length === 0 ? 145 : res.monitors.bcv.price);
       },
       error: (err) => console.error(err)
     })

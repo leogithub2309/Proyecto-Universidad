@@ -30,7 +30,7 @@ export class VentasDetailsPage implements OnInit {
   apiVentasServices = inject(ApiVentasService);
   id = inject(ActivatedRoute);
   singleVenta = signal<any>([]);
-  currency = signal<number>(125.17);
+  currency = signal<number>(140);
   _router = inject(Router);
   idRouter: number = 0;
 
@@ -49,7 +49,7 @@ export class VentasDetailsPage implements OnInit {
 
     this.apiVentasServices.getCurrentCurrency("dollar").subscribe({
       next: (res: any) => {
-        this.currency.set(Object.keys(res.monitors).length === 0 ? 125.17 : res.monitors.bcv.price);
+        this.currency.set(Object.keys(res.monitors).length === 0 ? 140 : res.monitors.bcv.price);
       },
       error: (err) => console.error(err)
     })

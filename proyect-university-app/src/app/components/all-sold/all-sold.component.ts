@@ -59,7 +59,7 @@ export class AllSoldComponent  implements OnInit {
     });
   }
 
-  formatVenta(fecha: string){
+  formatVenta(fecha: any){
     const date = new Date(fecha);
     return `${date.getDate()} ${date.toLocaleString('es', { month: 'long' })} ${date.getFullYear()}`;
   }

@@ -32,7 +32,7 @@ export class EditSingleVentaComponent  implements OnInit {
   monedaVenta = signal<any>([]);
   inventory = signal<InventarioInterface[]>([]);
   image!: File;
-  venta = signal<Ventas[]>([]);
+  venta = signal<VentasInterface[]>([]);
   toastController = inject(ToastController);
   @ViewChild ('foto_producto') foto_producto!: ElementRef;
   customModalOptions = {
@@ -64,10 +64,9 @@ export class EditSingleVentaComponent  implements OnInit {
           titulo_producto: this.venta()[0].titulo_producto,
           tipo_moneda: this.venta()[0].moneda,
           monto_moneda: this.venta()[0].monto_moneda,
-          id_inventario: this.venta()[0].id_producto,
+          id_inventario: this.venta()[0].id_inventario,
           cantidad_inventario: ''
         });
-        console.log(this.venta());
         this.foto_producto.nativeElement.src = "../assets/" +this.venta()[0].foto_producto;
       },
       error: (err) => console.error(err)
@@ -121,12 +120,12 @@ export class EditSingleVentaComponent  implements OnInit {
       error: async (err) => {
         console.error(err);
         const toast = await this.toastController.create({
-            message: err.description || "Error, no se pudo actualizar la venta.",
-            duration: 3000,
-            color: "danger",
-            position:"bottom"
-          });
-          await toast.present();
+          message: err.description || "Error, no se pudo actualizar la venta.",
+          duration: 3000,
+          color: "danger",
+          position:"bottom"
+        });
+        await toast.present();
       }
     });
   }

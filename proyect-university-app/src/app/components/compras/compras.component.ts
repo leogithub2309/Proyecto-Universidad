@@ -29,9 +29,9 @@ export class ComprasComponent  implements OnInit {
   compras = signal<any[]>([]);
   comprasData = signal<CompraInterface[]>([]);
   totalCompras: number = 0;
-  currency = signal<number>(130);
+  currency = signal<number>(145);
   titleCompra: string = 'Bs';
-  monitors = 130;
+  monitors = 170;
   compraCurrency = signal<CompraInterface[]>([]);
 
   apiVentasServices = inject(ApiVentasService);
@@ -61,7 +61,7 @@ export class ComprasComponent  implements OnInit {
         this.getTotalBs(res.data);
       },
       error: (err) => console.error(err)
-    })
+    });
 
     
   }
@@ -135,7 +135,7 @@ export class ComprasComponent  implements OnInit {
 
   }
 
-  formatVenta(fecha: string){
+  formatVenta(fecha: any){
     const date = new Date(fecha);
     return `${date.getDate()} ${date.toLocaleString('es', { month: 'long' })} ${date.getFullYear()}`;
   }

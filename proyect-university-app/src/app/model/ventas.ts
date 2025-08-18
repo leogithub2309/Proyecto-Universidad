@@ -10,6 +10,6 @@ export interface VentasInterface {
     cantidad_inventario: number;
     id_producto?: number;
     id_moneda?: number;
-
+    moneda?: string;
 }
 

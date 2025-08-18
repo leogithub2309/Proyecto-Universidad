@@ -12,18 +12,18 @@ export interface Compras {
 
 export interface CompraInterface{
 	compra_detalle: string;
-	descripcion_moneda: string;
-	fecha: string;
-	fecha_compra: string;
+	fecha?: string;
+	fecha_compra?: string;
 	foto_producto: string;
-	id_compras: number;
+	id_compras?: number;
 	id_inventario: number;
 	id_moneda: number;
 	id_producto: number;
-	id_tipo_moneda: number;
-	id_usuario: number;
+	id_tipo_moneda?: number;
+	id_usuario?: number;
 	moneda: string;
 	monto_moneda: string;
 	producto_detalle: string;
 	titulo_producto: string;
+	cantidad_inventario: string;
 }

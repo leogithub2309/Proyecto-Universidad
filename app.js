@@ -49,6 +49,7 @@ app.post("/compra/:id", comprasRoutes.createSold);
 app.get("/AllCompras/:id", comprasRoutes.getAllSolds);
 app.get("/compraDetalle/:id", comprasRoutes.getSingleCompra);
 app.get("/dataChart/:id", comprasRoutes.dataChart);
+app.put("/updateCompra/:id", comprasRoutes.updateCompra);
 app.delete("/deleteCompra/:id", comprasRoutes.deleteCompra);
 
 //Server Listen

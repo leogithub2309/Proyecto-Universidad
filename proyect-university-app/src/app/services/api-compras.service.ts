@@ -1,5 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CompraInterface } from '../model/compras';
+import { Observable } from 'rxjs';
+import { Response } from '../model/response';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +45,10 @@ export class ApiComprasService {
 
   createInventory(form: any){
     return this.http.post(this.url+"createInventory", form);
+  }
+
+  updataCompra(form: CompraInterface, id: number): Observable<any>{
+    return this.http.put(this.url+"updateCompra/"+id, form);
   }
 
   deleteCompra(id: number){

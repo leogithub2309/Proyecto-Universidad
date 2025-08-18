@@ -41,9 +41,9 @@
         <ion-icon name="trash-outline"></ion-icon>
         <span style="margin-left: .4rem; pointer-events: none;">Eliminar</span>
       </ion-button>
-      <ion-button color="warning" size="block" [routerLink]="['/dashboard']" style="width: 50%; height: 3rem; font-weight: bold;">
-        <ion-icon name="arrow-back-outline"></ion-icon>
-        <span style="margin-left: .4rem;">Regresar</span>
+      <ion-button color="warning" size="block" [routerLink]="['/edit-compra/'+this.id.snapshot.params['id']]" style="width: 50%; height: 3rem; font-weight: bold;">
+        <ion-icon name="pencil-outline"></ion-icon>
+        <span style="margin-left: .4rem;">Actualizar</span>
       </ion-button>
     </div>
   </section>
