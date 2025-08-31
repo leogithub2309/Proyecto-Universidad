@@ -29,7 +29,7 @@ export class ComprasComponent  implements OnInit {
   compras = signal<any[]>([]);
   comprasData = signal<CompraInterface[]>([]);
   totalCompras: number = 0;
-  currency = signal<number>(145);
+  currency = signal<number>(0);
   titleCompra: string = 'Bs';
   monitors = 170;
   compraCurrency = signal<CompraInterface[]>([]);
@@ -67,70 +67,59 @@ export class ComprasComponent  implements OnInit {
   }
 
   getCurrency(event: any){
-  
-      let currency = event.target.value === "bolívares" ? "dollar" : event.target.value, 
+    console.log(event.target.value)
+    let currency = event.target.value, 
       convertion = 0;
-  
-      this.currency.set(0);
-      this.totalCompras = 0;
       
-      this.apiVentasServices.getCurrentCurrency(currency).subscribe({
-        next: (res: any) => {
-          this.currency.set(Object.keys(res.monitors).length === 0 ? this.monitors : res.monitors.bcv.price);
+    this.currency.set(0);
+    this.totalCompras = 0;
+      
+    this.currency.set(this.monitors);
           
-          this.compraCurrency().forEach((value: CompraInterface) => {
-            if(value.moneda === "$"){
-              convertion = this.currency() * Number(value.monto_moneda);
-              this.totalCompras += convertion;
-            }else if(value.moneda === "€"){
-              convertion = this.currency() * Number(value.monto_moneda);
-              this.totalCompras += convertion;
-            }else if(value.moneda === "Bs"){
-              this.totalCompras += Number(value.monto_moneda);
-            }
-          });
+    this.compraCurrency().forEach((value: CompraInterface) => {
+      if(value.moneda === "$"){
+        convertion = this.currency() * Number(value.monto_moneda);
+        this.totalCompras += convertion;
+      }else if(value.moneda === "€"){
+        convertion = this.currency() * Number(value.monto_moneda);
+        this.totalCompras += convertion;
+      }else if(value.moneda === "Bs"){
+        this.totalCompras += Number(value.monto_moneda);
+      }
+    });
 
-          if(event.target.value === "euro"){
-            this.currency.set(145);
-            this.totalCompras = this.totalCompras / this.currency();
+    if(currency === "euro"){
+      this.currency.set(this.monitors + 30);
+      this.totalCompras = this.totalCompras / this.currency();
         
-          } else this.totalCompras = this.totalCompras / this.currency();
+    } else this.totalCompras = this.totalCompras / this.currency();
 
-          if(event.target.value === "bolívares"){
-            this.totalCompras = this.totalCompras * this.currency();
-            this.titleCompra = "Bs";
-          }
-          
-        },
-        error: (err) => console.error(err)
-      });
+    if(currency === "bolívares"){
+      this.totalCompras = this.totalCompras * this.currency();
+      this.titleCompra = "Bs";
+    }
 
-      this.titleCompra = currency === "dollar" ? "$" : currency === "euro" ? "€" : currency === "bolívares" ? 'Bs' : '';
+    this.titleCompra = currency === "dollar" ? "$" : currency === "euro" ? "€" : currency === "bolívares" ? 'Bs' : '';
   }
 
   getTotalBs(data: any){
 
     let convertion = 0;
 
-    this.apiComprasServices.getCurrentCurrency("dollar").subscribe({
-      next: (res: any) => {
-        this.totalCompras = 0;
+    this.totalCompras = 0;
         
-        this.currency.set(Object.keys(res.monitors).length === 0 ? this.monitors: res.monitors.bcv.price);
+    this.currency.set(this.monitors);
         
-        data.forEach((value: Ventas) => {
-          if(value.moneda === "$"){
-            convertion = this.currency() * Number(value.monto_moneda);
-            this.totalCompras += convertion;
-          }else if(value.moneda === "€"){
-            convertion = this.currency() * Number(value.monto_moneda);
-            this.totalCompras += convertion;
-          }else if(value.moneda === "Bs"){
-            this.totalCompras += Number(value.monto_moneda);
-          }
-        });
-      },
-      error: (err) => console.error(err)
+    data.forEach((value: Ventas) => {
+      if(value.moneda === "$"){
+        convertion = this.currency() * Number(value.monto_moneda);
+        this.totalCompras += convertion;
+      }else if(value.moneda === "€"){
+        convertion = this.currency() * Number(value.monto_moneda);
+        this.totalCompras += convertion;
+      }else if(value.moneda === "Bs"){
+        this.totalCompras += Number(value.monto_moneda);
+      }
     });
 
   }

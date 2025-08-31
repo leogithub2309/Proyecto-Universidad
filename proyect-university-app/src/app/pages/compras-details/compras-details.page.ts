@@ -40,18 +40,12 @@ export class ComprasDetailsPage implements OnInit {
 
     this.apiCompraServices.getSingleCompra(this.id.snapshot.params['id']).subscribe({
       next: (res: any) => {
-        console.log(res);
         this.singleCompra.set(res.data[0]);
       },
       error: (err) => console.error(err)
     });
 
-    this.apiCompraServices.getCurrentCurrency("dollar").subscribe({
-      next: (res: any) => {
-        this.currency.set(Object.keys(res.monitors).length === 0 ? 145 : res.monitors.bcv.price);
-      },
-      error: (err) => console.error(err)
-    })
+    this.currency.set(160);
 
   }
 

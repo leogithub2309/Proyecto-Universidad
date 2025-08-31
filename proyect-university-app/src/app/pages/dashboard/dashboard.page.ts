@@ -61,7 +61,7 @@ export class DashboardPage implements OnInit {
   apiComprasServices = inject(ApiComprasService);
   sumVentas: number = 0;
   sumCompras: number = 0;
-  currency = signal<number>(110.52);
+  currency = signal<number>(160);
   data: any[] = [];
   alertButtons = ['Action'];
   isActive: boolean = true;
@@ -95,14 +95,6 @@ export class DashboardPage implements OnInit {
   ngOnInit() {
 
     let id = String(sessionStorage.getItem("userIdSession"));
-
-    this.apiVentasServices.getCurrentCurrency("dollar").subscribe({
-      next: (res: any) => {
-        this.currency.set(Object.keys(res.monitors).length === 0 ? 110.52 : res.monitors.bcv.price);
-      },
-
-      error: (err) => console.error(err)
-    })
 
     this.apiVentasServices.getAllVentas(Number(id)).subscribe({
       next: (res: any) => {
@@ -168,47 +160,34 @@ export class DashboardPage implements OnInit {
   
     switch(type){
         case 'ventas':
-           this.apiVentasServices.getCurrentCurrency("dollar").subscribe({
-            next: (res: any) => {
-              this.currency.set(Object.keys(res.monitors).length === 0 ? 110.52 : res.monitors.bcv.price);
-              data.forEach((value: Ventas) => {
-                if(value.moneda === "$"){
-                  convertion = this.currency() * Number(value.monto_moneda);
-                  this.sumVentas += convertion;
-                }else if(value.moneda === "€"){
-                  convertion = this.currency() * Number(value.monto_moneda);
-                  this.sumVentas += convertion;
-                }else if(value.moneda === "Bs") this.sumVentas += Number(value.monto_moneda);
-                
-              });
-
-              this.sumVentas = this.sumVentas / this.currency();
-              
-            },
-            error: (err) => console.error(err)
+          this.currency.set(160);
+          data.forEach((value: Ventas) => {
+            if(value.moneda === "$"){
+              convertion = this.currency() * Number(value.monto_moneda);
+              this.sumVentas += convertion;
+            }else if(value.moneda === "€"){
+              convertion = this.currency() * Number(value.monto_moneda);
+              this.sumVentas += convertion;
+            }else if(value.moneda === "Bs") this.sumVentas += Number(value.monto_moneda);
+            
           });
+          this.sumVentas = this.sumVentas / this.currency();
         break;
 
         case 'compras':
-          this.apiComprasServices.getCurrentCurrency("dollar").subscribe({
-            next: (res: any) => {
-              this.currency.set(Object.keys(res.monitors).length === 0 ? 110.52 : res.monitors.bcv.price);
-              data.forEach((value: CompraInterface) => {
-                if(value.moneda === "$"){
-                  convertion = this.currency() * Number(value.monto_moneda);
-                  this.sumCompras += convertion;
-                }else if(value.moneda === "€"){
-                  convertion = this.currency() * Number(value.monto_moneda);
-                  this.sumCompras += convertion;
-                }else if(value.moneda === "Bs") this.sumCompras += Number(value.monto_moneda);
+          this.currency.set(160);
+          data.forEach((value: CompraInterface) => {
+            if(value.moneda === "$"){
+              convertion = this.currency() * Number(value.monto_moneda);
+              this.sumCompras += convertion;
+            }else if(value.moneda === "€"){
+              convertion = this.currency() * Number(value.monto_moneda);
+              this.sumCompras += convertion;
+            }else if(value.moneda === "Bs") this.sumCompras += Number(value.monto_moneda);
                 
-              });
+          });
 
               this.sumCompras = this.sumCompras / this.currency();
-            },
-
-            error: (err) => console.error(err)
-          })
         break;
 
     }
