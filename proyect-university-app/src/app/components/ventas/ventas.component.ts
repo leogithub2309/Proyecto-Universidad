@@ -32,7 +32,7 @@ export class VentasComponent  implements OnInit {
   currency = signal<number>(145);
   totalVentas: number = 0;
   titleVenta: string = "Bs";
-  monitors = 170;
+  monitors = 200;
   ventasCurrency = signal<Ventas[]>([]);
 
   constructor() { }

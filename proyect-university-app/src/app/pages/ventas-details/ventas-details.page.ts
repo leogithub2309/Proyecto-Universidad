@@ -30,7 +30,7 @@ export class VentasDetailsPage implements OnInit {
   apiVentasServices = inject(ApiVentasService);
   id = inject(ActivatedRoute);
   singleVenta = signal<any>([]);
-  currency = signal<number>(160);
+  currency = signal<number>(200);
   _router = inject(Router);
   idRouter: number = 0;
 
