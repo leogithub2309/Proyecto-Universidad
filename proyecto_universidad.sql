@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 16-07-2025 a las 02:03:25
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Host: 127.0.0.1
+-- Generation Time: Oct 05, 2025 at 11:35 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `proyecto_universidad`
+-- Database: `proyecto_universidad`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cedula_table`
+-- Table structure for table `cedula_table`
 --
 
 CREATE TABLE `cedula_table` (
@@ -34,7 +34,7 @@ CREATE TABLE `cedula_table` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `cedula_table`
+-- Dumping data for table `cedula_table`
 --
 
 INSERT INTO `cedula_table` (`id_cedula`, `tipo_identidad`, `cedula`) VALUES
@@ -44,7 +44,7 @@ INSERT INTO `cedula_table` (`id_cedula`, `tipo_identidad`, `cedula`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `compras`
+-- Table structure for table `compras`
 --
 
 CREATE TABLE `compras` (
@@ -57,7 +57,7 @@ CREATE TABLE `compras` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Volcado de datos para la tabla `compras`
+-- Dumping data for table `compras`
 --
 
 INSERT INTO `compras` (`id_compras`, `compra_detalle`, `fecha_compra`, `id_usuario`, `id_producto`, `id_inventario`) VALUES
@@ -69,7 +69,7 @@ INSERT INTO `compras` (`id_compras`, `compra_detalle`, `fecha_compra`, `id_usuar
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `direccion`
+-- Table structure for table `direccion`
 --
 
 CREATE TABLE `direccion` (
@@ -79,7 +79,7 @@ CREATE TABLE `direccion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `direccion`
+-- Dumping data for table `direccion`
 --
 
 INSERT INTO `direccion` (`id_direccion`, `direccion_1`, `direccion_2`) VALUES
@@ -89,7 +89,7 @@ INSERT INTO `direccion` (`id_direccion`, `direccion_1`, `direccion_2`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `inventario`
+-- Table structure for table `inventario`
 --
 
 CREATE TABLE `inventario` (
@@ -100,7 +100,7 @@ CREATE TABLE `inventario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `inventario`
+-- Dumping data for table `inventario`
 --
 
 INSERT INTO `inventario` (`id_inventario`, `cantidad_inventario`, `producto_inventario`, `foto_producto_inventario`) VALUES
@@ -115,7 +115,7 @@ INSERT INTO `inventario` (`id_inventario`, `cantidad_inventario`, `producto_inve
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `moneda`
+-- Table structure for table `moneda`
 --
 
 CREATE TABLE `moneda` (
@@ -125,7 +125,7 @@ CREATE TABLE `moneda` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Volcado de datos para la tabla `moneda`
+-- Dumping data for table `moneda`
 --
 
 INSERT INTO `moneda` (`id_moneda`, `id_tipo_moneda`, `monto_moneda`) VALUES
@@ -150,7 +150,7 @@ INSERT INTO `moneda` (`id_moneda`, `id_tipo_moneda`, `monto_moneda`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `nombre_usuario`
+-- Table structure for table `nombre_usuario`
 --
 
 CREATE TABLE `nombre_usuario` (
@@ -162,7 +162,7 @@ CREATE TABLE `nombre_usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `nombre_usuario`
+-- Dumping data for table `nombre_usuario`
 --
 
 INSERT INTO `nombre_usuario` (`id_nombre_usuario`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`) VALUES
@@ -172,7 +172,7 @@ INSERT INTO `nombre_usuario` (`id_nombre_usuario`, `primer_nombre`, `segundo_nom
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `producto`
+-- Table structure for table `producto`
 --
 
 CREATE TABLE `producto` (
@@ -185,7 +185,7 @@ CREATE TABLE `producto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Volcado de datos para la tabla `producto`
+-- Dumping data for table `producto`
 --
 
 INSERT INTO `producto` (`id_producto`, `producto_detalle`, `titulo_producto`, `fecha`, `moneda`, `foto_producto`) VALUES
@@ -210,7 +210,7 @@ INSERT INTO `producto` (`id_producto`, `producto_detalle`, `titulo_producto`, `f
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `rol`
+-- Table structure for table `rol`
 --
 
 CREATE TABLE `rol` (
@@ -219,7 +219,7 @@ CREATE TABLE `rol` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Volcado de datos para la tabla `rol`
+-- Dumping data for table `rol`
 --
 
 INSERT INTO `rol` (`id_rol`, `rol`) VALUES
@@ -229,7 +229,7 @@ INSERT INTO `rol` (`id_rol`, `rol`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tipo_moneda_table`
+-- Table structure for table `tipo_moneda_table`
 --
 
 CREATE TABLE `tipo_moneda_table` (
@@ -239,7 +239,7 @@ CREATE TABLE `tipo_moneda_table` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `tipo_moneda_table`
+-- Dumping data for table `tipo_moneda_table`
 --
 
 INSERT INTO `tipo_moneda_table` (`id_tipo_moneda`, `moneda`, `descripcion_moneda`) VALUES
@@ -250,7 +250,7 @@ INSERT INTO `tipo_moneda_table` (`id_tipo_moneda`, `moneda`, `descripcion_moneda
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuario`
+-- Table structure for table `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -266,7 +266,7 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Volcado de datos para la tabla `usuario`
+-- Dumping data for table `usuario`
 --
 
 INSERT INTO `usuario` (`id_usuario`, `id_nombre_usuario`, `id_cedula`, `telefono`, `id_direccion`, `codigo_postal`, `username`, `password`, `id_rol`) VALUES
@@ -276,7 +276,7 @@ INSERT INTO `usuario` (`id_usuario`, `id_nombre_usuario`, `id_cedula`, `telefono
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `ventas`
+-- Table structure for table `ventas`
 --
 
 CREATE TABLE `ventas` (
@@ -289,7 +289,7 @@ CREATE TABLE `ventas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Volcado de datos para la tabla `ventas`
+-- Dumping data for table `ventas`
 --
 
 INSERT INTO `ventas` (`id_venta_detalle`, `venta_detalle`, `id_producto`, `id_inventario`, `fecha`, `id_usuario`) VALUES
@@ -302,17 +302,17 @@ INSERT INTO `ventas` (`id_venta_detalle`, `venta_detalle`, `id_producto`, `id_in
 (14, 'Venta Palitos 30gr', 23, 7, '2025-07-13 21:39:37', 9);
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `cedula_table`
+-- Indexes for table `cedula_table`
 --
 ALTER TABLE `cedula_table`
   ADD PRIMARY KEY (`id_cedula`);
 
 --
--- Indices de la tabla `compras`
+-- Indexes for table `compras`
 --
 ALTER TABLE `compras`
   ADD PRIMARY KEY (`id_compras`),
@@ -321,51 +321,51 @@ ALTER TABLE `compras`
   ADD KEY `id_producto` (`id_producto`);
 
 --
--- Indices de la tabla `direccion`
+-- Indexes for table `direccion`
 --
 ALTER TABLE `direccion`
   ADD PRIMARY KEY (`id_direccion`);
 
 --
--- Indices de la tabla `inventario`
+-- Indexes for table `inventario`
 --
 ALTER TABLE `inventario`
   ADD PRIMARY KEY (`id_inventario`);
 
 --
--- Indices de la tabla `moneda`
+-- Indexes for table `moneda`
 --
 ALTER TABLE `moneda`
   ADD PRIMARY KEY (`id_moneda`),
   ADD KEY `id_tipo_moneda` (`id_tipo_moneda`);
 
 --
--- Indices de la tabla `nombre_usuario`
+-- Indexes for table `nombre_usuario`
 --
 ALTER TABLE `nombre_usuario`
   ADD PRIMARY KEY (`id_nombre_usuario`);
 
 --
--- Indices de la tabla `producto`
+-- Indexes for table `producto`
 --
 ALTER TABLE `producto`
   ADD PRIMARY KEY (`id_producto`),
   ADD KEY `moneda` (`moneda`);
 
 --
--- Indices de la tabla `rol`
+-- Indexes for table `rol`
 --
 ALTER TABLE `rol`
   ADD PRIMARY KEY (`id_rol`);
 
 --
--- Indices de la tabla `tipo_moneda_table`
+-- Indexes for table `tipo_moneda_table`
 --
 ALTER TABLE `tipo_moneda_table`
   ADD PRIMARY KEY (`id_tipo_moneda`);
 
 --
--- Indices de la tabla `usuario`
+-- Indexes for table `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id_usuario`),
@@ -375,7 +375,7 @@ ALTER TABLE `usuario`
   ADD KEY `id_direccion` (`id_direccion`);
 
 --
--- Indices de la tabla `ventas`
+-- Indexes for table `ventas`
 --
 ALTER TABLE `ventas`
   ADD PRIMARY KEY (`id_venta_detalle`),
@@ -384,81 +384,81 @@ ALTER TABLE `ventas`
   ADD KEY `id_inventario` (`id_inventario`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `cedula_table`
+-- AUTO_INCREMENT for table `cedula_table`
 --
 ALTER TABLE `cedula_table`
   MODIFY `id_cedula` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `compras`
+-- AUTO_INCREMENT for table `compras`
 --
 ALTER TABLE `compras`
   MODIFY `id_compras` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `direccion`
+-- AUTO_INCREMENT for table `direccion`
 --
 ALTER TABLE `direccion`
   MODIFY `id_direccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `inventario`
+-- AUTO_INCREMENT for table `inventario`
 --
 ALTER TABLE `inventario`
   MODIFY `id_inventario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT de la tabla `moneda`
+-- AUTO_INCREMENT for table `moneda`
 --
 ALTER TABLE `moneda`
   MODIFY `id_moneda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT de la tabla `nombre_usuario`
+-- AUTO_INCREMENT for table `nombre_usuario`
 --
 ALTER TABLE `nombre_usuario`
   MODIFY `id_nombre_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `producto`
+-- AUTO_INCREMENT for table `producto`
 --
 ALTER TABLE `producto`
   MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT de la tabla `rol`
+-- AUTO_INCREMENT for table `rol`
 --
 ALTER TABLE `rol`
   MODIFY `id_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `tipo_moneda_table`
+-- AUTO_INCREMENT for table `tipo_moneda_table`
 --
 ALTER TABLE `tipo_moneda_table`
   MODIFY `id_tipo_moneda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `usuario`
+-- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
   MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT de la tabla `ventas`
+-- AUTO_INCREMENT for table `ventas`
 --
 ALTER TABLE `ventas`
   MODIFY `id_venta_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `compras`
+-- Constraints for table `compras`
 --
 ALTER TABLE `compras`
   ADD CONSTRAINT `compras_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -466,19 +466,19 @@ ALTER TABLE `compras`
   ADD CONSTRAINT `compras_ibfk_4` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `moneda`
+-- Constraints for table `moneda`
 --
 ALTER TABLE `moneda`
   ADD CONSTRAINT `moneda_ibfk_1` FOREIGN KEY (`id_tipo_moneda`) REFERENCES `tipo_moneda_table` (`id_tipo_moneda`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `producto`
+-- Constraints for table `producto`
 --
 ALTER TABLE `producto`
   ADD CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`moneda`) REFERENCES `moneda` (`id_moneda`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `usuario`
+-- Constraints for table `usuario`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -487,7 +487,7 @@ ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_4` FOREIGN KEY (`id_direccion`) REFERENCES `direccion` (`id_direccion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `ventas`
+-- Constraints for table `ventas`
 --
 ALTER TABLE `ventas`
   ADD CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE,
