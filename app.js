@@ -33,6 +33,7 @@ app.get("/", (req, res) => {
 app.post("/crearUsuario", authControllers.register);
 app.post("/authUsuario", authControllers.login);
 app.get("/rolesUser/:rol", roles.authRoutes);
+app.get("/users", roles.getAllUsers);
 app.get("/tipoMoneda", tipoMoneda);
 
 app.post("/createVenta/:idUser", ventasRoutes.createVenta);

@@ -9,44 +9,53 @@ const login = async (req, res) => {
     
     let { username, password } = req.body;
     
-    if(!username || !password) return res.status(404).json({
-        title: "Error",
-        status: 404,
-        description: "Error, los campos del formulario no pueden estar vacios."
-    });
+   try {
+        if(!username || !password) return res.status(404).json({
+            title: "Error",
+            status: 404,
+            description: "Error, los campos del formulario no pueden estar vacios."
+        });
 
-    const [data] = await pool.query(
-        "SELECT * FROM usuario u INNER JOIN rol r ON u.id_rol=r.id_rol WHERE u.username = ?", 
-        [username]
-    );
+        const [data] = await pool.query(
+            "SELECT * FROM usuario u INNER JOIN rol r ON u.id_rol=r.id_rol WHERE u.username = ?", 
+            [username]
+        );
 
-    if(data.length === 0) return res.status(409).json({
-        title: "Error",
-        status: 409,
-        description: "Error, el usuario no se encuentra registrado."
-    });
+        if(data.length === 0) return res.status(409).json({
+            title: "Error",
+            status: 409,
+            description: "Error, el usuario no se encuentra registrado."
+        });
 
-    const createTokenUser = jsonwebtoken.sign(
-        {user: data[0].username, rol: data[0].id_rol, userId: data[0].id_usuario},
-        process.env.SECRET_KEY,
-        {expiresIn: process.env.EXPIRE_TOKEN}
-    );
-    
-    const cookieOption = {
-        MaxAge: new Date(Date.now() + process.env.EXPIRE_TOKEN *24*60*60*1000), 
-        path: "/",
-    }
-
-    res.cookie("authTokenUser", createTokenUser, cookieOption);
-    
-    return res.status(202).json({
-        title: "Success",
-        status: 202,
-        result: {
-            createTokenUser,
-            path: "/dashboard",
+        const createTokenUser = jsonwebtoken.sign(
+            {user: data[0].username, rol: data[0].id_rol, userId: data[0].id_usuario, status: data[0].status},
+            process.env.SECRET_KEY,
+            {expiresIn: process.env.EXPIRE_TOKEN}
+        );
+        
+        const cookieOption = {
+            MaxAge: new Date(Date.now() + process.env.EXPIRE_TOKEN *24*60*60*1000), 
+            path: "/",
         }
-    });
+
+        res.cookie("authTokenUser", createTokenUser, cookieOption);
+        
+        return res.status(202).json({
+            title: "Success",
+            status: 202,
+            result: {
+                createTokenUser,
+                path: "/dashboard",
+            }
+        });
+   } catch (error) {
+        console.error("No se pudo realizar la peticion debido a que hay un error ", error);
+        return res.status(404).json({
+            title: "Error",
+            status: 404,
+            error: error.message || "No se pudo agregar un nuevo usuario, verifique la informacion ingresada."
+        });
+   }
 }
 
 /* Agregar al front de angular
@@ -63,23 +72,24 @@ const login = async (req, res) => {
 */
 
 const register = async (req, res) => {
-
+    let { 
+        primer_nombre, 
+        segundo_nombre, 
+        primer_apellido, 
+        segundo_apellido,
+        cedula, 
+        tipo_identidad,
+        telefono, 
+        direccion_1,
+        direccion_2, 
+        codigo_postal,  
+        username, 
+        password, 
+        id_rol 
+    } = req.body;
+    
     try{
-        let { 
-            primer_nombre, 
-            segundo_nombre, 
-            primer_apellido, 
-            segundo_apellido,
-            cedula, 
-            tipo_identidad,
-            telefono, 
-            direccion_1,
-            direccion_2, 
-            codigo_postal,  
-            username, 
-            password, 
-            id_rol 
-        } = req.body;
+        
     
         if(!primer_nombre || !primer_apellido || !cedula || !tipo_identidad || !telefono || !direccion_1 || !codigo_postal || !username || !password || !id_rol) {
             return res.status(400).json({

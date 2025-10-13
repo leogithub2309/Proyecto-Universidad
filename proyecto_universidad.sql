@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-07-2025 a las 02:03:25
+-- Tiempo de generación: 13-10-2025 a las 20:14:15
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -104,7 +104,7 @@ CREATE TABLE `inventario` (
 --
 
 INSERT INTO `inventario` (`id_inventario`, `cantidad_inventario`, `producto_inventario`, `foto_producto_inventario`) VALUES
-(1, 25, 'Cheese Tris', 'cheese-tris.jpg'),
+(1, 30, 'Cheese Tris', 'cheese-tris.jpg'),
 (2, 40, 'Doritos', 'Doritos_logo.png'),
 (3, 27, 'Pepsi Cola 2 litros', 'istockphoto-458611985-612x612.jpg'),
 (4, 25, 'Coca Cola 2 Litros', 'kuala-lumpur-malaysia18th-july-2016-600nw-456061381.webp'),
@@ -134,10 +134,10 @@ INSERT INTO `moneda` (`id_moneda`, `id_tipo_moneda`, `monto_moneda`) VALUES
 (9, 3, 323.00),
 (10, 3, 323.00),
 (11, 3, 323.00),
-(12, 3, 323.00),
+(12, 3, 425.00),
 (13, 3, 323.00),
 (14, 1, 20.00),
-(15, 3, 400.00),
+(15, 3, 450.55),
 (16, 1, 15.00),
 (17, 3, 700.00),
 (18, 1, 15.00),
@@ -194,7 +194,7 @@ INSERT INTO `producto` (`id_producto`, `producto_detalle`, `titulo_producto`, `f
 (9, 'Se vendieron 4 cheese tris', 'Cheese Tris', '2025-06-12 22:55:47', 9, 'cheese-tris.jpg'),
 (10, 'Se vendieron 4 cheese tris', 'Cheese Tris', '2025-06-12 22:58:56', 10, 'cheese-tris.jpg'),
 (11, 'Se vendieron 4 cheese tris', 'Cheese Tris', '2025-06-12 22:59:34', 11, 'cheese-tris.jpg'),
-(12, 'Se vendieron 4 cheese tris', 'Cheese Tris', '2025-06-12 23:02:11', 12, 'cheese-tris.jpg'),
+(12, 'Se vendieron 5 cheese tris y el cliente pagó en bs', 'Cheese Tris.', '2025-08-07 15:49:50', 12, 'cheese-tris.jpg'),
 (13, 'Se vendieron 4 cheese tris', 'Cheese Tris', '2025-06-12 23:02:53', 13, 'cheese-tris.jpg'),
 (14, 'Se vendieron cinco ruffles', 'Ruffles', '2025-06-12 23:04:16', 14, 'unnamed.jpg'),
 (15, 'Un total de 5 doritos fueron vendidos', 'Doritos', '2025-06-12 23:21:37', 15, 'Doritos_logo.png'),
@@ -262,16 +262,17 @@ CREATE TABLE `usuario` (
   `codigo_postal` varchar(4) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `id_rol` int(11) NOT NULL
+  `id_rol` int(11) NOT NULL,
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `id_nombre_usuario`, `id_cedula`, `telefono`, `id_direccion`, `codigo_postal`, `username`, `password`, `id_rol`) VALUES
-(9, 1, 1, '55584739217', 1, '9102', 'leoadmin', 'leoadmin123', 1),
-(10, 2, 2, '55584792115', 2, '1045', 'carlos', '$2b$10$pIitG1.O0fwQGP6AJgNQneIDRNz70yvKkSaWxtuMcw8K9YELvWy1O', 2);
+INSERT INTO `usuario` (`id_usuario`, `id_nombre_usuario`, `id_cedula`, `telefono`, `id_direccion`, `codigo_postal`, `username`, `password`, `id_rol`, `status`) VALUES
+(9, 1, 1, '55584739217', 1, '9102', 'leoadmin', 'leoadmin123', 1, 1),
+(10, 2, 2, '55584792115', 2, '1045', 'carlos', '$2b$10$pIitG1.O0fwQGP6AJgNQneIDRNz70yvKkSaWxtuMcw8K9YELvWy1O', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -293,7 +294,7 @@ CREATE TABLE `ventas` (
 --
 
 INSERT INTO `ventas` (`id_venta_detalle`, `venta_detalle`, `id_producto`, `id_inventario`, `fecha`, `id_usuario`) VALUES
-(7, 'Venta de Cheese Tris', 12, 1, '2025-06-12 23:02:11', 9),
+(7, 'Venta de Cheese Tris.', 12, 1, '2025-08-07 15:39:18', 9),
 (9, 'Venta de ruffles', 14, 6, '2025-06-12 23:04:16', 9),
 (10, 'Venta de Doritos', 15, 2, '2025-06-12 23:21:37', 9),
 (11, 'Venta de 4 ruffles', 20, 6, '2025-06-15 19:41:14', 9),
