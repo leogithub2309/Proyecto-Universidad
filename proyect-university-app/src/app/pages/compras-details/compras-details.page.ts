@@ -45,7 +45,7 @@ export class ComprasDetailsPage implements OnInit {
       error: (err) => console.error(err)
     });
 
-    this.currency.set(160);
+    this.currency.set(200);
 
   }
 

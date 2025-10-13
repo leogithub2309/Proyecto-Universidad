@@ -31,7 +31,7 @@ export class ComprasComponent  implements OnInit {
   totalCompras: number = 0;
   currency = signal<number>(0);
   titleCompra: string = 'Bs';
-  monitors = 170;
+  monitors = 200;
   compraCurrency = signal<CompraInterface[]>([]);
 
   apiVentasServices = inject(ApiVentasService);
