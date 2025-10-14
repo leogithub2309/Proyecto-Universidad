@@ -40,8 +40,8 @@ const createVenta = async (req, res) => {
         }
 
         const [resultVenta] = await pool.query(
-            "INSERT INTO ventas(venta_detalle, id_producto, id_inventario ,id_usuario) VALUES(?, ?, ?, ?)",
-            [venta_detalle, resultProducto.insertId, id_inventario ,idUser]
+            "INSERT INTO ventas(venta_detalle, id_producto, id_inventario ,id_usuario, status_venta) VALUES(?, ?, ?, ?, ?)",
+            [venta_detalle, resultProducto.insertId, id_inventario ,idUser, 1]
         );
 
         if(!resultVenta.insertId){
@@ -296,7 +296,7 @@ const deleteVenta = async (req, res) => {
         connection = await pool.getConnection();
         await connection.beginTransaction();
 
-        const [result] = await pool.execute("DELETE FROM ventas WHERE ventas.id_venta_detalle = ?", [id]);
+        const [result] = await pool.execute("UPDATE TABLE ventas SET ventas.status_venta = 0 WHERE ventas.id_venta_detalle = ?", [id]);
 
         if(!result) {
             throw new Error("No se pudo realizar la acción de borrar una venta");

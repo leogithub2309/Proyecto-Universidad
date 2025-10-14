@@ -13,14 +13,14 @@
       </h1>
       <div class="mb-3">
         <ion-input
-        type="text"
-        label="username"
-        color="warning"
-        formControlName="username"
-        id="username" 
-        label-placement="floating"
-        fill="outline" 
-        placeholder="Enter text"
+          type="text"
+          label="username"
+          color="warning"
+          formControlName="username"
+          id="username" 
+          label-placement="floating"
+          fill="outline" 
+          placeholder="Enter text"
         ></ion-input>
         @if(this.login.get('username')?.touched && this.login.get('username')?.invalid){
           <span class="text-error">Username is required</span>
@@ -28,18 +28,18 @@
       </div>
       <div class="mb-3">
         <ion-input 
-         type="password"
-         formControlName="password"
-         color="warning"
-         label="Password" 
-         id="password"
-         label-placement="floating"
-         [errorText]="!this.login.hasError('required') 
-         ? 'El campo Password es requerido' 
-         : !this.login.hasError('pattern') ? 'El campo Password no tiene un patron valido' : ''"
-         fill="outline" 
-         placeholder="Enter Password"
-         >
+          type="password"
+          formControlName="password"
+          color="warning"
+          label="Password" 
+          id="password"
+          label-placement="floating"
+          [errorText]="!this.login.hasError('required') 
+          ? 'El campo Password es requerido' 
+          : !this.login.hasError('pattern') ? 'El campo Password no tiene un patron valido' : ''"
+          fill="outline" 
+          placeholder="Enter Password"
+        >
           @if(this.login.get('password')?.touched) {
             <ion-input-password-toggle slot="end" color="warning"></ion-input-password-toggle>
           } 
@@ -49,6 +49,7 @@
         No tienes cuenta todavía? <a [routerLink]="['/register']" style="color: #ffce31; font-weight: 700;">Registrate</a>
       </p>
       <ion-button [disabled]="this.login.invalid" color="warning" expand="block" size="default" class="btn-default" style="height: 2.9rem;" (click)="onLogin()">Login</ion-button>
+      <p class="text-error">{{ this.error() !== "" ? this.error() : '' }}</p>
     </form>
   </div>
 </ion-content>

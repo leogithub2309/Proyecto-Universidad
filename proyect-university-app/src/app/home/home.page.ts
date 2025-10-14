@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonButton, IonInputPasswordToggle  } from '@ionic/angular/standalone';
 import { ReactiveFormsModule, FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { RouterLink, Router } from '@angular/router';
@@ -29,6 +29,7 @@ export class HomePage implements OnInit{
   private loginService = inject(LoginService);
   readonly cookieService = inject(CookieService);
   private _router = inject(Router);
+  readonly error = signal<string>("");
 
   login: FormGroup = this.fb.group({
     username: new FormControl('', [Validators.required, Validators.pattern(/^[A-Za-zÁáÉéÍíÓóÚú]+$/)]),
@@ -57,13 +58,19 @@ export class HomePage implements OnInit{
 
         const encrypt = window.atob(separate[1]),
           objectParse = JSON.parse(encrypt);
-        
-        this.cookieService.set("tokenUser", tokenUser);
-        sessionStorage.setItem("tokenUserSession", tokenUser);
-        sessionStorage.setItem("userIdSession", JSON.stringify(objectParse.userId));
 
-        this._router.navigate([joinToken.path]);
-        this.login.reset();
+        if(objectParse.status === 0){
+          this.error.set("El usuario no puede ingresar al sistema, debido a que no ha pagado su suscripción.");
+          return;
+        }else{
+          this.cookieService.set("tokenUser", tokenUser);
+          sessionStorage.setItem("tokenUserSession", tokenUser);
+          sessionStorage.setItem("userIdSession", JSON.stringify(objectParse.userId));
+
+          this._router.navigate([joinToken.path]);
+          this.login.reset();
+        }
+        
       },
       error: (err) => console.error(err)
     });

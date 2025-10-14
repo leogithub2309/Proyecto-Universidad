@@ -44,8 +44,8 @@ const createSold = async (req, res) => {
 
         // 3. Insertar Compra
         const [resultCompra] = await connection.query(
-            "INSERT INTO compras(compra_detalle, id_usuario, id_producto, id_inventario) VALUES(?,?,?,?)",
-            [compra_detalle, id, idProducto, id_inventario]
+            "INSERT INTO compras(compra_detalle, id_usuario, id_producto, id_inventario, status_compra) VALUES(?,?,?,?,?)",
+            [compra_detalle, id, idProducto, id_inventario, 1]
         );
         const idCompra = resultCompra.insertId;
 
@@ -319,7 +319,7 @@ const deleteCompra = async (req, res) => {
 
     try {
         
-        const [result] = await pool.execute("DELETE FROM compras WHERE compras.id_compras = ?", [id]);
+        const [result] = await pool.execute("UPDATE TABLE compras SET compras.status_compra = 0 WHERE compras.id_compras = ?", [id]);
 
         if(!result) {
             throw new Error("No se pudo realizar la acción de borrar una compra");
