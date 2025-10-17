@@ -54,9 +54,49 @@ const getAllUsers = async (req, res) => {
     }
 }
 
+const changeStatusUser = async (req, res) => {
+
+    let { id_usuario } = req.params;
+
+    let { status } = req.body;
+
+    console.log(status, id_usuario);
+
+    if(!id_usuario) return res.status(401).json({
+        title: "Error",
+        status: 401,
+        description: "El parametro status no se encuentra."
+    });
+
+    try {
+
+        const [result] = await pool.query(
+            "UPDATE TABLE usuario u SET u.status = ? WHERE u.id_usuario = ?",
+            [status, id_usuario]
+        );
+
+        if(result.affectedRows > 0) return res.status(202).json({
+            title: "Success",
+            description: "El usuario ahora tiene un status 0, por lo que no podrá ingresar al sistema.",
+            status: 202
+        });
+
+        
+    }catch(error){
+         console.error("No se pudo realizar la peticion debido a que hay un error ", error);
+        return res.status(404).json({
+            title: "Error",
+            status: 404,
+            error: error.message || "No se pudo conectar con al api, verifique su conexión."
+        });
+    }
+
+}
+
 const roles = {
     authRoutes,
-    getAllUsers
+    getAllUsers,
+    changeStatusUser
 }
 
 export default roles;

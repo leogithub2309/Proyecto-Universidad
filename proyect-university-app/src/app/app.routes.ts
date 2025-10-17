@@ -65,6 +65,12 @@ export const routes: Routes = [
     path: 'edit-compra/:id',
     loadComponent: () => import('./pages/edit-compra/edit-compra.page').then( m => m.EditCompraPage)
   },
+  {
+    canActivate: [userTokenGuard],
+    path: 'admin-users-page',
+    loadComponent: () => import('./pages/admin-users-page/admin-users-page.page').then( m => m.AdminUsersPagePage)
+  },
+
 
 
 

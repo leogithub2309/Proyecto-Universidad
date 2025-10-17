@@ -19,4 +19,26 @@ export class LoginService {
     return this.http.post<Response>(this.url+"crearUsuario", form);
   }
 
+  isAdmin(): Boolean{
+
+    let separate = String(sessionStorage.getItem("tokenUserSession")).split(".");
+
+    const encrypt = window.atob(separate[1]),
+      userInfo = JSON.parse(encrypt);
+
+    if(userInfo.rol === 1 && userInfo.user){
+      return true;
+    }
+
+    return false;
+  }
+
+  getAllUsers(){
+    return this.http.get(this.url+"users");
+  }
+
+  updateUserStatus(objStatus: any, id_usuario: number){
+    return this.http.put(this.url+"statusUser/"+id_usuario, objStatus);
+  }
+
 }
