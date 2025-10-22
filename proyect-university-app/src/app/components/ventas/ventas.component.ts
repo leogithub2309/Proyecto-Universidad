@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { IonItem, IonList, IonLabel, IonIcon, IonButton, IonText, IonNote, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { Ventas } from 'src/app/model/response';
 import { ApiVentasService } from 'src/app/services/api-ventas.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-ventas',
@@ -29,7 +30,7 @@ export class VentasComponent  implements OnInit {
   apiVentasServices = inject(ApiVentasService);
   ventas = signal<Ventas[]>([]);
   moneda = signal<any[]>([]);
-  currency = signal<number>(145);
+  currency = signal<number>(environment.tasaBCV);
   totalVentas: number = 0;
   titleVenta: string = "Bs";
   monitors = 200;

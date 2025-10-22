@@ -5,6 +5,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonBackButton, IonButtons,
 import { CompraInterface } from 'src/app/model/compras';
 import { ApiComprasService } from 'src/app/services/api-compras.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-compras-details',
@@ -45,7 +46,7 @@ export class ComprasDetailsPage implements OnInit {
       error: (err) => console.error(err)
     });
 
-    this.currency.set(200);
+    this.currency.set(environment.tasaBCV);
 
   }
 

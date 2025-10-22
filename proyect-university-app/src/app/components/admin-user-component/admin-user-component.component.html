@@ -6,19 +6,17 @@
             <ion-label style="font-weight: 700;">{{ user.primer_nombre }} {{ user.primer_apellido }}</ion-label>
             <div>
               <span>{{ user.rol }}</span>
-              <span>{{ user.cedula }}</span>
+              <span>{{ user.tipo_identidad}}{{ user.cedula }}</span>
             </div>
           </div>
           <div class="position-right">
-            @if(user.status === 0 && user.rol !== 1){
-              <ion-button shape="round" color="warning" (click)="updateStatusUser(user.status, user.id_usuario)">
+            @if(user.status === 0 && user.id_rol !== 1){
+              <ion-button shape="round" color="warning" (click)="updateStatusUser(1, user.id_usuario)">
                 <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
-                
               </ion-button>
-            }
 
-            @if(user.status === 1 && user.rol === 2){
-              <ion-button shape="round" color="danger" (click)="updateStatusUser(user.status, user.id_usuario)">
+            }@else if(user.status === 1 && user.id_rol !== 1){
+              <ion-button shape="round" color="danger" (click)="updateStatusUser(0, user.id_usuario)">
                 <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
               </ion-button>
             }

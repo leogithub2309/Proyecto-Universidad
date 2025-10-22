@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar,IonBackButton, IonButtons, IonButton, IonIcon, IonModal } from '@ionic/angular/standalone';
 import { ApiVentasService } from 'src/app/services/api-ventas.service';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterLink } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-ventas-details-page',
@@ -30,7 +31,7 @@ export class VentasDetailsPage implements OnInit {
   apiVentasServices = inject(ApiVentasService);
   id = inject(ActivatedRoute);
   singleVenta = signal<any>([]);
-  currency = signal<number>(200);
+  currency = signal<number>(0);
   _router = inject(Router);
   idRouter: number = 0;
 
@@ -47,7 +48,7 @@ export class VentasDetailsPage implements OnInit {
       error: (err) => console.error(err)
     });
 
-    this.currency.set(160);
+    this.currency.set(environment.tasaBCV);
 
   }
 

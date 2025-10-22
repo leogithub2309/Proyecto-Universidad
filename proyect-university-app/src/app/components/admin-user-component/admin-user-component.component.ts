@@ -1,4 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 import { IonButton, IonIcon, IonItem, IonLabel, IonList } from '@ionic/angular/standalone';
 import { LoginService } from 'src/app/services/login.service';
 
@@ -18,7 +19,7 @@ export class AdminUserComponentComponent  implements OnInit {
 
   usersServices = inject(LoginService);
   users = signal<any[]>([]);
-
+  toastController = inject(ToastController);
   constructor() { }
 
   ngOnInit() {
@@ -34,16 +35,33 @@ export class AdminUserComponentComponent  implements OnInit {
 
 
   updateStatusUser(status: number, id_usuario: number){
-   
-    const objStatus = {
-      status
-    }
-    
-    this.usersServices.updateUserStatus(objStatus, id_usuario).subscribe({
-      next: (response) => {
+
+    this.usersServices.updateUserStatus({ status }, id_usuario).subscribe({
+      next: async (response: any) => {
         console.log(response);
+        if(response.status === 202){
+           const toast = await this.toastController.create({
+            message:  status === 0 ? response.description : "El usuario ya no tiene status 0, puede acceder a la aplicación",
+            duration: 3000,
+            color: "success",
+            position:"bottom"
+          });
+          await toast.present();
+          setTimeout(() => window.location.reload(), 2000);
+        }
+
       },
-      error: (reason) => console.error(reason)
+      error: async (reason) => {
+        console.error(reason);
+        const toast = await this.toastController.create({
+          message: reason.error || "Error, no se pudo actualizar la compra.",
+          duration: 3000,
+          color: "danger",
+          position:"bottom"
+        });
+        await toast.present();
+      }
+      
     });
   }
 

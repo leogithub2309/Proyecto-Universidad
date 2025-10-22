@@ -5,6 +5,7 @@ import { CompraInterface, Compras } from 'src/app/model/compras';
 import { Ventas } from 'src/app/model/response';
 import { ApiComprasService } from 'src/app/services/api-compras.service';
 import { ApiVentasService } from 'src/app/services/api-ventas.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-compras',
@@ -31,7 +32,7 @@ export class ComprasComponent  implements OnInit {
   totalCompras: number = 0;
   currency = signal<number>(0);
   titleCompra: string = 'Bs';
-  monitors = 200;
+  monitors = environment.tasaBCV;
   compraCurrency = signal<CompraInterface[]>([]);
 
   apiVentasServices = inject(ApiVentasService);

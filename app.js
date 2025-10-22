@@ -35,7 +35,7 @@ app.post("/authUsuario", authControllers.login);
 app.get("/rolesUser/:rol", roles.authRoutes);
 app.get("/users", roles.getAllUsers);
 app.get("/tipoMoneda", tipoMoneda);
-app.put("/statusUser/:id", roles.changeStatusUser);
+app.put("/statusUser/:id_usuario", roles.changeStatusUser);
 
 app.post("/createVenta/:idUser", ventasRoutes.createVenta);
 app.get("/firstVentas/:id", ventasRoutes.getVentasSelects);

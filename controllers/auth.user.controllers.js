@@ -60,8 +60,6 @@ const changeStatusUser = async (req, res) => {
 
     let { status } = req.body;
 
-    console.log(status, id_usuario);
-
     if(!id_usuario) return res.status(401).json({
         title: "Error",
         status: 401,
@@ -71,7 +69,7 @@ const changeStatusUser = async (req, res) => {
     try {
 
         const [result] = await pool.query(
-            "UPDATE TABLE usuario u SET u.status = ? WHERE u.id_usuario = ?",
+            "UPDATE usuario u SET u.status = ? WHERE u.id_usuario = ?",
             [status, id_usuario]
         );
 
