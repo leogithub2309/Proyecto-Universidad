@@ -26,4 +26,5 @@ export interface CompraInterface{
 	producto_detalle: string;
 	titulo_producto: string;
 	cantidad_inventario: string;
+	status_compra?: number;
 }

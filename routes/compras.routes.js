@@ -319,7 +319,7 @@ const deleteCompra = async (req, res) => {
 
     try {
         
-        const [result] = await pool.execute("UPDATE TABLE compras SET compras.status_compra = 0 WHERE compras.id_compras = ?", [id]);
+        const [result] = await pool.execute("UPDATE compras SET compras.status_compra = 0 WHERE compras.id_compras = ?", [id]);
 
         if(!result) {
             throw new Error("No se pudo realizar la acción de borrar una compra");

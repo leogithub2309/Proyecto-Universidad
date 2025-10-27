@@ -76,4 +76,15 @@ export class HomePage implements OnInit{
     });
 
   }
+
+  handleKeyEnterService(event: KeyboardEvent){
+
+    if(event.key === "Enter"){
+
+      if(this.login.get("username")?.value !== "" || this.login.get("password")?.value !== "") this.onLogin();
+      return;
+    }
+
+  }
+
 }

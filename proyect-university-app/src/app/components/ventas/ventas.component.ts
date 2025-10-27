@@ -50,9 +50,9 @@ export class VentasComponent  implements OnInit {
           
         }
         
-        this.ventasCurrency.set(res.data);
+        this.ventasCurrency.set(res.data.filter((value: Ventas) => value.status_venta === 1));
         
-        this.getTotalBs(res.data);
+        this.getTotalBs(res.data.filter((value: Ventas) => value.status_venta === 1));
       },
       error: (err) => console.error(err)
     });

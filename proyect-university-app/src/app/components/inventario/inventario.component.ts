@@ -30,7 +30,8 @@ export class InventarioComponent  implements OnInit {
     this.formInventario = this.fb.group({
       producto_inventario: new FormControl('', [Validators.required, Validators.pattern(/^[A-Za-z]/)]),
       foto_producto_inventario: new FormControl('', [Validators.required]),
-      cantidad_inventario: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]/)])
+      cantidad_inventario: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]/)]),
+      precio_inventario: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]/)])
     });
   }
 
@@ -42,6 +43,7 @@ export class InventarioComponent  implements OnInit {
       producto_inventario: this.formInventario.get('producto_inventario')?.value,
       cantidad_inventario: this.formInventario.get('cantidad_inventario')?.value,
       foto_producto_inventario: this.images.name,
+      precio_inventario: this.formInventario.get("precio_inventario")?.value
     }
 
     console.log(INVENTARIO);

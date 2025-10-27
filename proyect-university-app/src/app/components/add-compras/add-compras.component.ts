@@ -16,6 +16,7 @@ import { ApiVentasService } from 'src/app/services/api-ventas.service';
 import { ApiComprasService } from 'src/app/services/api-compras.service';
 import { InventarioInterface } from 'src/app/model/inventario';
 import { Compras } from 'src/app/model/compras';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-compras',
@@ -44,11 +45,14 @@ export class AddComprasComponent  implements OnInit {
   inventory = signal<InventarioInterface[]>([]);
   toastControllers = inject(ToastController);
   compras = signal<Compras[]>([]);
+  convert: number = 0;
+  stateInventoryPrices = signal<number>(0);
   customModalOptions = {
     header: 'Lista de Inventario',
     breakpoints: [0, 0.45],
     initialBreakpoint: 0.65,
   };
+  currentMoney = signal<number>(environment.tasaBCV);
 
   constructor() {
 
@@ -90,7 +94,7 @@ export class AddComprasComponent  implements OnInit {
       producto_detalle: this.comprasForm.get('producto_detalle')?.value,
       titulo_producto: this.comprasForm.get('titulo_producto')?.value,
       tipo_moneda: this.comprasForm.get('tipo_moneda')?.value,
-      monto_moneda: Number(this.comprasForm.get('monto_moneda')?.value),
+      monto_moneda: Number(this.comprasForm.get('monto_moneda')?.value) * Number(this.comprasForm.get('cantidad_inventario')?.value),
       id_inventario: Number(this.comprasForm.get('id_inventario')?.value),
       cantidad_inventario: Number(this.comprasForm.get('cantidad_inventario')?.value),
       foto_producto: this.images.name,
@@ -149,7 +153,38 @@ export class AddComprasComponent  implements OnInit {
 
   }
 
+  getPriceInventory(event: any){
+    const dataInventory = this.inventory()[event.target.value];
+    this.comprasForm.patchValue({ monto_moneda: dataInventory.precio_inventario });
+    this.stateInventoryPrices.set(dataInventory.precio_inventario);
+  }
 
+  changeCurrency(event: any){
+
+    let currency = event.target.value;
+
+    this.comprasForm.patchValue({monto_moneda: this.stateInventoryPrices()});
+   
+    if(currency === 1){
+      this.currentMoney.set(environment.tasaBCV);
+      this.convert = this.comprasForm.get("monto_moneda")?.value / this.currentMoney();
+    }
+    
+    if(currency === 2){
+      this.convert = 0;
+      this.currentMoney.set(environment.tasaBCV + 30);
+      this.convert = this.comprasForm.get("monto_moneda")?.value / this.currentMoney();
+    }
+
+    if(currency === 3){
+      this.convert = this.comprasForm.get("monto_moneda")?.value;
+    }
+
+    let digit = this.convert.toString().split(".");
+
+    this.comprasForm.patchValue({ monto_moneda: digit[1].length === 2 ? this.convert : Number((this.convert).toFixed(2)) });
+    
+  }
 
 
 }

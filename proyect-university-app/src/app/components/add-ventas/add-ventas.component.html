@@ -57,9 +57,24 @@
       [errorText]="this.formVenta.get('titulo_producto')?.invalid && this.formVenta.get('titulo_producto')?.touched ? 'El campo es requerido o inválido' : ''"
     />
   </div>
+  <ion-item class="input-item">
+    <ion-select interface="modal" [interfaceOptions]="customModalOptions" placeholder="Select Item" aria-label="Inventory" id="id_inventario" interface="modal" aria-label="Select Inventory" formControlName="id_inventario" (ionChange)="getPriceInventory($event)">
+     @for(inventario of this.inventario(); track inventario.id_inventario;) {
+        <ion-select-option [value]="inventario.id_inventario" style="color: #eee; font-weight: bold;" class="flex-content">
+         <ion-avatar slot="start">
+            <ion-img [src]="inventario.foto_producto_inventario"></ion-img>
+         </ion-avatar>
+         <div style="font-size: 22px !important; font-weight: 700 !important;">
+            {{ inventario.producto_inventario }}  
+             <strong>Cantidad: {{  inventario.cantidad_inventario }}</strong>
+          </div>
+        </ion-select-option>
+      }
+    </ion-select>
+  </ion-item>
   <div class="input-item">
     <ion-select aria-label="Choice Method of Pay" color="success" id="tipo_moneda" formControlName="tipo_moneda" placeholder="Moneda"  style="width: 10%; background-color: #fff; color: #000; 
-    padding: .3rem; border: 1px solid #000; border-radius: 4px;">
+    padding: .3rem; border: 1px solid #000; border-radius: 4px;" (ionChange)="changeCurrency($event)">
       @if(!this.typeMoney()){
         <ion-select-option value="">
           <span>
@@ -68,7 +83,7 @@
         </ion-select-option>
       } @else {
        @for(typeMoney of this.typeMoney(); track typeMoney.id_tipo_moneda) {
-        <ion-select-option [value]="typeMoney.id_tipo_moneda">
+        <ion-select-option [value]="typeMoney.id_tipo_moneda" >
           <span>
             {{ typeMoney.moneda }}
           </span>
@@ -88,21 +103,7 @@
       [errorText]="this.formVenta.get('monto_moneda')?.invalid && this.formVenta.get('monto_moneda')?.touched ? 'El campo es requerido o inválido' : ''"
     ></ion-input>
   </div>
-  <ion-item class="input-item">
-    <ion-select interface="modal" [interfaceOptions]="customModalOptions" placeholder="Select Item" aria-label="Inventory" id="id_inventario" interface="modal" aria-label="Select Inventory" formControlName="id_inventario">
-     @for(inventario of this.inventario(); track inventario.id_inventario;) {
-        <ion-select-option [value]="inventario.id_inventario" style="color: #eee; font-weight: bold;" class="flex-content">
-         <ion-avatar slot="start">
-            <ion-img [src]="inventario.foto_producto_inventario"></ion-img>
-         </ion-avatar>
-         <div style="font-size: 22px !important; font-weight: 700 !important;">
-            {{ inventario.producto_inventario }}  
-             <strong>Cantidad: {{  inventario.cantidad_inventario }}</strong>
-          </div>
-        </ion-select-option>
-      }
-    </ion-select>
-  </ion-item>
+  
   <div class="input-item">
     <ion-input 
       type="number"

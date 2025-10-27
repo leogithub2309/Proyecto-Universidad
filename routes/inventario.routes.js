@@ -29,9 +29,9 @@ const getInventory = async (req, res) => {
 
 const createInventory = async (req, res) => {
 
-	let {cantidad_inventario, producto_inventario, foto_producto_inventario} = req.body;
+	let {cantidad_inventario, producto_inventario, foto_producto_inventario, precio_inventario} = req.body;
 
-	if(!cantidad_inventario || !producto_inventario || !foto_producto_inventario) return res.status(404).json({
+	if(!cantidad_inventario || !producto_inventario || !foto_producto_inventario || !precio_inventario) return res.status(404).json({
             title: "Error",
             status: 404,
             description: "Error, los campos del formulario no pueden estar vacios."
@@ -45,8 +45,8 @@ const createInventory = async (req, res) => {
 		await connection.beginTransaction();
 
 		const [result] = await pool.query(
-			"INSERT INTO inventario(cantidad_inventario, producto_inventario, foto_producto_inventario) VALUES(?, ?, ?)",
-			[cantidad_inventario, producto_inventario, foto_producto_inventario]
+			"INSERT INTO inventario(cantidad_inventario, producto_inventario, precio_inventario ,foto_producto_inventario) VALUES(?, ?, ?)",
+			[cantidad_inventario, producto_inventario, precio_inventario ,foto_producto_inventario]
 		);
 
 		if(!result){

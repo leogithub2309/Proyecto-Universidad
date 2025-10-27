@@ -3,4 +3,5 @@ export interface InventarioInterface {
 	cantidad_inventario: number;
 	producto_inventario: string;
 	foto_producto_inventario: string;
+	precio_inventario: number;
 }

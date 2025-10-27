@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, OnInit, resource, signal, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonInput, IonSelect, IonSelectOption, IonIcon, IonTextarea, IonButton, ToastController,IonItem, AlertController, IonImg, IonAvatar } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
@@ -7,6 +7,7 @@ import crypto from 'crypto-js';
 import { VentasInterface } from 'src/app/model/ventas';
 import { InventarioInterface } from 'src/app/model/inventario';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-ventas',
@@ -31,20 +32,16 @@ export class AddVentasComponent  implements OnInit {
   @ViewChild('foto_producto') foto_producto!: ElementRef;
 
   apiVentasService = inject(ApiVentasService);
-
   router = inject(Router);
-
   typeMoney = signal<any[]>([]);
-
   inventario = signal<InventarioInterface[]>([]);
-
   toastControllers = inject(ToastController);
   alertController = inject(AlertController);
-
+  convert: number = 0;
+  stateInventoryPrices = signal<number>(0);
+  currentMoney = signal<number>(environment.tasaBCV);
   images!: File;
-
   fb = inject(FormBuilder);
-
   formVenta!:FormGroup;
 
   customModalOptions = {
@@ -111,7 +108,7 @@ export class AddVentasComponent  implements OnInit {
       producto_detalle: this.formVenta.get('producto_detalle')?.value,
       titulo_producto: this.formVenta.get('titulo_producto')?.value,
       tipo_moneda: this.formVenta.get('tipo_moneda')?.value,
-      monto_moneda: this.formVenta.get('monto_moneda')?.value,
+      monto_moneda: Number(this.formVenta.get('monto_moneda')?.value * this.formVenta.get('cantidad_inventario')?.value).toString(),
       foto_producto: this.images.name,
       idUser: this.decripDataSession().userId,
       id_inventario: this.formVenta.get('id_inventario')?.value,
@@ -126,6 +123,8 @@ export class AddVentasComponent  implements OnInit {
       this.presentAlert();
       return;
     }
+
+
 
     // Agregar una nueva venta
     this.apiVentasService.createNewDetailsVenta(VENTA).subscribe({
@@ -194,6 +193,39 @@ export class AddVentasComponent  implements OnInit {
       userId : objectParse.userId
     }
 
+  }
+
+  getPriceInventory(event: any){
+    const dataInventory = this.inventario()[event.target.value];
+    this.formVenta.patchValue({ monto_moneda: dataInventory.precio_inventario });
+    this.stateInventoryPrices.set(dataInventory.precio_inventario);
+  }
+  
+  changeCurrency(event: any){
+  
+    let currency = event.target.value;
+  
+    this.formVenta.patchValue({monto_moneda: this.stateInventoryPrices()});
+     
+    if(currency === 1){
+      this.currentMoney.set(environment.tasaBCV);
+      this.convert = this.formVenta.get("monto_moneda")?.value / this.currentMoney();
+    }
+      
+    if(currency === 2){
+      this.convert = 0;
+      this.currentMoney.set(environment.tasaBCV + 30);
+      this.convert = this.formVenta.get("monto_moneda")?.value / this.currentMoney();
+    }
+  
+    if(currency === 3){
+      this.convert = this.formVenta.get("monto_moneda")?.value;
+    }
+  
+    let digit = this.convert.toString().split(".");
+  
+    this.formVenta.patchValue({ monto_moneda: digit[1].length === 2 ? this.convert : Number((this.convert).toFixed(2)) });
+      
   }
 
 }

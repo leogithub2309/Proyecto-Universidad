@@ -39,6 +39,7 @@
           : !this.login.hasError('pattern') ? 'El campo Password no tiene un patron valido' : ''"
           fill="outline" 
           placeholder="Enter Password"
+          (keyup)="handleKeyEnterService($event)"
         >
           @if(this.login.get('password')?.touched) {
             <ion-input-password-toggle slot="end" color="warning"></ion-input-password-toggle>

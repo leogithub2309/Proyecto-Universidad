@@ -64,9 +64,10 @@ export class ComprasDetailsPage implements OnInit {
     : parsePrices+".00";
   }
 
-  deleteCompra(){
+  deleteCompra(modal: IonModal){
     this.apiCompraServices.deleteCompra(this.id.snapshot.params['id']).subscribe({
       next: (response) => {
+        modal.dismiss();
         this._router.navigate(['/dashboard']);
       },
       error: (err) => console.error(err)

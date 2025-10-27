@@ -11,5 +11,6 @@ export interface VentasInterface {
     id_producto?: number;
     id_moneda?: number;
     moneda?: string;
+    status_venta?: number;
 }
 

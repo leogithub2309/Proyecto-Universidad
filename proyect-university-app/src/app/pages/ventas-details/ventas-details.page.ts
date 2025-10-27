@@ -66,9 +66,10 @@ export class VentasDetailsPage implements OnInit {
     : parsePrices+".00";
   }
 
-  deleteVenta(){
+  deleteVenta(modal: IonModal){
     this.apiVentasServices.deleteVenta(this.id.snapshot.params['id']).subscribe({
       next: (response) => {
+        modal.dismiss();
         this._router.navigate(['/dashboard']);
       },
       error: (err) => console.error(err)

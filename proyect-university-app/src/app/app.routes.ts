@@ -23,7 +23,7 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/dashboard/dashboard.page').then( m => m.DashboardPage)
   },
   {
-     canMatch: [authUserGuard],
+    canMatch: [authUserGuard],
     path: 'ventas',
     loadComponent: () => import('./pages/ventas/ventas.page').then( m => m.VentasPage)
   },
@@ -58,14 +58,17 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/compras-details/compras-details.page').then( m => m.ComprasDetailsPage)
   },
   {
+    canMatch: [authUserGuard],
     path: 'edit-venta/:id',
     loadComponent: () => import('./pages/edit-venta/edit-venta.page').then( m => m.EditVentaPage)
   },
   {
+    canMatch: [authUserGuard],
     path: 'edit-compra/:id',
     loadComponent: () => import('./pages/edit-compra/edit-compra.page').then( m => m.EditCompraPage)
   },
   {
+    canMatch: [authUserGuard],
     canActivate: [userTokenGuard],
     path: 'admin-users-page',
     loadComponent: () => import('./pages/admin-users-page/admin-users-page.page').then( m => m.AdminUsersPagePage)

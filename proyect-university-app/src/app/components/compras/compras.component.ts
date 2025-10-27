@@ -57,9 +57,9 @@ export class ComprasComponent  implements OnInit {
           if(res.data[i]) this.comprasData().push(res.data[i]);
         }
         
-        this.compraCurrency.set(res.data);
+        this.compraCurrency.set(res.data.filter((value: CompraInterface) => value.status_compra === 1));
         
-        this.getTotalBs(res.data);
+        this.getTotalBs(res.data.filter((value: CompraInterface) => value.status_compra === 1));
       },
       error: (err) => console.error(err)
     });

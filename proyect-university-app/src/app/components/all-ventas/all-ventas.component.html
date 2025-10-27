@@ -3,23 +3,25 @@
     <input type="text" name="search" id="search" placeholder="Buscar..." class="input-search" autocomplete="off" (keyup)="searchData($event)">
   </ion-item>
   @for (venta of this.ventas(); track venta.id_venta_detalle;) {
-    <ion-item [button]="true" [routerLink]="['/ventas-details/'+venta.id_venta_detalle]" class="ion-list-items">
-      <ion-label class="label">
-        <p class="titulo_producto">
-          <strong>{{ venta.titulo_producto }}</strong>
-        </p>
-        <p class="detalle">
-          {{ venta.producto_detalle }}
-        </p>
-      </ion-label>
-      <aside class="date">
-        <ion-text class="text-subtitle">
-          + {{ venta.moneda }}{{ venta.monto_moneda }}
-        </ion-text>
-        <ion-note color="medium">
-          {{ formatVenta(venta.fecha) }}
-        </ion-note>
-      </aside>
-    </ion-item>
+    @if(venta.status_venta === 1){
+      <ion-item [button]="true" [routerLink]="['/ventas-details/'+venta.id_venta_detalle]" class="ion-list-items">
+        <ion-label class="label">
+          <p class="titulo_producto">
+            <strong>{{ venta.titulo_producto }}</strong>
+          </p>
+          <p class="detalle">
+            {{ venta.producto_detalle }}
+          </p>
+        </ion-label>
+        <aside class="date">
+          <ion-text class="text-subtitle">
+            + {{ venta.moneda }}{{ venta.monto_moneda }}
+          </ion-text>
+          <ion-note color="medium">
+            {{ formatVenta(venta.fecha) }}
+          </ion-note>
+        </aside>
+      </ion-item>
+    }
   }
 </ion-list>

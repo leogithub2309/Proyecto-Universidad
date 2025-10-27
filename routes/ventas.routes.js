@@ -296,7 +296,7 @@ const deleteVenta = async (req, res) => {
         connection = await pool.getConnection();
         await connection.beginTransaction();
 
-        const [result] = await pool.execute("UPDATE TABLE ventas SET ventas.status_venta = 0 WHERE ventas.id_venta_detalle = ?", [id]);
+        const [result] = await pool.execute("UPDATE ventas SET ventas.status_venta = 0 WHERE ventas.id_venta_detalle = ?", [id]);
 
         if(!result) {
             throw new Error("No se pudo realizar la acción de borrar una venta");

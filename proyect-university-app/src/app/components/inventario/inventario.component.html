@@ -43,6 +43,19 @@
     [errorText]="this.formInventario.get('cantidad_inventario')?.invalid && this.formInventario.get('cantidad_inventario')?.touched ? 'El campo es requerido o inválido' : ''"
     />
   </div>
+  <div style="width: 100%; background-color: #fff; color: #000">
+    <ion-input
+    type="text"
+    color="warning"
+    label="Precio"
+    placeholder="Precio del Producto Inventario"
+    id="precio_inventario" 
+    label-placement="floating"
+    fill="outline"
+    formControlName="precio_inventario"
+    [errorText]="this.formInventario.get('precio_inventario')?.invalid && this.formInventario.get('precio_inventario')?.touched ? 'El campo es requerido o inválido' : ''"
+    />
+  </div>
 
   <ion-button size="block" color="warning" style="height: 3rem; width: 100%; font-weight: 700;" (click)="onAddIventory()" [disabled]="this.formInventario.invalid">
     <ion-icon name="add-circle" slot="start"></ion-icon>

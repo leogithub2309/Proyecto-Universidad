@@ -33,24 +33,26 @@
       </button>
     </ion-item>
     @for (venta of this.ventas(); track venta.id_venta_detalle;) {
-      <ion-item [button]="true" [routerLink]="['/ventas-details/'+venta.id_venta_detalle]">
-        <ion-label style="display: flex; flex-direction: column; gap: .25rem; padding: .4rem 0; margin-right: 3rem;">
-          <p style="margin: 0; padding: 0; font-size: 18px; color: #000;">
-            <strong>{{ venta.titulo_producto }}</strong>
-          </p>
-          <p style="margin: 0; padding: 0;">
-            {{ venta.producto_detalle }}
-          </p>
-        </ion-label>
-        <aside class="date">
-          <ion-text class="text-subtitle">
-            + {{ venta.moneda }}{{ venta.monto_moneda }}
-          </ion-text>
-          <ion-note color="medium">
-            {{ formatVenta(venta.fecha) }}
-          </ion-note>
-        </aside>
-      </ion-item>
+      @if(venta.status_venta === 1){
+        <ion-item [button]="true" [routerLink]="['/ventas-details/'+venta.id_venta_detalle]">
+          <ion-label style="display: flex; flex-direction: column; gap: .25rem; padding: .4rem 0; margin-right: 3rem;">
+            <p style="margin: 0; padding: 0; font-size: 18px; color: #000;">
+              <strong>{{ venta.titulo_producto }}</strong>
+            </p>
+            <p style="margin: 0; padding: 0;">
+              {{ venta.producto_detalle }}
+            </p>
+          </ion-label>
+          <aside class="date">
+            <ion-text class="text-subtitle">
+              + {{ venta.moneda }}{{ venta.monto_moneda }}
+            </ion-text>
+            <ion-note color="medium">
+              {{ formatVenta(venta.fecha) }}
+            </ion-note>
+          </aside>
+        </ion-item>
+      }
     }
   </ion-list>
   <div class="flex-container">
