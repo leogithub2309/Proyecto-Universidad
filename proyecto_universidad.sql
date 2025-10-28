@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-10-2025 a las 18:29:27
+-- Tiempo de generación: 28-10-2025 a las 15:37:50
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -97,6 +97,7 @@ CREATE TABLE `inventario` (
   `id_inventario` int(11) NOT NULL,
   `cantidad_inventario` int(11) NOT NULL,
   `producto_inventario` varchar(70) NOT NULL,
+  `precio_inventario` decimal(10,2) NOT NULL,
   `foto_producto_inventario` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -104,14 +105,14 @@ CREATE TABLE `inventario` (
 -- Volcado de datos para la tabla `inventario`
 --
 
-INSERT INTO `inventario` (`id_inventario`, `cantidad_inventario`, `producto_inventario`, `foto_producto_inventario`) VALUES
-(1, 30, 'Cheese Tris', 'cheese-tris.jpg'),
-(2, 40, 'Doritos', 'Doritos_logo.png'),
-(3, 27, 'Pepsi Cola 2 litros', 'istockphoto-458611985-612x612.jpg'),
-(4, 25, 'Coca Cola 2 Litros', 'kuala-lumpur-malaysia18th-july-2016-600nw-456061381.webp'),
-(5, 62, 'Pepito 800gr', 'Screenshot2024-08-19at11.01.51PM.webp'),
-(6, 16, 'Ruffles Original', 'unnamed.jpg'),
-(7, 18, 'Palitos 30 gr', 'd1a2428f601fe9c1d7516f30115ca2d2_fd1a8f3a-439f-4737-9827-4e108d0cc951.webp');
+INSERT INTO `inventario` (`id_inventario`, `cantidad_inventario`, `producto_inventario`, `precio_inventario`, `foto_producto_inventario`) VALUES
+(1, 30, 'Cheese Tris', 30.00, 'cheese-tris.jpg'),
+(2, 40, 'Doritos', 85.00, 'Doritos_logo.png'),
+(3, 27, 'Pepsi Cola 2 litros', 180.00, 'istockphoto-458611985-612x612.jpg'),
+(4, 25, 'Coca Cola 2 Litros', 200.00, 'kuala-lumpur-malaysia18th-july-2016-600nw-456061381.webp'),
+(5, 62, 'Pepito 800gr', 90.00, 'Screenshot2024-08-19at11.01.51PM.webp'),
+(6, 16, 'Ruffles Original', 55.00, 'unnamed.jpg'),
+(7, 18, 'Palitos 30 gr', 98.00, 'd1a2428f601fe9c1d7516f30115ca2d2_fd1a8f3a-439f-4737-9827-4e108d0cc951.webp');
 
 -- --------------------------------------------------------
 
@@ -273,7 +274,7 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`id_usuario`, `id_nombre_usuario`, `id_cedula`, `telefono`, `id_direccion`, `codigo_postal`, `username`, `password`, `id_rol`, `status`) VALUES
 (9, 1, 1, '55584739217', 1, '9102', 'leoadmin', 'leoadmin123', 1, 1),
-(10, 2, 2, '55584792115', 2, '1045', 'carlos', '$2b$10$pIitG1.O0fwQGP6AJgNQneIDRNz70yvKkSaWxtuMcw8K9YELvWy1O', 2, 0);
+(10, 2, 2, '55584792115', 2, '1045', 'carlos', '$2b$10$pIitG1.O0fwQGP6AJgNQneIDRNz70yvKkSaWxtuMcw8K9YELvWy1O', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -296,13 +297,13 @@ CREATE TABLE `ventas` (
 --
 
 INSERT INTO `ventas` (`id_venta_detalle`, `venta_detalle`, `id_producto`, `id_inventario`, `fecha`, `id_usuario`, `status_venta`) VALUES
-(7, 'Venta de Cheese Tris.', 12, 1, '2025-10-14 16:28:10', 9, 1),
+(7, 'Venta de Cheese Tris.', 12, 1, '2025-10-27 14:30:27', 9, 1),
 (9, 'Venta de ruffles', 14, 6, '2025-10-14 16:28:14', 9, 1),
 (10, 'Venta de Doritos', 15, 2, '2025-10-14 16:28:17', 9, 1),
 (11, 'Venta de 4 ruffles', 20, 6, '2025-10-14 16:28:20', 9, 1),
-(12, 'Se vendieron 5 Cheese Tris', 21, 1, '2025-10-14 16:28:23', 9, 1),
+(12, 'Se vendieron 5 Cheese Tris', 21, 1, '2025-10-27 14:30:35', 9, 1),
 (13, 'Se vendieron 10 doritos', 22, 2, '2025-10-14 16:28:27', 9, 1),
-(14, 'Venta Palitos 30gr', 23, 7, '2025-10-14 16:28:38', 9, 1);
+(14, 'Venta Palitos 30gr', 23, 7, '2025-10-27 14:30:38', 9, 1);
 
 --
 -- Índices para tablas volcadas
