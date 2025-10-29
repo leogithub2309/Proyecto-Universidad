@@ -150,6 +150,21 @@ export class DashboardPage implements OnInit {
    
   }
 
+  decripDataSession(){
+
+    let separate = String(sessionStorage.getItem("tokenUserSession")).split(".");
+
+    const encrypt = window.atob(separate[1]),
+      objectParse = JSON.parse(encrypt);
+
+    return {
+      user: objectParse.user,
+      rol: objectParse.rol,
+      userId : objectParse.userId
+    }
+
+  }
+
   hideBackdrop(){
     this.isActive = false;
   }

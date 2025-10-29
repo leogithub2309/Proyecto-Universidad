@@ -4,6 +4,11 @@
       Página Principal  
     </ion-title> 
   </ion-toolbar>
+  @if(this.decripDataSession().rol === 1){
+    <ion-button [routerLink]="['/admin-users-page']" color="warning" size="small" shape="round" style="margin-right: 1rem;">
+      <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+    </ion-button> 
+  }
   <ion-button [routerLink]="['/add-inventario']" color="warning" size="small" shape="round" style="margin-right: 1rem;">
     <ion-icon slot="icon-only" name="add-outline"></ion-icon>
   </ion-button> 

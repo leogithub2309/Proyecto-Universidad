@@ -73,6 +73,13 @@ export const routes: Routes = [
     path: 'admin-users-page',
     loadComponent: () => import('./pages/admin-users-page/admin-users-page.page').then( m => m.AdminUsersPagePage)
   },
+  {
+    canMatch: [authUserGuard],
+    canActivate: [userTokenGuard],
+    path: 'edit-users-pages/:id',
+    loadComponent: () => import('./pages/edit-users-pages/edit-users-pages.page').then( m => m.EditUsersPagesPage)
+  },
+
 
 
 

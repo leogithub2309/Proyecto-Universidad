@@ -14,8 +14,14 @@
               <ion-button shape="round" color="warning" (click)="updateStatusUser(1, user.id_usuario)">
                 <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
               </ion-button>
+              <ion-button shape="round" color="warning" [routerLink]="['/edit-users-pages/'+user.id_usuario]">
+                <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+              </ion-button>
 
             }@else if(user.status === 1 && user.id_rol !== 1){
+              <ion-button shape="round" color="warning" [routerLink]="['/edit-users-pages/'+user.id_usuario]">
+                <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+              </ion-button>
               <ion-button shape="round" color="danger" (click)="updateStatusUser(0, user.id_usuario)">
                 <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
               </ion-button>

@@ -1,0 +1,182 @@
+<form autocomplete="off" [formGroup]="this.registerForm" class="form-register">
+      <div class="input-item">
+        <div>
+          <ion-input
+          type="text"
+          label="Primer Nombre"
+          color="warning"
+          formControlName="primer_nombre"
+          id="primer_nombre" 
+          label-placement="floating"
+          [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo no es valido' : '' "
+          fill="outline" 
+          placeholder="Nombre Completo"
+          style="color: #000; background-color: #fff;"
+          ></ion-input>
+        </div>
+        <div>
+          <ion-input
+          type="text"
+          label="Segundo Nombre"
+          color="warning"
+          formControlName="segundo_nombre"
+          id="segundo_nombre" 
+          label-placement="floating"
+          [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo no es valido' : '' "
+          fill="outline" 
+          placeholder="Segundo Nombre"
+          style="color: #000; background-color: #fff;"
+          ></ion-input>
+        </div>
+      </div>
+      <div class="input-item">
+        <div>
+          <ion-input
+          type="text"
+          label="Primer Apellido"
+          color="warning"
+          formControlName="primer_apellido"
+          id="primer_apellido" 
+          label-placement="floating"
+          [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo no es valido' : '' "
+          fill="outline" 
+          placeholder="Primer Apellido"
+          style="color: #000; background-color: #fff;"
+          ></ion-input>
+        </div>
+        <div>
+          <ion-input
+          type="text"
+          label="Segundo Apellido"
+          color="warning"
+          formControlName="segundo_apellido"
+          id="segundo_apellido" 
+          label-placement="floating"
+          [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo no es valido' : '' "
+          fill="outline" 
+          placeholder="Segundo Apellido"
+          style="color: #000; background-color: #fff;"
+          ></ion-input>
+        </div>
+      </div>
+      <div class="select-input">
+        <ion-select aria-label="Choice your Identification" formControlName="tipo_identidad" id="tipo_identidad" placeholder="V or E">
+          <ion-select-option value="V-">V</ion-select-option>
+          <ion-select-option value="E-">E</ion-select-option>
+        </ion-select>
+        <ion-input
+        type="text"
+        label="Cedula"
+        color="warning"
+        formControlName="cedula"
+        maxlength="8"
+        id="cedula" 
+        label-placement="floating"
+        [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo cedula es requerido o no cumple con un patron valido' : '' "
+        fill="outline" 
+        placeholder="e.g 12345678"
+        style="color: #000; background-color: #fff;"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-input
+        type="text"
+        label="Telefono"
+        color="warning"
+        formControlName="telefono"
+        maxlength="11"
+        id="telefono" 
+        label-placement="floating"
+        [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo telefono es requerido o con cumple con un patron valido' : '' "
+        fill="outline" 
+        placeholder="e.g 12345788910"
+        style="color: #000; background-color: #fff;"
+        ></ion-input>
+      </div>
+      <div class="input-item">
+        <ion-input
+        type="text"
+        label="Dicreccion 1"
+        color="warning"
+        formControlName="direccion_1"
+        id="direccion_1" 
+        label-placement="floating"
+        [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo direccion 1 no es valido' : '' "
+        fill="outline" 
+        placeholder="Dirección de Habitación 1"
+        style="color: #000; background-color: #fff;"
+        ></ion-input>
+        <ion-input
+        type="text"
+        label="Direccion 2"
+        color="warning"
+        formControlName="direccion_2"
+        id="direccion_2" 
+        label-placement="floating"
+        [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo direccion 2 no es valido' : '' "
+        fill="outline" 
+        placeholder="Dicreccion de Habitación 2"
+        style="color: #000; background-color: #fff;"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-input
+        type="text"
+        label="Codigo Postal"
+        color="warning"
+        formControlName="codigo_postal"
+        id="codigo_postal"
+        maxlength="4"
+        label-placement="floating"
+        [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo codigo postal es requerido o no cumple con un patron valido' : '' "
+        fill="outline" 
+        placeholder="e.g 0011"
+        style="color: #000; background-color: #fff;"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-select
+          label="Roles User"
+          [interfaceOptions]="customActionSheetRoles"
+          interface="action-sheet"
+          placeholder="Select One User Rol"
+          style="color: #000; background-color: #fff;"
+          formControlName="id_rol"
+        >
+          <ion-select-option value="1">Admin</ion-select-option>
+          <ion-select-option value="2">User</ion-select-option>
+        </ion-select>
+      </div>
+      <div>
+        <ion-select
+          label="Status User"
+          [interfaceOptions]="customActionSheetStatus"
+          interface="action-sheet"
+          placeholder="Select Status User"
+          style="color: #000; background-color: #fff;"
+          formControlName="status"
+        >
+          <ion-select-option value="1">Activo</ion-select-option>
+          <ion-select-option value="0">Inactivo</ion-select-option>
+        </ion-select>
+      </div>
+      <div class="input-item">
+        <div>
+            <ion-input
+            type="text"
+            label="Username"
+           color="warning"
+            formControlName="username"
+            id="username" 
+            label-placement="floating"
+            [errorText]="!this.registerForm.hasError('required') || !this.registerForm.hasError('pattern') ? 'El campo usuario es no es valido' : '' "
+            fill="outline" 
+            placeholder="Nombre de Usuario"
+            style="color: #000; background-color: #fff;"
+            ></ion-input>
+        </div>
+      </div>
+      <ion-button [disabled]="this.registerForm.invalid" color="warning" expand="block" size="default" style="width: 100%; font-size: 1.1rem; height: 2.9rem;" (click)="onUpdateUser()">
+        Actualizar
+      </ion-button>
+</form>

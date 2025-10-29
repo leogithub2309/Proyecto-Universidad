@@ -1,4 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { IonButton, IonIcon, IonItem, IonLabel, IonList } from '@ionic/angular/standalone';
 import { LoginService } from 'src/app/services/login.service';
@@ -12,6 +13,7 @@ import { LoginService } from 'src/app/services/login.service';
     IonLabel, 
     IonList,
     IonButton,
+    RouterLink,
     IonIcon
   ]
 })
@@ -38,7 +40,7 @@ export class AdminUserComponentComponent  implements OnInit {
 
     this.usersServices.updateUserStatus({ status }, id_usuario).subscribe({
       next: async (response: any) => {
-        console.log(response);
+        
         if(response.status === 202){
            const toast = await this.toastController.create({
             message:  status === 0 ? response.description : "El usuario ya no tiene status 0, puede acceder a la aplicación",

@@ -41,4 +41,12 @@ export class LoginService {
     return this.http.put(this.url+"statusUser/"+id_usuario, objStatus);
   }
 
+  getAllRoles(){
+    return this.http.get(this.url+"allRoles");
+  }
+
+  updateUser(form: any, id_usuario: number){
+    return this.http.put(`${this.url}updateUser/${id_usuario}`, form);
+  }
+
 }
