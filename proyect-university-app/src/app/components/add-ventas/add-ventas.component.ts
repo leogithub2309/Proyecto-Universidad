@@ -71,7 +71,7 @@ export class AddVentasComponent  implements OnInit {
       error: (err) => console.error(err)
     });
 
-    this.apiVentasService.getAllInventory().subscribe({
+    this.apiVentasService.getAllInventory(this.decripDataSession().userId).subscribe({
       next: (res: any) => {
         this.inventario.set(res.data);
       },
@@ -82,7 +82,7 @@ export class AddVentasComponent  implements OnInit {
   async presentAlert() {
     const alert = await this.alertController.create({
       header: 'Advertencia',
-      subHeader: 'Inventatio Error',
+      subHeader: 'Problema con el inventario',
       message: 'El producto que intenta vender no tiene inventario disponible.',
       buttons: ['Action'],
     });
@@ -196,7 +196,7 @@ export class AddVentasComponent  implements OnInit {
   }
 
   getPriceInventory(event: any){
-    const dataInventory = this.inventario()[event.target.value];
+    const dataInventory: any = this.inventario().find((data: InventarioInterface) => data.id_inventario === event.target.value);
     this.formVenta.patchValue({ monto_moneda: dataInventory.precio_inventario });
     this.stateInventoryPrices.set(dataInventory.precio_inventario);
   }
@@ -214,7 +214,7 @@ export class AddVentasComponent  implements OnInit {
       
     if(currency === 2){
       this.convert = 0;
-      this.currentMoney.set(environment.tasaBCV + 30);
+      this.currentMoney.set(environment.tasaBCV + 45.64);
       this.convert = this.formVenta.get("monto_moneda")?.value / this.currentMoney();
     }
   

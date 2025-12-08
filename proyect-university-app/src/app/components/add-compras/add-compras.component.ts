@@ -76,7 +76,7 @@ export class AddComprasComponent  implements OnInit {
       error: (err) => console.error(err)
     });
 
-    this.apiComprasService.getAllInventory().subscribe({
+    this.apiComprasService.getAllInventory(this.decripDataSession().userId).subscribe({
       next: (response: any) => {
           this.inventory.set(response.data);
       },
@@ -172,7 +172,7 @@ export class AddComprasComponent  implements OnInit {
     
     if(currency === 2){
       this.convert = 0;
-      this.currentMoney.set(environment.tasaBCV + 30);
+      this.currentMoney.set(environment.tasaBCV + 45.64);
       this.convert = this.comprasForm.get("monto_moneda")?.value / this.currentMoney();
     }
 

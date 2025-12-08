@@ -82,7 +82,7 @@ export class EditSingleCompraComponent  implements OnInit {
       error: (err) => console.error(err)
     })
 
-    this.apiComprasService.getAllInventory().subscribe({
+    this.apiComprasService.getAllInventory(this.decripDataSession().userId).subscribe({
       next: (response: any) => {
         this.inventory.set(response.data);
       },
@@ -136,6 +136,21 @@ export class EditSingleCompraComponent  implements OnInit {
 
   changeImagePreview(event: any){
     this.image = event.target.files[0];
+  }
+
+  decripDataSession(){
+
+    let separate = String(sessionStorage.getItem("tokenUserSession")).split(".");
+
+    const encrypt = window.atob(separate[1]),
+      objectParse = JSON.parse(encrypt);
+
+    return {
+      user: objectParse.user,
+      rol: objectParse.rol,
+      userId : objectParse.userId
+    }
+
   }
 
 }

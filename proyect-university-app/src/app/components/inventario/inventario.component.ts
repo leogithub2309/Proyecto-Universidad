@@ -20,7 +20,7 @@ export class InventarioComponent  implements OnInit {
 
   formInventario!: FormGroup;
   fb = inject(FormBuilder);
-  @ViewChild('prevImage') foto_producto!: ElementRef;
+  @ViewChild('foto_producto') foto_producto!: ElementRef;
   inventarioService = inject(InventarioService);
   toastControllers = inject(ToastController);
   images!: File;
@@ -31,7 +31,8 @@ export class InventarioComponent  implements OnInit {
       producto_inventario: new FormControl('', [Validators.required, Validators.pattern(/^[A-Za-z]/)]),
       foto_producto_inventario: new FormControl('', [Validators.required]),
       cantidad_inventario: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]/)]),
-      precio_inventario: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]/)])
+      precio_inventario: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]/)]),
+      id_usuario: new FormControl('')
     });
   }
 
@@ -43,10 +44,9 @@ export class InventarioComponent  implements OnInit {
       producto_inventario: this.formInventario.get('producto_inventario')?.value,
       cantidad_inventario: this.formInventario.get('cantidad_inventario')?.value,
       foto_producto_inventario: this.images.name,
-      precio_inventario: this.formInventario.get("precio_inventario")?.value
+      precio_inventario: this.formInventario.get("precio_inventario")?.value,
+      id_usuario: this.decripDataSession().userId
     }
-
-    console.log(INVENTARIO);
 
     this.inventarioService.createInventory(INVENTARIO).subscribe({
       next: async (response: any) => {
@@ -75,7 +75,28 @@ export class InventarioComponent  implements OnInit {
 
   changeImagePreview(event: any){
 
+    let path = "../../../assets/" + event.target.files[0].name;
+
+    if(event.target.files[0]) this.foto_producto.nativeElement.src = path;
+    
+    else this.foto_producto.nativeElement.src = path;
+
     this.images = event.target.files[0];
+  }
+
+  decripDataSession(){
+
+    let separate = String(sessionStorage.getItem("tokenUserSession")).split(".");
+
+    const encrypt = window.atob(separate[1]),
+      objectParse = JSON.parse(encrypt);
+
+    return {
+      user: objectParse.user,
+      rol: objectParse.rol,
+      userId : objectParse.userId
+    }
+
   }
 
 }

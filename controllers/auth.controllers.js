@@ -140,8 +140,8 @@ const register = async (req, res) => {
         if(directionsResult && usersResult && cedulaResult){
             //insercion en la tabla usuario 
             const [result] = await pool.query(
-                "INSERT INTO usuario(id_nombre_usuario, id_cedula, telefono, id_direccion, codigo_postal, username, password, id_rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-                [id_nombre_usuario, id_cedula, telefono, id_direccion, codigo_postal, username, hashingPassword, id_rol]
+                "INSERT INTO usuario(id_nombre_usuario, id_cedula, telefono, id_direccion, codigo_postal, username, password, id_rol, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                [id_nombre_usuario, id_cedula, telefono, id_direccion, codigo_postal, username, hashingPassword, id_rol, 1]
             );
     
             if(result.affectedRows > 0){

@@ -18,8 +18,8 @@ export class ApiComprasService {
   constructor() { }
 
 
-  getAllInventory(){
-    return this.http.get(this.url+"inventory");
+  getAllInventory(id_usuario: number){
+    return this.http.get(this.url+`inventory/${id_usuario}`);
   }
 
   createNewSold(form: any, id: number){

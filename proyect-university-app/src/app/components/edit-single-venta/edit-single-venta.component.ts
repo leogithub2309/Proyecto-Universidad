@@ -70,21 +70,21 @@ export class EditSingleVentaComponent  implements OnInit {
         this.foto_producto.nativeElement.src = "../assets/" +this.venta()[0].foto_producto;
       },
       error: (err) => console.error(err)
-    })
+    });
 
     this.apiVentasService.getTipoMoneda().subscribe({
       next: (response: any) => {
         this.monedaVenta.set(response.data);
       },
       error: (err) => console.error(err)
-    })
+    });
 
-    this.apiVentasService.getAllInventory().subscribe({
+    this.apiVentasService.getAllInventory(this.decripDataSession().userId).subscribe({
       next: (response: any) => {
         this.inventory.set(response.data);
       },
       error: (err) => console.error(err)
-    })
+    });
     
   }
 

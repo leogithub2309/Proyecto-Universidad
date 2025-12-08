@@ -1,8 +1,8 @@
-<form autocomplete="off" [formGroup]="formInventario" class="form-inventario">
+<form autocomplete="off" [formGroup]="formInventario" class="form-inventario" enctype="multipart/form-data">
 
   <div style="display: flex; flex-direction: start; justify-content: start; gap: 20px; position: relative;">
     <div class="content-image">
-      <img [src]="'../../../assets/user-svgrepo-com.svg'" alt="Avatar" id="prevImage" width="150" height="150">
+      <img [src]="'../../../assets/user-svgrepo-com.svg'" alt="Avatar" id="prevImage" width="150" height="150" #foto_producto style="background-color: #fff;">
     </div>
    <div style="position: relative; width: 12rem;">
     <input 

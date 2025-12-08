@@ -48,8 +48,8 @@ export class ApiVentasService {
     return this.http.get(this.url+"venta/"+id);
   }
 
-  getAllInventory(){
-    return this.http.get(this.url+"inventory");
+  getAllInventory(id_usuario: number){
+    return this.http.get(this.url+`inventory/${id_usuario}`);
   }
 
   updateVenta(form: VentasInterface, id:number){

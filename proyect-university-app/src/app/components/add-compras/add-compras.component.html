@@ -62,26 +62,30 @@
              <strong>Cantidad: {{  inventory.cantidad_inventario }}</strong>
           </div>
         </ion-select-option>
+      }@empty {
+         <ion-select-option [value]="0" style="color: #eee; font-weight: bold;" class="flex-content">
+         <div style="font-size: 22px !important; font-weight: 700 !important;">
+              <span>No tiene Inventario Disponible</span>
+          </div>
+        </ion-select-option>
       }
     </ion-select>
   </div>
   <div class="input-item">
     <ion-select aria-label="Choice Method of Pay" color="success" id="tipo_moneda" formControlName="tipo_moneda" placeholder="Moneda"  style="width: 10%; background-color: #fff; color: #000; padding: .3rem; border: 1px solid #000; border-radius: 4px;" (ionChange)="changeCurrency($event)">
-      @if(!this.monedaCompras()){
-        <ion-select-option value="">
-          <span>
-            No hay Opciones Disponibles
-          </span>
-        </ion-select-option>
-      } @else {
-       @for(monedaCompra of this.monedaCompras(); track monedaCompra.id_tipo_moneda) {
+      @for(monedaCompra of this.monedaCompras(); track monedaCompra.id_tipo_moneda) {
         <ion-select-option [value]="monedaCompra.id_tipo_moneda" >
           <span>
             {{ monedaCompra.moneda }}
           </span>
         </ion-select-option>
+      } @empty {
+          <ion-select-option value="">
+            <span>
+              No hay Opciones Disponibles
+            </span>
+          </ion-select-option>
         }
-      }
     </ion-select>
     <ion-input
       type="text"

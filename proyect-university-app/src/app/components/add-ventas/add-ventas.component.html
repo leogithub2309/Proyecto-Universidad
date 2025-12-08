@@ -59,7 +59,7 @@
   </div>
   <ion-item class="input-item">
     <ion-select interface="modal" [interfaceOptions]="customModalOptions" placeholder="Select Item" aria-label="Inventory" id="id_inventario" interface="modal" aria-label="Select Inventory" formControlName="id_inventario" (ionChange)="getPriceInventory($event)">
-     @for(inventario of this.inventario(); track inventario.id_inventario;) {
+      @for(inventario of this.inventario(); track inventario.id_inventario;) {
         <ion-select-option [value]="inventario.id_inventario" style="color: #eee; font-weight: bold;" class="flex-content">
          <ion-avatar slot="start">
             <ion-img [src]="inventario.foto_producto_inventario"></ion-img>
@@ -69,26 +69,30 @@
              <strong>Cantidad: {{  inventario.cantidad_inventario }}</strong>
           </div>
         </ion-select-option>
+      }@empty {
+         <ion-select-option [value]="0" style="color: #eee; font-weight: bold;" class="flex-content">
+         <div style="font-size: 22px !important; font-weight: 700 !important; text-align: cemter;">
+              <p>No tiene Inventario Disponible</p>
+          </div>
+        </ion-select-option>
       }
     </ion-select>
   </ion-item>
   <div class="input-item">
     <ion-select aria-label="Choice Method of Pay" color="success" id="tipo_moneda" formControlName="tipo_moneda" placeholder="Moneda"  style="width: 10%; background-color: #fff; color: #000; 
     padding: .3rem; border: 1px solid #000; border-radius: 4px;" (ionChange)="changeCurrency($event)">
-      @if(!this.typeMoney()){
-        <ion-select-option value="">
-          <span>
-            No hay Opciones Disponibles
-          </span>
-        </ion-select-option>
-      } @else {
-       @for(typeMoney of this.typeMoney(); track typeMoney.id_tipo_moneda) {
+      @for(typeMoney of this.typeMoney(); track typeMoney.id_tipo_moneda) {
         <ion-select-option [value]="typeMoney.id_tipo_moneda" >
           <span>
             {{ typeMoney.moneda }}
           </span>
         </ion-select-option>
-        }
+      }@empty {
+         <ion-select-option value="">
+          <span>
+            No hay Opciones Disponibles
+          </span>
+        </ion-select-option>
       }
     </ion-select>
     <ion-input

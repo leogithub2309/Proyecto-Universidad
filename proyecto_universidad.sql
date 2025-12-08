@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-10-2025 a las 15:37:50
+-- Tiempo de generación: 08-12-2025 a las 19:51:13
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -39,7 +39,8 @@ CREATE TABLE `cedula_table` (
 
 INSERT INTO `cedula_table` (`id_cedula`, `tipo_identidad`, `cedula`) VALUES
 (1, 'V-', 32758403),
-(2, 'V-', 32098765);
+(2, 'V-', 32098765),
+(3, 'V-', 23875483);
 
 -- --------------------------------------------------------
 
@@ -85,7 +86,8 @@ CREATE TABLE `direccion` (
 
 INSERT INTO `direccion` (`id_direccion`, `direccion_1`, `direccion_2`) VALUES
 (1, 'Av Principal', 'Urb altos prados'),
-(2, 'Av Blanco Edif Flores 1', '');
+(2, 'Av Blanco Edif Flores 1', ''),
+(3, 'Av Principal', 'Urb Monte Ávila');
 
 -- --------------------------------------------------------
 
@@ -98,21 +100,23 @@ CREATE TABLE `inventario` (
   `cantidad_inventario` int(11) NOT NULL,
   `producto_inventario` varchar(70) NOT NULL,
   `precio_inventario` decimal(10,2) NOT NULL,
-  `foto_producto_inventario` varchar(255) NOT NULL
+  `foto_producto_inventario` varchar(255) NOT NULL,
+  `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `inventario`
 --
 
-INSERT INTO `inventario` (`id_inventario`, `cantidad_inventario`, `producto_inventario`, `precio_inventario`, `foto_producto_inventario`) VALUES
-(1, 30, 'Cheese Tris', 30.00, 'cheese-tris.jpg'),
-(2, 40, 'Doritos', 85.00, 'Doritos_logo.png'),
-(3, 27, 'Pepsi Cola 2 litros', 180.00, 'istockphoto-458611985-612x612.jpg'),
-(4, 25, 'Coca Cola 2 Litros', 200.00, 'kuala-lumpur-malaysia18th-july-2016-600nw-456061381.webp'),
-(5, 62, 'Pepito 800gr', 90.00, 'Screenshot2024-08-19at11.01.51PM.webp'),
-(6, 16, 'Ruffles Original', 55.00, 'unnamed.jpg'),
-(7, 18, 'Palitos 30 gr', 98.00, 'd1a2428f601fe9c1d7516f30115ca2d2_fd1a8f3a-439f-4737-9827-4e108d0cc951.webp');
+INSERT INTO `inventario` (`id_inventario`, `cantidad_inventario`, `producto_inventario`, `precio_inventario`, `foto_producto_inventario`, `id_usuario`) VALUES
+(1, 30, 'Cheese Tris', 30.00, 'cheese-tris.jpg', 9),
+(2, 40, 'Doritos', 85.00, 'Doritos_logo.png', 9),
+(3, 27, 'Pepsi Cola 2 litros', 180.00, 'istockphoto-458611985-612x612.jpg', 9),
+(4, 25, 'Coca Cola 2 Litros', 200.00, 'kuala-lumpur-malaysia18th-july-2016-600nw-456061381.webp', 9),
+(5, 62, 'Pepito 800gr', 90.00, 'Screenshot2024-08-19at11.01.51PM.webp', 9),
+(6, 16, 'Ruffles Original', 55.00, 'unnamed.jpg', 9),
+(7, 18, 'Palitos 30 gr', 98.00, 'd1a2428f601fe9c1d7516f30115ca2d2_fd1a8f3a-439f-4737-9827-4e108d0cc951.webp', 9),
+(8, 30, 'Café Amanecer', 2.20, 'cafe-amanecer.png', 11);
 
 -- --------------------------------------------------------
 
@@ -169,7 +173,8 @@ CREATE TABLE `nombre_usuario` (
 
 INSERT INTO `nombre_usuario` (`id_nombre_usuario`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`) VALUES
 (1, 'Leonel', NULL, 'Linares', NULL),
-(2, 'Carlos', 'Daniel', 'Díaz', 'Medina');
+(2, 'Carlos', 'Daniel', 'Díaz', 'Medina'),
+(3, 'Marcos', 'Díaz', 'Gomez', '');
 
 -- --------------------------------------------------------
 
@@ -274,7 +279,8 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`id_usuario`, `id_nombre_usuario`, `id_cedula`, `telefono`, `id_direccion`, `codigo_postal`, `username`, `password`, `id_rol`, `status`) VALUES
 (9, 1, 1, '55584739217', 1, '9102', 'leoadmin', 'leoadmin123', 1, 1),
-(10, 2, 2, '55584792115', 2, '1045', 'carlos', '$2b$10$pIitG1.O0fwQGP6AJgNQneIDRNz70yvKkSaWxtuMcw8K9YELvWy1O', 2, 1);
+(10, 2, 2, '55584792115', 2, '1045', 'carlos', '$2b$10$pIitG1.O0fwQGP6AJgNQneIDRNz70yvKkSaWxtuMcw8K9YELvWy1O', 2, 1),
+(11, 3, 3, '55596854202', 3, '1045', 'marcosD', '$2b$10$FiNLEjeeYp2wv0Hxfx/YO.sx8GNzfHTle5JfN8stuXVpYhkssqm1.', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -334,7 +340,8 @@ ALTER TABLE `direccion`
 -- Indices de la tabla `inventario`
 --
 ALTER TABLE `inventario`
-  ADD PRIMARY KEY (`id_inventario`);
+  ADD PRIMARY KEY (`id_inventario`),
+  ADD KEY `id_usuario` (`id_usuario`);
 
 --
 -- Indices de la tabla `moneda`
@@ -395,7 +402,7 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `cedula_table`
 --
 ALTER TABLE `cedula_table`
-  MODIFY `id_cedula` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_cedula` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `compras`
@@ -407,13 +414,13 @@ ALTER TABLE `compras`
 -- AUTO_INCREMENT de la tabla `direccion`
 --
 ALTER TABLE `direccion`
-  MODIFY `id_direccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_direccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `inventario`
 --
 ALTER TABLE `inventario`
-  MODIFY `id_inventario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_inventario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `moneda`
@@ -425,7 +432,7 @@ ALTER TABLE `moneda`
 -- AUTO_INCREMENT de la tabla `nombre_usuario`
 --
 ALTER TABLE `nombre_usuario`
-  MODIFY `id_nombre_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_nombre_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
@@ -449,7 +456,7 @@ ALTER TABLE `tipo_moneda_table`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`
@@ -468,6 +475,12 @@ ALTER TABLE `compras`
   ADD CONSTRAINT `compras_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `compras_ibfk_3` FOREIGN KEY (`id_inventario`) REFERENCES `inventario` (`id_inventario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `compras_ibfk_4` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `inventario`
+--
+ALTER TABLE `inventario`
+  ADD CONSTRAINT `inventario_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`);
 
 --
 -- Filtros para la tabla `moneda`
