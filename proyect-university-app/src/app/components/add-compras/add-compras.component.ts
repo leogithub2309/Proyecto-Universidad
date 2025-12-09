@@ -154,7 +154,7 @@ export class AddComprasComponent  implements OnInit {
   }
 
   getPriceInventory(event: any){
-    const dataInventory = this.inventory()[event.target.value];
+    const dataInventory: any = this.inventory().find((data: InventarioInterface) => data.id_inventario === event.target.value);
     this.comprasForm.patchValue({ monto_moneda: dataInventory.precio_inventario });
     this.stateInventoryPrices.set(dataInventory.precio_inventario);
   }
