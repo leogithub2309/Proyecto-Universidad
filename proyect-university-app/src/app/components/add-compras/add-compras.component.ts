@@ -172,7 +172,7 @@ export class AddComprasComponent  implements OnInit {
     
     if(currency === 2){
       this.convert = 0;
-      this.currentMoney.set(environment.tasaBCV + 45.64);
+      this.currentMoney.set(environment.tasaBCV + 75);
       this.convert = this.comprasForm.get("monto_moneda")?.value / this.currentMoney();
     }
 

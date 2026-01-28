@@ -90,7 +90,7 @@ export class ComprasComponent  implements OnInit {
     });
 
     if(currency === "euro"){
-      this.currency.set(this.monitors + 30);
+      this.currency.set(this.monitors + 75);
       this.totalCompras = this.totalCompras / this.currency();
         
     } else this.totalCompras = this.totalCompras / this.currency();

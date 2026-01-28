@@ -114,7 +114,7 @@ export class VentasComponent  implements OnInit {
     });
 
     if(event.target.value === "euro"){
-      this.currency.set(this.monitors + 30);
+      this.currency.set(this.monitors + 75);
       this.totalVentas = this.totalVentas / this.currency();
        
     } else this.totalVentas = this.totalVentas / this.currency();

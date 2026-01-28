@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  tasaBCV: 270
+  tasaBCV: 370
 };
 
 /*
